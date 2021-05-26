@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="en-EN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>WEBARROCKSHAND WRIST AND RING VTO DEMO</title>
+    
+    <!-- INCLUDE WEBARROCKSHAND SCRIPT -->
+    <script src="../../dist/WebARRocksHand.js"></script>
+    <!-- <script src="../../../../HandTracker.php"></script> -->
+
+    <!-- THREE.JS - REPLACE IT BY three.min.js FOR PROD -->
+    <script src="../../libs/three/v119/three.js"></script>
+
+    <!-- THREE.JS HELPERS -->
+    <script src="../../libs/three/v119/GLTFLoader.js"></script>
+
+    <!-- WEBARROCKSHAND THREEJS VTO HELPER -->
+    <script src="../../helpers/HandTrackerVTOThreeHelper.js"></script>
+
+    <!-- WEBARROCKSHAND POINTS STABILIZER -->
+    <script src="../../helpers/stabilizers/WebARRocksLMStabilizer.js"></script>
+
+     <!-- POSEFLIP FILTER -->
+    <script src="../../helpers/PoseFlipFilter.js"></script>
+    
+    <!-- INCLUDE MAIN DEMO SCRIPT -->
+    <script src="./main.js"></script>
+
+    <style type='text/css'>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw
+      }
+      #handTrackerCanvas {
+        z-index: 1;
+      }
+      #VTOCanvas {
+        z-index: 2;
+      }
+      canvas {
+        /* mirror the canvas - useful if camera is in selfie mode only: */
+        /*transform: rotateY(180deg);*/
+      }
+      .controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 3;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        font-weight: bold;
+        font-variant: small-caps;
+        font-size: 14pt;
+        text-align: center;
+      }
+
+      .controls > div {
+        cursor: pointer;
+        flex-grow: 1;
+        
+        min-width: 110px;
+        box-sizing: border-box;
+        padding-top: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        height: 40px;
+        color: #eee;
+      }
+
+      .controls > div:hover {
+        background: rgba(50, 50, 50, 0.5);
+        color: #fff;
+      }
+
+    </style>
+  </head>
+  <body onload="main()">
+    <div id='canvases'>
+      <!-- Canvas used by the hand tracker and displaying the video -->
+      <canvas id='handTrackerCanvas'></canvas>
+
+      <!-- Canvas displayed above, with the THREE.js scene -->
+      <canvas id='VTOCanvas'></canvas>
+    </div>
+
+    <div class='controls'>
+      <div onclick='flip_camera()'>Change camera</div>
+      <div onclick="load_model('ringDemo')">Ring</div>
+      <div onclick="load_model('wristDemo')">Wrist</div>
+      <div onclick="load_model('ringDemo1Side')">Ring 1 side</div>
+      <div onclick="load_model('wristDemo1Side')">Wrist 1 side</div>
+    </div>
+  </body>
+</html>
+ 

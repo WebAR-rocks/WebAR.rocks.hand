@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="en-EN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>WEBARROCKSHAND HAND NAVIGATION DEMO</title>
+    
+    <!-- INCLUDE WEBARROCKSHAND SCRIPT -->
+    <script src="../../dist/WebARRocksHand.js"></script>
+
+    <!-- INCLUDE WEBARROCKSHAND NAVIGATION HELPER SCRIPT -->
+    <script src="../../helpers/HandTrackerNavigationHelper.js"></script>    
+
+    <!-- INCLUDE LANDMARKS STABILIZER -->
+    <script src="../../helpers/stabilizers/WebARRocksLMStabilizer.js"></script>
+
+    <!-- INCLUDE MAIN DEMO SCRIPT -->
+    <script src="./main.js"></script>
+
+    <style type='text/css'>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .handNavigationCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+      #handNavigationCanvasVideo {
+        z-index: -1;
+      }
+      #handNavigationCanvasPointer {
+        z-index: 3;
+      }
+      /* Avoid z-index bug when canvas is mirrored with a CSS transform:; */
+      .handNavigationCanvasPointerContainer{
+        position: fixed;
+        z-index: 3;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+      #changeCamera {
+        display: none;
+      }
+      #enableCamera {
+        display: none;
+      }
+      .content {
+        /*position: absolute;
+        top: 0, left: 0;*/
+        color: white;
+        width: 100vw;
+        height: 100vh;
+        z-index: 2;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body onload="main()">
+
+    <div id='handNavigationCanvasesContainer'>
+      <canvas class='handNavigationCanvas' width="600" height="600" id='handNavigationCanvasVideo'></canvas>
+      <div class='handNavigationCanvasPointerContainer'>
+        <canvas class='handNavigationCanvas' width="600" height="600" id='handNavigationCanvasPointer'></canvas>
+      </div>
+    </div>
+
+    <div class='content'>
+      <p>
+        This is a test paragraph.
+      </p>
+      <button onclick='enable_camera()' id='enableCamera'>Enable camera</button>
+      <button onclick='change_camera()' id='changeCamera'>Change camera</button>
+    </div>
+
+  </body>
+</html>
+ 

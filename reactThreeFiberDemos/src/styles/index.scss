@@ -1,0 +1,108 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url(../fonts/Roboto-Regular.ttf)
+}
+
+@import 'variables';
+
+html {
+  font-size: $root-font-size;
+  font-family: $font-family;
+  max-width: $page-width;
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+  color: white;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+}
+
+
+.demoMenusContent {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+  border-left: 1px solid #ccc;
+  padding-left: 2em;
+}
+
+.demoMenusContent > h1 {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+li {
+  margin-top: 1em;
+}
+
+a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+}
+
+p {
+  font-size: $paragraph-font-size;
+}
+
+.mirrorX {
+  transform: rotateY(180deg);
+}
+
+.BackButton {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  padding: 16px;
+  z-index: 10;
+  border: 1px solid white;
+  font-weight: bold;
+  background-color: rgba(0,0,0,0.5)
+}
+
+.FlipCamButton {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 12;
+  text-align: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.VTOButton {
+  cursor: pointer;
+  flex-grow: 1;
+  font-variant: small-caps;
+  font-size: 14pt;
+  text-align: center;
+  min-width: 110px;
+  box-sizing: border-box;
+  padding-top: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  height: 40px;
+  color: #eee;
+}
+
+.VTOButton:hover {
+  background: rgba(50, 50, 50, 0.5);
+  color: #fff;
+}
+
+.VTOButtons {
+  display: flex;
+  position: fixed;
+  z-index: 10;
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

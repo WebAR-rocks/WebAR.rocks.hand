@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="en-EN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>BAREFOOT VTO</title>
+    
+    <!-- INCLUDE WEBARROCKSHAND SCRIPT -->
+    <script src="../../dist/WebARRocksHand.js"></script>
+
+    <!-- THREE.JS - REPLACE IT BY three.min.js FOR PROD -->
+    <script src="../../libs/three/v112/three.js"></script>
+
+    <!-- THREE.JS HELPERS -->
+    <script src="../../libs/three/v112/GLTFLoader.js"></script>
+
+    <!-- WEBARROCKSHAND THREEJS VTO HELPER -->
+    <script src="../../helpers/HandTrackerVTOThreeHelper.js"></script>
+
+    <!-- INCLUDE LANDMARKS STABILIZER -->
+    <script src="../../helpers/stabilizers/WebARRocksLMStabilizer.js"></script>
+
+    <!-- POSEFLIP FILTER -->
+    <script src="../../helpers/PoseFlipFilter.js"></script>
+
+    <!-- INCLUDE MAIN DEMO SCRIPT -->
+    <script src="./main.js"></script>
+
+    <style type='text/css'>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      canvas {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+      }
+      #handTrackerCanvas {
+        z-index: 1;
+      }
+      #ARCanvas {
+        z-index: 2;
+      }
+      canvas {
+        /* mirror the canvas - useful if camera is in selfie mode only: */
+        /*transform: rotateY(180deg);*/
+      }
+      .flipButton {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+      }
+    </style>
+  </head>
+  <body onload="main()">
+    <div id='canvases'>
+      <!-- Canvas used by the hand tracker and displaying the video -->
+      <canvas id='handTrackerCanvas'></canvas>
+
+      <!-- Canvas displayed above, with the THREE.js scene -->
+      <canvas id='ARCanvas'></canvas>
+    </div>
+    <button class='flipButton' onclick='flip_camera()'>FLIP CAMERA</button>
+  </body>
+</html>
+ 

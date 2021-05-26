@@ -1,0 +1,55 @@
+ /**
+ * 
+ * WebAR.rocks.hand
+ * Copyright (c) 2020 WebAR.rocks
+ *
+ *
+ * LICENSED PROPERTY 
+ *
+ * The licensed property consists of files and sub-directories of:
+ *   - /dist
+ *   - /helpers
+ *   - /neuralNets
+ *   - /reactThreeFiberDemos/src/js/contrib/WebARRocksHand
+ *
+ * Licensed property also includes source code which is not included in the
+ * previously mentioned directories if:
+ *   1. the source is not identifiable as a third party,
+ *   2. there is no license or reference to a license included in the
+ *      source code,
+ *   2. there is no LICENSE file in a parent directory.
+ *
+ * 
+ * LICENSE
+ *
+ * The licensed property is released under dual licensing:
+ *   1. GLPv3:
+ *      https://github.com/WebAR-rocks/WebAR.rocks.hand/blob/master/GPLv3.txt
+ *   2. Nominative commercial license:
+ *      You can request your own license by submitting this form:
+ *      https://webar.rocks/buyCommercialLicense
+ *
+ *
+ * USER MODIFICATIONS
+ *
+ * By submitting a pull request to this code repository, or participating
+ * in any way to this project, you acknoledge that WebAR.rocks.hand
+ * has the right to distribute, sell, release the licensed code under any
+ * software license.
+ *
+ *
+ * OBFUSCATED SOURCE CODE
+ * 
+ * WebAR.rocks is the sole author of obfuscated source code and neural
+ * network models included in this repository. Therefore, the release of
+ * this obfuscated source code is not considered as a violation of any
+ * copyright owner.
+ *
+ * Releasing this obfuscated source code in covered work source code
+ * won't be considered by WebAR.rocks as a violation of the GPLv3
+ * software license. However, all unobfuscated source code of this
+ * repository used under GPLv3 software license should remain 
+ * unobfuscated in the covered work source code.
+ * 
+ *
+*/
