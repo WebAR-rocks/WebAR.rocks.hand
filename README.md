@@ -280,10 +280,10 @@ Don't panic if you see errors and warning at initialization in the web console. 
 
 ## License
 
-This code repository is released under dual licensing:
+This code repository is dual licensed. You have to choose between these 2 licenses:
 
-* GPLv3
-* Nominative commercial license
+1. [GPLv3](GPLv3.txt) (free default option)
+2. [Nominative commercial license](https://webar.rocks/buyCommercialLicense) (not free)
 
 For more information, please read [LICENSE](/LICENSE) file.
 
