@@ -1,5 +1,5 @@
 const _settings = {
-  NN: '../../neuralNets/NN_OBJMANIP_6.json',
+  NN: '../../neuralNets/NN_OBJMANIP_7.json',
   threshold: 0.9, // detection sensitivity, between 0 and 1
 
   model3DFullPath: 'assets/velociraptor.glb',

@@ -9,7 +9,7 @@ import BackButton from '../components/BackButton.js'
 import FlipCamButton from '../components/FlipCamButton.js'
 
 // import neural network model:
-import NN from '../contrib/WebARRocksHand/neuralNets/NN_OBJMANIP_6.json'
+import NN from '../contrib/WebARRocksHand/neuralNets/NN_OBJMANIP_7.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerVTOThreeHelper.js'

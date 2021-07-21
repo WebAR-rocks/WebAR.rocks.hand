@@ -62,7 +62,7 @@ function main(){
     VTOCanvas: VTOCanvas,
     handTrackerCanvas: handTrackerCanvas,
     debugDisplayLandmarks: _settings.debugDisplayLandmarks,
-    NNsPaths: ['../../neuralNets/NN_OBJMANIP_6.json'],
+    NNsPaths: ['../../neuralNets/NN_OBJMANIP_7.json'],
     stabilizationSettings: {
       NNSwitchMask: {
         isRightHand: false
