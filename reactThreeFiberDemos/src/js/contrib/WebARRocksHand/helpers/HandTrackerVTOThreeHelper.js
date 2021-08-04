@@ -898,7 +898,20 @@ const HandTrackerVTOThreeHelper = (function(){
 
 
     destroy: function(){
-      WEBARROCKSHAND.destroy();
+      return WEBARROCKSHAND.destroy().then(that.reset);
+    },
+
+
+    reset: function(){
+      _stabilizers = null, _poseFilters = null;
+      _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
+      _spec.isPostProcessing = false;
+      Object.assign(_three, {
+        trackersRight: null,
+        trackersLeft: null,
+        trackersParent: null
+      });
+      return Promise.resolve();
     }
   }; //end that
   return that;

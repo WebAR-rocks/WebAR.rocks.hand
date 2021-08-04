@@ -99,15 +99,21 @@ const WebARRocksHandThreeControls = (function(){
 
   const _deg2rad = Math.PI/180;
 
+
   function get_width(){
     return window.innerWidth;
   }
+
+
   function get_height(){
     return window.innerHeight;
   }
+
+
   function get_timestamp(){
     return Date.now();
   }
+
 
   function extract_dxFromHMEvent(e){
     let dx = e.deltaX;
@@ -117,9 +123,11 @@ const WebARRocksHandThreeControls = (function(){
     return dx;
   }
 
+
   function extract_dyFromHMEvent(e){
     return e.deltaY;
   }
+
 
   function save_pose(){
     console.log('INFO in WebARRocksHandThreeControls: save_pose()');
@@ -130,6 +138,7 @@ const WebARRocksHandThreeControls = (function(){
     _pose0.scale = _spec.threeObject.scale.x;
   }
 
+
   function scale(eventScale){
     let s = _pose0.scale * (1 + _spec.scaleFactor * (eventScale - 1));
     s = Math.min(s, _spec.scaleRange[1]);
@@ -137,6 +146,7 @@ const WebARRocksHandThreeControls = (function(){
 
     _spec.threeObject.scale.set(s, s, s);
   }
+
 
   function rotate(dx, dy){
     const w = get_width(), h = get_height();
@@ -251,6 +261,7 @@ const WebARRocksHandThreeControls = (function(){
     _spec.threeObject.position.copy(posObject);
   }
 
+
   function set_transitionState(){
     _isTransition = true;
 
@@ -263,6 +274,7 @@ const WebARRocksHandThreeControls = (function(){
     });
     _tweens.transition.splice(0);
   }
+
 
   function allocate_threeStuffs(){
     _three.eulerObj = new THREE.Euler();
@@ -284,6 +296,7 @@ const WebARRocksHandThreeControls = (function(){
     _pose0.parentPoseMatPrevious = new THREE.Matrix4();
   }
 
+
   function rotate_orTranslate(hmEvent){
     const dx = extract_dxFromHMEvent(hmEvent), dy = extract_dyFromHMEvent(hmEvent);
     const transformType = _mapDragTypesToTransform[_dragType];
@@ -293,6 +306,7 @@ const WebARRocksHandThreeControls = (function(){
       rotate(dx, dy);
     }
   }
+
 
   function init_hmPinch(){
     const hmPinch = new Hammer.Pinch();
@@ -326,6 +340,7 @@ const WebARRocksHandThreeControls = (function(){
     });
   }
 
+
   function init_hmPan(){
     const hmPan = new Hammer.Pan({ dragMaxTouches: 2 });
     _hm.add([hmPan]);
@@ -352,10 +367,12 @@ const WebARRocksHandThreeControls = (function(){
     });
   }
 
+
   function extract_trackerParentPose(mat, trackerParentPose){
     trackerParentPose.position.setFromMatrixPosition(mat);
     trackerParentPose.quaternion.setFromRotationMatrix(mat);
   }
+
 
   function do_tweenHandDetectedSmoothDisplacementForParent(){
     const tweenHandDetectedSmoothDisplacement = new TWEEN.Tween({t: 0}).to({t: 1}, _spec.transitionDuration).onUpdate(function(v){
@@ -378,6 +395,7 @@ const WebARRocksHandThreeControls = (function(){
     _tweens.transition.push(tweenHandDetectedSmoothDisplacement)
   }
 
+
   function init_trackerParentPoses(){
     const create_pose = function(){
       return {
@@ -389,6 +407,7 @@ const WebARRocksHandThreeControls = (function(){
     _trackerParentPose0 = create_pose();
   }
 
+
   function set_mode(newMode){
     if (newMode === _modes.hand){
       _mapDragTypesToTransform[_dragTypes.pan1] = _transformTypes.rotate;
@@ -399,6 +418,7 @@ const WebARRocksHandThreeControls = (function(){
     }
     _mode = newMode;
   }
+
 
   const that = {
     init: function(spec){
@@ -421,9 +441,11 @@ const WebARRocksHandThreeControls = (function(){
       init_hmPan();
     },
 
+
     is_interactive: function(){
       return (_spec.isEnabled && !_isTransition);
     },
+
 
     attach: function(threeObject, parentPoseMat){
       _spec.threeObject = threeObject;
@@ -436,12 +458,14 @@ const WebARRocksHandThreeControls = (function(){
       }
     },
 
+
     tick: function(){
       if (_mode === _modes.manual){
         clamp_positionToViewport();
         _pose0.parentPoseMatPrevious.copy(_spec.parentPoseMat);
       }
     },
+
 
     toggle: function(isEnabled){
       if (!isEnabled){
@@ -450,10 +474,12 @@ const WebARRocksHandThreeControls = (function(){
       _spec.isEnabled = isEnabled;
     },
 
+
     update: function(newSpec){
       if (!_spec) return;
       Object.assign(_spec, newSpec);
     },
+
 
     to_manual: function(){
       if (_mode === _modes.manual){
@@ -507,6 +533,7 @@ const WebARRocksHandThreeControls = (function(){
       });      
     },
 
+
     to_hand: function(){
       if (_mode === _modes.hand){
         return Promise.reject();
@@ -544,8 +571,19 @@ const WebARRocksHandThreeControls = (function(){
           accept();
         })
       });
+    },
+
+
+    destroy: function(){
+      if (TWEEN){
+        TWEEN.removeAll();
+      }
+      _tweens.transition.splice(0);
+      _dragType = _dragTypes.none;
+      _isTransition = false;
+      _mode = _modes.undef;
     }
-  }
+  } // end that
 
   return that;
 })(); 

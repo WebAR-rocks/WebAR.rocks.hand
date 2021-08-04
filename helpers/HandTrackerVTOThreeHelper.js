@@ -102,6 +102,7 @@ const HandTrackerVTOThreeHelper = (function(){
     return glShader;
   };
 
+
   // build the shader program:
   function build_shaderProgram(shaderVertexSource, shaderFragmentSource, id) {
     // compile both shader separately:
@@ -124,6 +125,7 @@ const HandTrackerVTOThreeHelper = (function(){
     };
   }
   
+
   // build shader programs:
   function init_shps(){
     // create copy shp, used to display the video on the canvas:
@@ -159,6 +161,7 @@ const HandTrackerVTOThreeHelper = (function(){
     }
   }
 
+
   function init_debugDisplayLandmarks(){
     _debugDisplayLandmarks.LMLabels = WEBARROCKSHAND.get_LMLabels();
     _debugDisplayLandmarks.vertices = new Float32Array(_debugDisplayLandmarks.LMLabels.length*2);
@@ -177,6 +180,7 @@ const HandTrackerVTOThreeHelper = (function(){
     _gl.bindBuffer(_gl.ELEMENT_ARRAY_BUFFER, _debugDisplayLandmarks.glIndicesVBO);
     _gl.bufferData(_gl.ELEMENT_ARRAY_BUFFER, indices, _gl.STATIC_DRAW);
   }
+
 
   function init_three(){
     // init renderer:
@@ -293,6 +297,7 @@ const HandTrackerVTOThreeHelper = (function(){
     };
   }
 
+
   function init_poseEstimation(){
     // find indices of landmarks used for pose estimation:
     _poseEstimation.poseLandmarksIndices = _spec.poseLandmarksLabels.map(function(label){
@@ -332,6 +337,7 @@ const HandTrackerVTOThreeHelper = (function(){
     _gl.drawElements(_gl.TRIANGLES, 3, _gl.UNSIGNED_SHORT, 0);
   }
 
+
   function draw_landmarks(detectState){
     // copy landmarks:
     detectState.landmarks.forEach(function(lm, lmIndex){
@@ -349,6 +355,7 @@ const HandTrackerVTOThreeHelper = (function(){
 
     _gl.drawElements(_gl.POINTS, _debugDisplayLandmarks.LMLabels.length, _gl.UNSIGNED_SHORT, 0);
   }
+
 
   function callbackTrack(detectStatesArg){
     const vWidth = that.get_viewWidth(), vHeight = that.get_viewHeight();
@@ -595,6 +602,7 @@ const HandTrackerVTOThreeHelper = (function(){
       }); //end returned promise
     }, // end init()
 
+
     update: function(specUpdated){
       // spec keys that can be updated: poseLandmarksLabels, poseFilter, NNsPaths, threshold
       Object.assign(_spec, specUpdated);
@@ -619,6 +627,7 @@ const HandTrackerVTOThreeHelper = (function(){
       });
     },
 
+
     resize: function(w, h){
       // resize handTracker canvas:
       _spec.handTrackerCanvas.width = w;
@@ -632,21 +641,26 @@ const HandTrackerVTOThreeHelper = (function(){
       update_focals();
     },
 
+
     get_sourceWidth: function(){
       return _videoElement.videoWidth;
     },
+
 
     get_sourceHeight: function(){
       return _videoElement.videoHeight;
     },
 
+
     get_viewWidth: function(){
       return _spec.VTOCanvas.width;
     },
 
+
     get_viewHeight: function(){
       return _spec.VTOCanvas.height;
     },
+
 
     add_threeOccluder: function(threeMesh){
       threeMesh.userData.isOccluder = true;
@@ -654,6 +668,7 @@ const HandTrackerVTOThreeHelper = (function(){
       threeMesh.renderOrder = -1e12; // render first
       that.add_threeObject(threeMesh);
     },
+
 
     add_threeSoftOccluder: function(threeMesh, radius, dr, isDebug){
       if (!isDebug){
@@ -717,6 +732,7 @@ const HandTrackerVTOThreeHelper = (function(){
 
       that.add_threeObject(threeMesh);
     },
+
 
     add_threeObject: function(threeObject){
       for (let i = 0; i < _spec.maxHandsDetected; ++i){
@@ -787,6 +803,7 @@ const HandTrackerVTOThreeHelper = (function(){
       add_threeObjectToParent(_three.trackersLeft, threeObjectLeft);
     },
 
+
     clear_threeObjects: function(clearOccluders){
       const clear_threeObject = function(threeObject){
         for (let i=threeObject.children.length-1; i>=0; --i){
@@ -801,6 +818,7 @@ const HandTrackerVTOThreeHelper = (function(){
         clear_threeObject(_three.trackersLeft[i]);
       }
     },
+
 
     update_threeCamera: function(){
       // compute aspectRatio:
@@ -838,6 +856,24 @@ const HandTrackerVTOThreeHelper = (function(){
       if (_spec.isPostProcessing){
         _three.composer.setSize(cvw, cvh);
       }
+    },
+
+
+    destroy: function(){
+      return WEBARROCKSHAND.destroy().then(that.reset);
+    },
+
+
+    reset: function(){
+      _stabilizers = null, _poseFilters = null;
+      _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
+      _spec.isPostProcessing = false;
+      Object.assign(_three, {
+        trackersRight: null,
+        trackersLeft: null,
+        trackersParent: null
+      });
+      return Promise.resolve();
     }
   }; //end that
   return that;

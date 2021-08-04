@@ -33,7 +33,7 @@ const _settings = {
 };
 
 
-const _three = {
+const _defaultThree = {
   renderer: null,
   scene: null,
   camera: null,
@@ -47,6 +47,7 @@ const _three = {
   hologramUniforms: null,
   loadingMaterial: null
 }
+const _three = Object.assign({}, _defaultThree);
 
 const _renderingStates = {
   hidden: 0,
@@ -67,11 +68,12 @@ const _appStates = {
   running: 1,
   busy: 2
 }
-const _state = {
+const _defaultState = {
   app: _appStates.notLoaded,
   rendering: _renderingStates.hidden,
   controls: _controlsStates.none
 }
+const _state = Object.assign({}, _defaultState);
 
 
 let _isSelfieCam = false;
@@ -90,11 +92,13 @@ function is_mobileOrTablet(){
   return check;
 }
 
+
 function setFullScreen(cv){
   const dpr = window.devicePixelRatio || 1;
   cv.width = window.innerWidth * dpr;
   cv.height = window.innerHeight * dpr;
 }
+
 
 function is_renderingTransitionState(){
   return _state.rendering === _renderingStates.hiddenToLoading
@@ -146,6 +150,7 @@ function main(){
   });
 } 
 
+
 function set_controlsFromManualToHand(){
   _state.controls = _controlsStates.manualToHand;
   WebARRocksHandThreeControls.to_hand().then(function(){
@@ -153,12 +158,14 @@ function set_controlsFromManualToHand(){
   });
 }
 
+
 function set_controlsFromHandToManual(){
   _state.controls = _controlsStates.handToManual;
   WebARRocksHandThreeControls.to_manual().then(function(){
     _state.controls = _controlsStates.manual;
   });
 }
+
 
 function init_controls(){
   // create controls:
@@ -172,6 +179,7 @@ function init_controls(){
   });
   WebARRocksHandThreeControls.attach(_three.containerObjectControls, _three.tracker.parent.parent.matrix);  
 }
+
 
 function callbackTrack(detectState){
   if (detectState.isDetected) {
@@ -211,6 +219,7 @@ function callbackTrack(detectState){
   _previousIsDetected = detectState.isDetected;
 }
 
+
 function set_trackerPose(){
   // tweak position, scale and rotation:
   _three.tracker.scale.multiplyScalar(_settings.scale);
@@ -220,6 +229,7 @@ function set_trackerPose(){
   const q = _settings.quaternion;
   _three.tracker.quaternion.set(q[0], q[2], -q[1], q[3]);
 }
+
 
 function start(three){
   // pause handtracker until 3D assets are not loaded
@@ -349,6 +359,7 @@ function set_hologramBlendingMode(obj){
   }
 }
 
+
 function set_hologramMaterials(obj){
   const hologramMats = [];
   const hologramUniforms = {
@@ -433,6 +444,7 @@ function trigger_poppingLoadingEffect(){
   });
   tweenRotation.start();
 }
+
 
 function trigger_poppingFullEffect(){
   _state.rendering = _renderingStates.hiddenToFull;
@@ -521,6 +533,7 @@ function trigger_poppingFullEffect(){
   tweenShadowAppear.start();
 }
 
+
 function create_blobShadow(){
   const vertexShaderSource = 'precision lowp float;\n\
     varying vec3 vPos;\n\
@@ -572,6 +585,9 @@ function create_blobShadow(){
 function hide_DOMLoading(){
   // remove loading:
   const domLoading = document.getElementById('loading');
+  if (!domLoading){
+    return;
+  }
   domLoading.style.opacity = 0;
   setTimeout(function(){
     domLoading.parentNode.removeChild(domLoading);
@@ -618,4 +634,14 @@ function hide_DOMInstructions(){
     domInstructions.parentNode.removeChild(domInstructions);
   }, 800);
   document.getElementById('flipButton').style.display = 'block';
+}
+
+
+function destroy(){
+  return HandTrackerVTOThreeHelper.destroy().then(function(){
+    Object.assign(_state, _defaultState);
+    Object.assign(_three, _defaultThree);
+    _previousIsDetected = false;
+    WebARRocksHandThreeControls.destroy();
+  });
 }
