@@ -775,13 +775,13 @@ const HandTrackerVTOThreeHelper = (function(){
           // compute matrix to apply to the geometry, K
           const M = threeObject.matrixWorld;
           const invXMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
-          const K = new THREE.Matrix4().getInverse(M).multiply(invXMatrix).multiply(M);
+          const K = new THREE.Matrix4().copy(M).invert().multiply(invXMatrix).multiply(M);
 
           // clone and invert the mesh:
           const threeMeshLeft = threeObject.clone();
           threeMeshLeft.geometry = threeObject.geometry.clone();
          
-          threeMeshLeft.geometry.applyMatrix(K);
+          threeMeshLeft.geometry.applyMatrix4(K);
           inverse_facesIndexOrder(threeMeshLeft.geometry);
 
           return threeMeshLeft;

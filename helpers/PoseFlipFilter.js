@@ -19,17 +19,20 @@ const PoseFlipFilter = (function(){
     startStabilizeCounter: 20 // iterations count before starting stabilization after reset() called
   };
 
+
   function clone_imagePointPositions(ipp){
     return ipp.map(function(p){
       return [p[0], p[1]];
     });
   }
 
+
   function copy_imagePointPositions(src, dst){
     src.forEach(function(p, pi){
       dst[pi][0] = p[0], dst[pi][1] = p[1];
     })
   }
+
 
   function compute_dpMax(ipp0, ipp1){
     let mx = -1;
@@ -41,6 +44,7 @@ const PoseFlipFilter = (function(){
     return Math.sqrt(mx);
   }
 
+
   function compute_dpMean(ipp0, ipp1){
     let dpSum = 0;
     const n = ipp0.length;
@@ -50,6 +54,7 @@ const PoseFlipFilter = (function(){
     }
     return (dpSum / n);
   }
+
 
   const superThat = {
     instance: function(spec){
@@ -115,6 +120,7 @@ const PoseFlipFilter = (function(){
           return superThat.instance(_spec);
         },
 
+
         update: function(imagePointPositions, threeObject, threeCamera, viewHeightPx, threeMatMov){
           let threeFilteredMatMov = threeMatMov;
 
@@ -160,7 +166,7 @@ const PoseFlipFilter = (function(){
             }//*/
             
             // apply amortization factors:
-            THREE.Quaternion.slerp(_previous.threeQuaternion, _threeQuaternion, _threeQuaternionApplied, rotFactor);
+            _threeQuaternionApplied.slerpQuaternions(_previous.threeQuaternion, _threeQuaternion, rotFactor);
             _threePositionApplied.lerpVectors(_previous.threePosition, _threePosition, posFactor);
             
             // save image point positions for next iteration:
@@ -178,6 +184,7 @@ const PoseFlipFilter = (function(){
           return threeFilteredMatMov;
         },
 
+
         reset: function(){
           _resetCounter = 0;
         }
@@ -187,6 +194,7 @@ const PoseFlipFilter = (function(){
   } //end superThat
   return superThat;
 })();
+
 
 // Export ES6 module:
 try {

@@ -186,7 +186,7 @@ const WebARRocksHandThreeControls = (function(){
     _spec.threeObject.quaternion.copy(_pose0.quaternion);
     _spec.threeObject.getWorldQuaternion(q);
     q.premultiply(_spec.threeCamera.quaternion);
-    qInv.copy(q).inverse();
+    qInv.copy(q).invert();
     _three.quaternionView.premultiply(qInv).multiply(q);
 
     _spec.threeObject.quaternion.multiply(_three.quaternionView);
@@ -224,17 +224,18 @@ const WebARRocksHandThreeControls = (function(){
     // translate posWorld to object co:
     const posObject = _three.vec4;
     const matrixWorld = _spec.threeObject.parent.matrixWorld;
-    const matrixWorldInv = _three.mat4.getInverse(matrixWorld);
+    const matrixWorldInv = _three.mat4.copy(matrixWorld).invert();
     posObject.copy(deltaPosWorld).setW(0).applyMatrix4(matrixWorldInv).add(_pose0.position).setW(1);    
     _spec.threeObject.position.copy(posObject);
   }
+
 
   function clamp_positionToViewport(){
     //const posViewRef = _spec.threeObject.getWorldPosition(_three.posViewRef);
     _spec.threeObject.parent.updateMatrix();
     _spec.threeObject.parent.updateMatrixWorld();
     const matrixWorld = _spec.threeObject.parent.matrixWorld;
-    const matrixWorldInv = _three.mat4.getInverse(matrixWorld);
+    const matrixWorldInv = _three.mat4.copy(matrixWorld).invert();
 
     const posViewRef = _three.posViewRef;
 
@@ -498,7 +499,7 @@ const WebARRocksHandThreeControls = (function(){
       euler.set(euler.x, euler.y, 0, 'ZXY');      
       //euler.set(0, euler.y, 0, 'YXZ');      
       const qEndWorld = new THREE.Quaternion().setFromEuler(euler);
-      const qWorldInv = qWorld.clone().inverse();
+      const qWorldInv = qWorld.clone().invert();
       // transformation in world ref:
       const qWorldTransf = qWorldInv.clone().premultiply(qEndWorld);
       const qEnd = qStart.clone().premultiply(qWorldTransf);
@@ -512,7 +513,7 @@ const WebARRocksHandThreeControls = (function(){
         // we need to reset rotation around view Z axis for parent:
         const tweenResetRotZViewAxis = new TWEEN.Tween({t: 0}).to({t: 1}, _spec.transitionDuration).onUpdate(function(v){
           const t = v.t;
-          THREE.Quaternion.slerp(qStart, qEnd, qSlerp, t);
+          qSlerp.slerpQuaternions(qStart, qEnd, t);
           
           // update movement matrix:
           const mat = _spec.parentPoseMat;
