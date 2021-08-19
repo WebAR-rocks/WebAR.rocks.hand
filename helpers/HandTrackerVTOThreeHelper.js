@@ -629,6 +629,11 @@ const HandTrackerVTOThreeHelper = (function(){
 
 
     resize: function(w, h){
+      if (_gl){
+        // Fix a bug with IOS14.7 and WebGL2
+        _gl.bindFramebuffer(_gl.FRAMEBUFFER, null);
+      }
+      
       // resize handTracker canvas:
       _spec.handTrackerCanvas.width = w;
       _spec.handTrackerCanvas.height = h;
