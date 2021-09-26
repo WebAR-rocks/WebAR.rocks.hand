@@ -1,5 +1,5 @@
 const _settings = {
-  threshold: 0.6, // detection sensitivity, between 0 and 1
+  threshold: 0.5, // detection sensitivity, between 0 and 1
   
   // CONVERSES SHOES:
   // 3D models:
@@ -72,7 +72,7 @@ function main(){
     VTOCanvas: VTOCanvas,
     handTrackerCanvas: handTrackerCanvas,
     debugDisplayLandmarks: false,
-    NNsPaths: ['../../neuralNets/NN_BAREFOOT_1.json'],
+    NNsPaths: ['../../neuralNets/NN_BAREFOOT_2.json'],
     maxHandsDetected: 2,
     stabilizationSettings: {
       NNSwitchMask: {

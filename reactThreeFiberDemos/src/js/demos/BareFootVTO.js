@@ -9,7 +9,7 @@ import BackButton from '../components/BackButton.js'
 import FlipCamButton from '../components/FlipCamButton.js'
 
 // import neural network model:
-import NN from '../contrib/WebARRocksHand/neuralNets/NN_BAREFOOT_1.json'
+import NN from '../contrib/WebARRocksHand/neuralNets/NN_BAREFOOT_2.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerVTOThreeHelper.js'
@@ -149,7 +149,7 @@ const BareFootVTO = () => {
       enableFlipObject: true,
       cameraZoom: 1,
       freeZRot: false,
-      threshold: 0.6, // detection threshold, between 0 and 1. + -> harder detection but less false positive
+      threshold: 0.5, // detection threshold, between 0 and 1. + -> harder detection but less false positive
       handTrackerCanvas: canvasVideoRef.current,
       debugDisplayLandmarks: false, // true to display landmarks
       NNs: [ NN ],

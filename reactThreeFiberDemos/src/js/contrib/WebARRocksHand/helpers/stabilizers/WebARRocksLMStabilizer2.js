@@ -96,7 +96,7 @@ const WebARRocksLMStabilizer = (function(){
       const _spec = Object.assign({
         dampingRatio: 0.6, // 1 -> critically damped, >1 -> overdamped
         freq0: 5, // filtering frequency in hertz
-        estimateFreq: true, // dynamically estimates filtering frequency in a crappy way. 
+        estimateFreq: false, // dynamically estimates filtering frequency in a crappy way. 
         estimateFreqFactor: 0.07,
         dtMax: 0.3, // in seconds   
         nSimulationLoops: 3 // number of simulation loops

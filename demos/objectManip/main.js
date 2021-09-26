@@ -29,6 +29,7 @@ let _state = _states.notLoaded;
 let _isSelfieCam = false;
 let _animationMixer = null, _clock;
 
+
 function setFullScreen(cv){
   cv.width = window.innerWidth;
   cv.height = window.innerHeight;
@@ -80,6 +81,7 @@ function callbackTrack(){
     _animationMixer.update(_clock.getDelta() * 0.5);
   }
 }
+
 
 function start(three){
   three.loadingManager.onLoad = function(){

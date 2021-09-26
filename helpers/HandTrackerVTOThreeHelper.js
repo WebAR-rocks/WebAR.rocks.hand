@@ -385,7 +385,8 @@ const HandTrackerVTOThreeHelper = (function(){
           console.log('isRightHand: ', detectState.isRightHand, 'isFlipped: ', detectState.isFlipped);
         }
 
-        const landmarksStabilized = stabilizer.update(detectState.landmarks, vWidth, vHeight);
+        const dpr = window.devicePixelRatio || 1.0;
+        const landmarksStabilized = stabilizer.update(detectState.landmarks, vWidth/dpr, vHeight/dpr);
 
         const isValidPose = compute_pose(landmarksStabilized, detectState.isRightHand, poseFilter, i);
         isRender =  isRender || isValidPose;
