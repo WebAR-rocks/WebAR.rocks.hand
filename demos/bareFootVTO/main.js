@@ -115,7 +115,7 @@ function start(three){
     threeObject.position.add(new THREE.Vector3().fromArray(_settings.translation));
   }
 
-  // load the velociraptor 3D model:
+  // load the shoes 3D model:
   new THREE.GLTFLoader().load(_settings.shoeRightPath, function(gltf){
     const shoe = gltf.scene;
     transform(shoe);

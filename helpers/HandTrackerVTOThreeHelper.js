@@ -274,7 +274,7 @@ const HandTrackerVTOThreeHelper = (function(){
     const points = poseLandmarksIndices.map(function(ind){
       const pos = tweak_landmarkObjectPosition(landmarksInfo[ind].position);
       if (isInvX){
-        pos[0] *= -1;
+        pos[0] *= -1.0;
       }
       const threePos = new THREE.Vector3().fromArray(pos);
       mean.add(threePos);
@@ -450,13 +450,13 @@ const HandTrackerVTOThreeHelper = (function(){
   function compute_pose(landmarks, isRightHand, poseFilter, handIndex){
     // update image points:
     const imgPointsPx = _poseEstimation.imgPointsPx;
-    const w2 = that.get_viewWidth() / 2;
-    const h2 = that.get_viewHeight() / 2;
+    const w2 = that.get_viewWidth() / 2.0;
+    const h2 = that.get_viewHeight() / 2.0;
 
     _poseEstimation.poseLandmarksIndices.forEach(function(ind, i){
       const imgPointPx = imgPointsPx[i];
-      imgPointPx[0] = - ( 1 / _spec.cameraZoom ) * landmarks[ind][0] * w2,  // X in pixels
-      imgPointPx[1] = - ( 1 / _spec.cameraZoom ) * landmarks[ind][1] * h2;  // Y in pixels
+      imgPointPx[0] = - ( 1.0 / _spec.cameraZoom ) * landmarks[ind][0] * w2,  // X in pixels
+      imgPointPx[1] = - ( 1.0 / _spec.cameraZoom ) * landmarks[ind][1] * h2;  // Y in pixels
     });
 
     // get right hand side object points:

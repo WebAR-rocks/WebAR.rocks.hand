@@ -105,9 +105,9 @@ WEBARROCKSHAND.init({
 
 ### Optionnal init arguments
 * `<integer> animateDelay`: Number of milliseconds during which the browser wait at the end of the rendering loop before starting another detection. The default value is `1`,
-* `<function> onWebcamAsk`: Function launched just before asking for the user to allow its webcam sharing,
+* `<function> onWebcamAsk`: Function launched just before asking for the user to allow access to its camera,
 * `<function> onWebcamGet`: Function launched just after the user has accepted to share its video. It is called with the video element as argument,
-* `<dict> videoSettings`: override WebRTC specified video settings, which are by default:
+* `<dict> videoSettings`: override MediaStream API specified video settings, which are by default:
 ```javascript
 {
   'videoElement' // not set by default. <video> element used
@@ -143,11 +143,11 @@ If the user has a mobile device in portrait display mode, the width and height o
 The initialization function ( `callbackReady` in the code snippet ) will be called with an error code ( `errCode` ). It can have these values:
 * `false`: no error occurs,
 * `"GL_INCOMPATIBLE"`: WebGL is not available, or this WebGL configuration is not enough (there is no WebGL2, or there is WebGL1 without OES_TEXTURE_FLOAT or OES_TEXTURE_HALF_FLOAT extension),
-* `"ALREADY_INITIALIZED"`: the API has been already initialized,
+* `"ALREADY_INITIALIZED"`: the library has been already initialized,
 * `"NO_CANVASID"`: no canvas ID was specified,
 * `"INVALID_CANVASID"`: cannot found the `<canvas>` element in the DOM,
 * `"INVALID_CANVASDIMENSIONS"`: the dimensions `width` and `height` of the canvas are not specified,
-* `"WEBCAM_UNAVAILABLE"`: cannot get access to the webcam (the user has no webcam, or it has not accepted to share the device, or the webcam is already busy),
+* `"WEBCAM_UNAVAILABLE"`: cannot get access to the camera (the user has no camera, or it has not accepted to share the device, or the camera is already busy),
 * `"GLCONTEXT_LOST"`: The WebGL context was lost. If the context is lost after the initialization, the `callbackReady` function will be launched a second time with this value as error code,
 
 
@@ -158,7 +158,7 @@ We detail here the arguments of the callback functions like `callbackReady` or `
 The initialization callback function ( `callbackReady` in the code snippet ) is called with a second argument, `spec`, if there is no error. `spec` is a dictionnary having these properties:
 * `GL`: the WebGL context. The rendering 3D engine should use this WebGL context,
 * `canvasElement`: the `<canvas>` element,
-* `videoTexture`: a WebGL texture displaying the webcam video. It has the same resolution as the camera video,
+* `videoTexture`: a WebGL texture displaying the camera video. It has the same resolution as the camera video,
 * `[<float>, <float>, <float>, <float>]` videoTransformMat2: flatten 2x2 matrix encoding a scaling and a rotation. We should apply this matrix to viewport coordinates to render `videoTexture` in the viewport,
 * `<HTMLVideoElement> video`: the video used as source for the webgl texture `videoTexture`,
 * `[<string> landmarksLabels]`: the list of the landmark labels. This list depends on the neural network model,
@@ -188,7 +188,7 @@ After the initialization (ie after that `callbackReady` is launched ) , these me
 * `WEBARROCKSHAND.reset_inputTexture()`: Come back to the user's video as input texture,
 
 * `WEBARROCKSHAND.get_videoDevices(<function> callback)`: Should be called before the `init` method. 2 arguments are provided to the callback function:
-  * `<array> mediaDevices`: an array with all the devices founds. Each device is a javascript object having a `deviceId` string attribute. This value can be provided to the `init` method to use a specific webcam. If an error happens, this value is set to `false`,
+  * `<array> mediaDevices`: an array with all the devices founds. Each device is a javascript object having a `deviceId` string attribute. This value can be provided to the `init` method to use a specific camera. If an error happens, this value is set to `false`,
   * `<string> errorLabel`: if an error happens, the label of the error. It can be: `NOTSUPPORTED`, `NODEVICESFOUND` or `PROMISEREJECTED`.
 
 * `WEBARROCKSHAND.set_scanSettings(<object> scanSettings)`: Override scan settings. `scanSettings` is a dictionnary with the following properties:
@@ -243,11 +243,12 @@ The occluders are 3D meshes rendered with a transparent color. They mask part of
 
 
 ## Hosting
+
 You should host the content of this repository using a HTTPS static server.
 
 Be careful to enable gzip HTTP/HTTPS compression for JSON and JS files. Indeed, the .JSON neuron networks files are quite heavy, but very well compressed with GZIP. You can check the gzip compression of your server [here](https://checkgzipcompression.com/).
 
-Neuron network files are loaded through `XMLHttpRequest` after calling `WEBARROCKSHAND.init()`. This loading is proceeded after the user has accepted to share its camera. So we won't load this quite heavy file if the user refuses to share it or if there is no webcam available. The loading can be faster if you systematically preload the neural network files using a service worker or a simple raw `XMLHttpRequest` just after the HTML page loading. Then the file will be already in the browser cache when the library will request it.
+Neuron network files are loaded through `XMLHttpRequest` after calling `WEBARROCKSHAND.init()`. This loading is proceeded after the user has accepted to share its camera. So we won't load this quite heavy file if the user refuses to share it or if there is no camera available. The loading can be faster if you systematically preload the neural network files using a service worker or a simple raw `XMLHttpRequest` just after the HTML page loading. Then the file will be already in the browser cache when the library will request it.
 
 Some directories of the latest version of this library are hosted on `https://cdn.webar.rocks/hand/` and served through a content delivery network (CDN):
 
@@ -257,25 +258,26 @@ Some directories of the latest version of this library are hosted on `https://cd
 
 
 ## About the tech
+
 ### Under the hood
+
 This libray uses [WebAR.rocks](https://webar.rocks) WebGL Deep Learning technology to detect and track the user's hand using a neural network. The accuracy is adaptative: the best is the hardware, the more detections are processed per second. All is done client-side.
 
 ### Compatibility
+
 * If `WebGL2` is available, it uses `WebGL2` and no specific extension is required,
 * If `WebGL2` is not available but `WebGL1`, we require either `OES_TEXTURE_FLOAT` extension or `OES_TEXTURE_HALF_FLOAT` extension,
 * If `WebGL2` is not available, and if `WebGL1` is not available or neither `OES_TEXTURE_FLOAT` or `OES_HALF_TEXTURE_FLOAT` are implemented, the user is not compatible.
 
 If `WebGL2` implementation is lame (like with IOS < 13.3.1), we will force the use of `WebGL1`.
 
-In all cases, WebRTC should be implemented in the web browser, otherwise it is not possible to get the webcam video feed. Here are the compatibility tables from [caniuse.com](https://caniuse.com/) here: [WebGL1](https://caniuse.com/#feat=webgl), [WebGL2](https://caniuse.com/#feat=webgl2), [WebRTC](https://caniuse.com/#feat=stream).
-
-If a compatibility error is triggered, please post an issue on this repository. If this is a problem with the webcam access, please first retry after closing all applications which could use your device (Skype, Messenger, other browser tabs and windows, ...). Please include:
+If a compatibility error is triggered, please post an issue on this repository. If this is a problem with the camera access, please first retry after closing all applications which could use your device (Skype, Messenger, other browser tabs and windows, ...). Please include:
 * a screenshot of [webglreport.com - WebGL1](http://webglreport.com/?v=1) (about your `WebGL1` implementation),
 * a screenshot of [webglreport.com - WebGL2](http://webglreport.com/?v=2) (about your `WebGL2` implementation),
 * the log from the web console,
 * the steps to reproduce the bug, and screenshots.
 
-Don't panic if you see errors and warning at initialization in the web console. Indeed, we always test all WebGL capabilities. These errors are catched.
+Don't panic if you see errors and warning at initialization in the web console. Indeed, we always test all WebGL capabilities. These errors are caught.
 
 
 ## License
@@ -291,5 +293,7 @@ For more information, please read [LICENSE](/LICENSE) file.
 ## References
 * [WebAR.rocks website](https://webar.rocks)
 * [Blender website](https://www.blender.org/)
-* [Webgl Academy: tutorials about WebGL and THREE.JS](http://www.webglacademy.com)
+* [Webgl Academy: tutorials on WebGL and THREE.JS](http://www.webglacademy.com)
 * [THREE.js website, with documentation and examples](https://threejs.org)
+* [WebAR.rocks on Linkedin](https://www.linkedin.com/company/webar-rocks)
+* [WebAR.rocks on Twitter](https://twitter.com/Jeeliz_AR)

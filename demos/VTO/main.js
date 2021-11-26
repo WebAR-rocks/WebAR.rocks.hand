@@ -1,13 +1,15 @@
 const NNPath = '../../neuralNets/';
 
-const NNWristVersion = '14';
-const NNRingVersion = '8';
+const NNWristVersion = '15';
+const NNRingVersion = '9';
 
 const wristModesCommonSettings = {
   threshold: 0.92, // detection sensitivity, between 0 and 1
   
   poseLandmarksLabels: [
-    "wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom"    
+  // wristRightBottom not working
+    //"wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom"
+    "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft"
    ],
   isPoseFilter: true,
 
@@ -52,21 +54,13 @@ const ringModelCommonSettings = {
 const _settings = {
   VTOModes: {
     wrist: Object.assign({      
-      NNsPaths: [NNPath + 'NN_WRIST_RP_' + NNWristVersion + '.json', NNPath + 'NN_WRIST_RB_' + NNWristVersion + '.json']
+      NNsPaths: [NNPath + 'NN_WRIST_' + NNWristVersion + '.json']
     }, wristModesCommonSettings),
-
-    wrist1Side: Object.assign({      
-      NNsPaths: [NNPath + 'NN_WRIST_RB_' + NNWristVersion + '.json']
-    }, wristModesCommonSettings),
-
+    
     ring: Object.assign({
-      NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
+      NNsPaths: [NNPath + 'NN_RING_' + NNRingVersion + '.json']
     }, ringModesCommonSettings),
-
-    ring1Side: Object.assign({
-      NNsPaths: [NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
-    }, ringModesCommonSettings),    
-  }, // end VTOModes
+  },
 
   models: {
     wristDemo: Object.assign({
@@ -75,14 +69,6 @@ const _settings = {
     
     ringDemo: Object.assign({
       VTOMode: 'ring'     
-    }, ringModelCommonSettings),
-
-    wristDemo1Side: Object.assign({
-      VTOMode: 'wrist1Side'
-    }, wristModelCommonSettings),
-    
-    ringDemo1Side: Object.assign({
-      VTOMode: 'ring1Side'     
     }, ringModelCommonSettings)
   },
   initialModel: 'wristDemo',
@@ -258,7 +244,7 @@ function start(three){
   }).then(function(){
     load_model(_settings.initialModel, three.loadingManager);
   });
-} //end start()
+}
 
 
 function add_wholeHand(threeLoadingManager){
@@ -336,3 +322,6 @@ function flip_camera(){
     console.log('ERROR in main.js: Cannot flip camera -', err);
   });
 }
+
+
+window.addEventListener('load', main);
