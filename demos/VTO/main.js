@@ -1,15 +1,18 @@
 const NNPath = '../../neuralNets/';
 
-const NNWristVersion = '15';
-const NNRingVersion = '9';
+const NNWristVersion = '14';
+const NNRingVersion = '8';
+
+//const NNWristVersion = '15';
+//const NNRingVersion = '9';
 
 const wristModesCommonSettings = {
   threshold: 0.92, // detection sensitivity, between 0 and 1
   
   poseLandmarksLabels: [
   // wristRightBottom not working
-    //"wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom"
-    "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft"
+    "wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom"
+    //"wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft"
    ],
   isPoseFilter: true,
 
@@ -54,11 +57,13 @@ const ringModelCommonSettings = {
 const _settings = {
   VTOModes: {
     wrist: Object.assign({      
-      NNsPaths: [NNPath + 'NN_WRIST_' + NNWristVersion + '.json']
+      NNsPaths: [NNPath + 'NN_WRIST_RP_' + NNWristVersion + '.json', NNPath + 'NN_WRIST_RB_' + NNWristVersion + '.json']
+      //NNsPaths: [NNPath + 'NN_WRIST_' + NNWristVersion + '.json']
     }, wristModesCommonSettings),
     
     ring: Object.assign({
-      NNsPaths: [NNPath + 'NN_RING_' + NNRingVersion + '.json']
+      NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
+      //NNsPaths: [NNPath + 'NN_RING_' + NNRingVersion + '.json']
     }, ringModesCommonSettings),
   },
 
