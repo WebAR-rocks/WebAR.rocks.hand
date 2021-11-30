@@ -135,3 +135,6 @@ function convert_HSVtoRGB(h, s, v) {
   }
   return [r, g, b];
 }
+
+
+window.addEventListener('load', main);

@@ -41,6 +41,7 @@ const _states = {
 let _state = _states.notLoaded;
 let _isSelfieCam = false;
 
+
 function setFullScreen(cv){
   cv.width = window.innerWidth;
   cv.height = window.innerHeight;
@@ -84,6 +85,7 @@ function main(){
     console.log('INFO in main.js: an error happens ', err);
   });
 } 
+
 
 function start(three){
   three.loadingManager.onLoad = function(){
@@ -148,3 +150,6 @@ function flip_camera(){
     console.log('ERROR in main.js: Cannot flip camera -', err);
   });
 }
+
+
+window.addEventListener('load', main);

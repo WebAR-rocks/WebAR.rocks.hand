@@ -3,6 +3,7 @@ function main(){
   init_handTracking();
 }
 
+
 function init_handTracking(){
   const NNPath = '../../neuralNets/';
 
@@ -17,7 +18,9 @@ function init_handTracking(){
   HandTrackerNavigationHelper.init({
     canvasVideo: document.getElementById('handNavigationCanvasVideo'),
     canvasPointer: document.getElementById('handNavigationCanvasPointer'),
-    NNsPaths: [NNPath + 'NN_NAV_RP_9.json', NNPath + 'NN_NAV_RB_9.json'],
+    //NNsPaths: [NNPath + 'NN_NAV_RP_9.json', NNPath + 'NN_NAV_RB_9.json'],
+    //NNsPaths: [NNPath + 'NN_NAV_13.json'],
+    NNsPaths: [NNPath + 'NN_NAV_14.json'],
     threshold: 0.9,
     videoSettings: {
       idealWidth: Math.max(idealHeight, idealWidth),
@@ -85,10 +88,15 @@ function init_handTracking(){
   });
 }
 
+
 function enable_camera(){
   HandTrackerNavigationHelper.enable_camera();
 }
 
+
 function change_camera(){
   HandTrackerNavigationHelper.change_camera();
 }
+
+
+window.addEventListener('load', main);

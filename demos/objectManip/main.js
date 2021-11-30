@@ -173,3 +173,6 @@ function flip_camera(){
     console.log('ERROR in main.js: Cannot flip camera -', err);
   });
 }
+
+
+window.addEventListener('load', main);

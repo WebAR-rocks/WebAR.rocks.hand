@@ -54,6 +54,7 @@ let _isSelfieCam = false;
 let _animationMixer = null, _clock = null;
 let _isInstructionsHidden = false;
 
+
 function is_mobileOrTablet(){
   let check = false;
   // from https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device
@@ -63,6 +64,7 @@ function is_mobileOrTablet(){
   }
   return check;
 }
+
 
 function setFullScreen(cv){
   const dpr = window.devicePixelRatio || 1;
@@ -133,6 +135,7 @@ function callbackTrack(detectState){
     _animationMixer.update(_clock.getDelta() * 0.5);
   }
 }
+
 
 function start(three){
   // pause handtracker until 3D assets are not loaded
@@ -382,6 +385,7 @@ function trigger_poppingEffect(){
   tweenShadowAppear.start();
 }
 
+
 function trigger_unpoppingEffect(){
   if (_poppingState === _poppingStates.unpopping
     || _poppingState === _poppingStates.hidden
@@ -522,3 +526,6 @@ function hide_instructions(){
   }, 800);
   document.getElementById('flipButton').style.display = 'block';
 }
+
+
+window.addEventListener('load', main);

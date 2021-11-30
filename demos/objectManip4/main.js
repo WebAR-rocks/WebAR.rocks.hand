@@ -645,3 +645,6 @@ function destroy(){
     WebARRocksHandThreeControls.destroy();
   });
 }
+
+
+window.addEventListener('load', main);

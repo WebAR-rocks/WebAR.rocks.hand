@@ -70,6 +70,7 @@ function is_mobileOrTablet(){
   return check;
 }
 
+
 function setFullScreen(cv){
   const dpr = window.devicePixelRatio || 1;
   cv.width = window.innerWidth * dpr;
@@ -147,6 +148,7 @@ function callbackTrack(detectState){
     _animationMixer.update(_clock.getDelta() * _settings.animationSpeedFactor);
   }
 }
+
 
 function start(three){
   // pause handtracker until 3D assets are not loaded
@@ -397,6 +399,7 @@ function trigger_poppingEffect(){
   tweenShadowAppear.start();
 }
 
+
 function trigger_unpoppingEffect(){
   if (_poppingState === _poppingStates.unpopping
     || _poppingState === _poppingStates.hidden
@@ -445,6 +448,7 @@ function trigger_unpoppingEffect(){
     _three.poppingObject.visible = false;
   })
 }
+
 
 function create_blobShadow(){
   const vertexShaderSource = 'precision lowp float;\n\
@@ -540,3 +544,6 @@ function hide_instructions(){
   }, 800);
   document.getElementById('flipButton').style.display = 'block';
 }
+
+
+window.addEventListener('load', main);
