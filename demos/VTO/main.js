@@ -1,10 +1,10 @@
 const NNPath = '../../neuralNets/';
 
-const NNWristVersion = '14';
-const NNRingVersion = '8';
+//const NNWristVersion = '14';
+//const NNRingVersion = '8';
 
-//const NNWristVersion = '15';
-//const NNRingVersion = '9';
+const NNWristVersion = '16';
+const NNRingVersion = '10';
 
 const wristModesCommonSettings = {
   threshold: 0.92, // detection sensitivity, between 0 and 1
@@ -22,7 +22,9 @@ const wristModesCommonSettings = {
                                // second value: maximum or exterior radius of the occluder (full opacity, no occluding effect)
   occluderHeight: 48, // height of the cylinder
   occluderOffset: [0,0,0], // relative to the wrist 3D model
-  occluderQuaternion: [0.707,0,0,0.707] // rotation of Math.PI/2 along X axis
+  occluderQuaternion: [0.707,0,0,0.707], // rotation of Math.PI/2 along X axis,
+
+  objectPointsPositionFactors: [1.0, 1.5, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
 };
 
 const ringModesCommonSettings = {
@@ -35,7 +37,9 @@ const ringModesCommonSettings = {
   // Occluder parameters:
   occluderType: "MODEL",
   occluderModelURL: 'assets/occluders/ringOccluder2.glb',
-  occluderScale: 1
+  occluderScale: 1,
+
+  objectPointsPositionFactors: [1.0, 1.0, 1.0],
 };
 
 const wristModelCommonSettings = {
@@ -57,13 +61,13 @@ const ringModelCommonSettings = {
 const _settings = {
   VTOModes: {
     wrist: Object.assign({      
-      NNsPaths: [NNPath + 'NN_WRIST_RP_' + NNWristVersion + '.json', NNPath + 'NN_WRIST_RB_' + NNWristVersion + '.json']
-      //NNsPaths: [NNPath + 'NN_WRIST_' + NNWristVersion + '.json']
+      //NNsPaths: [NNPath + 'NN_WRIST_RP_' + NNWristVersion + '.json', NNPath + 'NN_WRIST_RB_' + NNWristVersion + '.json']
+      NNsPaths: [NNPath + 'NN_WRIST_' + NNWristVersion + '.json']
     }, wristModesCommonSettings),
     
     ring: Object.assign({
-      NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
-      //NNsPaths: [NNPath + 'NN_RING_' + NNRingVersion + '.json']
+      //NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
+      NNsPaths: [NNPath + 'NN_RING_' + NNRingVersion + '.json']
     }, ringModesCommonSettings),
   },
 
@@ -130,6 +134,7 @@ function main(){
     stabilizationSettings: {
       switchNNErrorThreshold: 0.5
     },
+    objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,
     NNsPaths: VTOModeSettings.NNsPaths,
@@ -164,6 +169,7 @@ function change_VTOMode(newVTOMode){
 
   const VTOModeSettings = _settings.VTOModes[newVTOMode];
   return HandTrackerVTOThreeHelper.update({
+    objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,
     NNsPaths: VTOModeSettings.NNsPaths,

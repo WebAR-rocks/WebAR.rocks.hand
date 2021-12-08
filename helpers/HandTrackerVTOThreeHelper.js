@@ -38,6 +38,7 @@ const HandTrackerVTOThreeHelper = (function(){
     poseLandmarksLabels: ["wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop"],
     isInverseYZObjectPosition: false,
     objectPositionTweaker: null,
+    objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
     enableFlipObject: true, // flip the object if left hand. useful for hand accessories
     
@@ -263,6 +264,8 @@ const HandTrackerVTOThreeHelper = (function(){
       posTweaked[2] = y;
     }
 
+    //posTweaked[2]*=1.5;
+
     return posTweaked;
   }
 
@@ -276,6 +279,7 @@ const HandTrackerVTOThreeHelper = (function(){
       if (isInvX){
         pos[0] *= -1.0;
       }
+      //console.log('3D pos of', landmarksInfo[ind].label, ': ', pos);
       const threePos = new THREE.Vector3().fromArray(pos);
       mean.add(threePos);
       return pos;
@@ -286,6 +290,10 @@ const HandTrackerVTOThreeHelper = (function(){
     points.forEach(function(pos, ind){
       pos[0] -= mean.x, pos[1] -= mean.y, pos[2] -= mean.z;
 
+      pos[0] *= _spec.objectPointsPositionFactors[0],
+      pos[1] *= _spec.objectPointsPositionFactors[1],
+      pos[2] *= _spec.objectPointsPositionFactors[2];
+      
       if (_spec.objectPositionTweaker){
         _spec.objectPositionTweaker(pos, landmarksInfo[ind].label);
       }

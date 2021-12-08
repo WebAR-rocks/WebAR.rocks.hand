@@ -10,10 +10,15 @@ import FlipCamButton from '../components/FlipCamButton.js'
 import VTOButton from '../components/VTOButton.js'
 
 // import neural network models:
-import NNWristRP from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_RP_14.json'
+// 2 neural network approach:
+/*import NNWristRP from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_RP_14.json'
 import NNWristRB from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_RB_14.json'
 import NNRingRP from '../contrib/WebARRocksHand/neuralNets/NN_RING_RP_8.json'
 import NNRingRB from '../contrib/WebARRocksHand/neuralNets/NN_RING_RB_8.json'
+*/
+// 1 neural network approach:
+import NNWrist from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_16.json'
+import NNRing from '../contrib/WebARRocksHand/neuralNets/NN_RING_10.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerVTOThreeHelper.js'
@@ -37,7 +42,7 @@ const SETTINGS = {
     wrist: {
       threshold: 0.92, // detection sensitivity, between 0 and 1
   
-      NNs: [NNWristRP, NNWristRB],
+      NNs: [NNWrist],//[NNWristRP, NNWristRB],
       poseLandmarksLabels: ["wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom"],
       isPoseFilter: true,
 
@@ -49,12 +54,14 @@ const SETTINGS = {
         height: 48, // height of the cylinder
         offset: [0,0,0], // relative to the wrist 3D model
         quaternion: [0.707,0,0,0.707] // rotation of Math.PI/2 along X axis
-      }
+      },
+
+      objectPointsPositionFactors: [1.0, 1.5, 1.0] // factors to apply to point positions to lower pose angles - dirty tweak
     },
     ring: {
       threshold: 0.9, // detection sensitivity, between 0 and 1
 
-      NNs: [NNRingRP, NNRingRB],
+      NNs: [NNRing],//[NNRingRP, NNRingRB],
       poseLandmarksLabels: ["ringBack", "ringLeft", "ringRight", "ringPalm", "ringPalmTop", "ringBackTop",
          "ringBase0", "ringBase1", "ringMiddleFinger", "ringPinkyFinger", "ringBasePalm"], //*/
       isPoseFilter: false,
@@ -64,7 +71,9 @@ const SETTINGS = {
         type: "MODEL",
         model: GLTFOccluderModelRing,
         scale: 1
-      }
+      },
+
+      objectPointsPositionFactors: [1.0, 1.0, 1.0] // factors to apply to point positions to lower pose angles - dirty tweak
     }
   }, // end VTOModes
 
@@ -280,6 +289,7 @@ const VTO = () => {
     if (_prevVTOMode !== VTOMode){
       const poseFilter = (VTOMode.isPoseFilter) ? PoseFlipFilter.instance({}) : null
       VTOThreeHelper.update({
+        objectPointsPositionFactors: VTOMode.objectPointsPositionFactors,
         poseLandmarksLabels: VTOMode.poseLandmarksLabels,
         poseFilter,
         NNs: VTOMode.NNs,
@@ -324,6 +334,7 @@ const VTO = () => {
     const poseFilter = (VTOMode.isPoseFilter) ? PoseFlipFilter.instance({}) : null
 
     VTOThreeHelper.init({
+      objectPointsPositionFactors: VTOMode.objectPointsPositionFactors,
       poseLandmarksLabels: VTOMode.poseLandmarksLabels,
       poseFilter,
       enableFlipObject: true,
