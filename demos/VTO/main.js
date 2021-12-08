@@ -239,6 +239,8 @@ function load_model(modelId, threeLoadingManager){
 
 
 function start(three){
+  VTOCanvas.style.zIndex = 3; // fix a weird bug on iOS15 / safari
+
   set_lighting(three);
 
   three.loadingManager.onLoad = function(){
