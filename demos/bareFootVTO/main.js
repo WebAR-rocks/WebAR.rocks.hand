@@ -59,7 +59,7 @@ function main(){
   setFullScreen(VTOCanvas);
 
 
-  HandTrackerVTOThreeHelper.init({
+  HandTrackerThreeHelper.init({
     poseLandmarksLabels: [
       'ankleBack', 'ankleOut', 'ankleIn', 'ankleFront',
       'heelBackOut', 'heelBackIn',
@@ -109,7 +109,7 @@ function start(three){
     const s = 1;
     const cubeGeom = new THREE.BoxGeometry(s,s,s);
     const cubeMesh = new THREE.Mesh(cubeGeom,new THREE.MeshNormalMaterial());
-    HandTrackerVTOThreeHelper.add_threeObject(cubeMesh);
+    HandTrackerThreeHelper.add_threeObject(cubeMesh);
   }
 
   function transform(threeObject){
@@ -121,13 +121,13 @@ function start(three){
   new THREE.GLTFLoader().load(_settings.shoeRightPath, function(gltf){
     const shoe = gltf.scene;
     transform(shoe);
-    HandTrackerVTOThreeHelper.add_threeObject(shoe);
+    HandTrackerThreeHelper.add_threeObject(shoe);
   });
 
   new THREE.GLTFLoader().load(_settings.occluderPath, function(gltf){
     const occluder = gltf.scene.children[0];
     transform(occluder);
-    HandTrackerVTOThreeHelper.add_threeOccluder(occluder);
+    HandTrackerThreeHelper.add_threeOccluder(occluder);
   });
 
 } //end start()

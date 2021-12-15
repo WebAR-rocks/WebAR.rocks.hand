@@ -20,7 +20,7 @@ import WebARRocksLMStabilizer from './stabilizers/WebARRocksLMStabilizer2.js';
 import WEBARROCKSHAND from '../dist/WebARRocksHand.module.js';
 
 
-const HandTrackerVTOThreeHelper = (function(){
+const HandTrackerThreeHelper = (function(){
   // private variables:
   const NNPath = '../../neuralNets/';
   const _defaultSpec = {
@@ -371,7 +371,7 @@ const HandTrackerVTOThreeHelper = (function(){
     const fy = 0.5 * viewHeight / Math.tan(halfFovYRad);
     const fx = fy;
 
-    console.log('INFO in HandTrackerVTOThreeHelper - update_focals(): fy =', fy);
+    console.log('INFO in HandTrackerThreeHelper - update_focals(): fy =', fy);
     
     const focals = _poseEstimation.focals;
     focals[0] = fx, focals[1] = fy;
@@ -924,4 +924,4 @@ const HandTrackerVTOThreeHelper = (function(){
 })(); 
 
 
-export default HandTrackerVTOThreeHelper;
+export default HandTrackerThreeHelper;

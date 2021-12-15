@@ -116,7 +116,7 @@ function main(){
   setFullScreen(handTrackerCanvas);
   setFullScreen(VTOCanvas);
 
-  HandTrackerVTOThreeHelper.init({
+  HandTrackerThreeHelper.init({
     poseLandmarksLabels: [
       'palmBaseThumb', 'palmSideIndex', 'palmIndexMiddle', 'palmMiddleRing', 'palmRingPinky', 'palmSidePinky',
       'palmWrist', 'palmMiddle', 'palmSide',
@@ -293,7 +293,7 @@ function start(three){
     console.log('INFO in main.js: Start hand tracking');
     hide_DOMLoading();
 
-    HandTrackerVTOThreeHelper.add_threeObject(_three.tracker);
+    HandTrackerThreeHelper.add_threeObject(_three.tracker);
 
     WEBARROCKSHAND.toggle_pause(false);
     _state.app = _appStates.running;
@@ -638,7 +638,7 @@ function hide_DOMInstructions(){
 
 
 function destroy(){
-  return HandTrackerVTOThreeHelper.destroy().then(function(){
+  return HandTrackerThreeHelper.destroy().then(function(){
     Object.assign(_state, _defaultState);
     Object.assign(_three, _defaultThree);
     _previousIsDetected = false;

@@ -130,7 +130,7 @@ function main(){
   const VTOModeSettings = _settings.VTOModes[_VTOMode];
 
   // initialize Helper:
-  HandTrackerVTOThreeHelper.init({
+  HandTrackerThreeHelper.init({
     stabilizationSettings: {
       switchNNErrorThreshold: 0.5
     },
@@ -165,10 +165,10 @@ function change_VTOMode(newVTOMode){
   console.log('INFO in main.js - change_VTOMode(): change VTO Mode to ', newVTOMode);
 
   // clear everything including occluders:
-  HandTrackerVTOThreeHelper.clear_threeObjects(true);
+  HandTrackerThreeHelper.clear_threeObjects(true);
 
   const VTOModeSettings = _settings.VTOModes[newVTOMode];
-  return HandTrackerVTOThreeHelper.update({
+  return HandTrackerThreeHelper.update({
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,
@@ -192,7 +192,7 @@ function load_model(modelId, threeLoadingManager){
   const modelSettings = _settings.models[modelId];
 
   // remove previous model but not occluders:
-  HandTrackerVTOThreeHelper.clear_threeObjects(false);
+  HandTrackerThreeHelper.clear_threeObjects(false);
   
   // look if we should change the VTOMode:
   if (modelSettings.VTOMode !== _VTOMode ) {
@@ -230,7 +230,7 @@ function load_model(modelId, threeLoadingManager){
     }
 
     // add to the tracker:
-    HandTrackerVTOThreeHelper.add_threeObject(me);
+    HandTrackerThreeHelper.add_threeObject(me);
 
     _state = _states.running;
 
@@ -268,7 +268,7 @@ function add_wholeHand(threeLoadingManager){
         threeStuff.material = new THREE.MeshNormalMaterial();
       }
     })
-    HandTrackerVTOThreeHelper.add_threeObject(debugHandModel);
+    HandTrackerThreeHelper.add_threeObject(debugHandModel);
   });
 }
 
@@ -296,7 +296,7 @@ function add_hardOccluder(VTOModeSettings){
         me.material = new THREE.MeshNormalMaterial();
         return;
       }
-      HandTrackerVTOThreeHelper.add_threeOccluder(me);
+      HandTrackerThreeHelper.add_threeOccluder(me);
       accept();
     });
   });
@@ -313,7 +313,7 @@ function add_softOccluder(VTOModeSettings){
   const dr = VTOModeSettings.occluderRadiusRange[1] - VTOModeSettings.occluderRadiusRange[0];
   occluderMesh.position.fromArray(VTOModeSettings.occluderOffset);
   occluderMesh.quaternion.fromArray(VTOModeSettings.occluderQuaternion);
-  HandTrackerVTOThreeHelper.add_threeSoftOccluder(occluderMesh, occluderRadius, dr, _settings.debugOccluder);
+  HandTrackerThreeHelper.add_threeSoftOccluder(occluderMesh, occluderRadius, dr, _settings.debugOccluder);
   return Promise.resolve();
 }
 

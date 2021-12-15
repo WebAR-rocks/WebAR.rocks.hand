@@ -88,7 +88,7 @@ function main(){
   setFullScreen(handTrackerCanvas);
   setFullScreen(VTOCanvas);
 
-  HandTrackerVTOThreeHelper.init({
+  HandTrackerThreeHelper.init({
     poseLandmarksLabels: [
       'palmBaseThumb', 'palmSideIndex', 'palmIndexMiddle', 'palmMiddleRing', 'palmRingPinky', 'palmSidePinky',
       'palmWrist', 'palmMiddle', 'palmSide',
@@ -209,7 +209,7 @@ function start(three){
     });
 
     // add to the tracker:
-    HandTrackerVTOThreeHelper.add_threeObject(_three.tracker);
+    HandTrackerThreeHelper.add_threeObject(_three.tracker);
 
     // animate:
     const animationClip = gltf.animations[0];

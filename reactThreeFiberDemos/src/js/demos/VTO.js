@@ -21,7 +21,7 @@ import NNWrist from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_16.json'
 import NNRing from '../contrib/WebARRocksHand/neuralNets/NN_RING_10.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
-import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerVTOThreeHelper.js'
+import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerThreeHelper.js'
 
 //import PoseFlipFilter
 import PoseFlipFilter from '../contrib/WebARRocksHand/helpers/PoseFlipFilter.js'

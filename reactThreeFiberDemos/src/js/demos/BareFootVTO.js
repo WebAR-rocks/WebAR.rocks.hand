@@ -12,7 +12,7 @@ import FlipCamButton from '../components/FlipCamButton.js'
 import NN from '../contrib/WebARRocksHand/neuralNets/NN_BAREFOOT_2.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
-import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerVTOThreeHelper.js'
+import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerThreeHelper.js'
 
 //import PoseFlipFilter
 import PoseFlipFilter from '../contrib/WebARRocksHand/helpers/PoseFlipFilter.js'

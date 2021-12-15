@@ -83,7 +83,7 @@ function main(){
   setFullScreen(handTrackerCanvas);
   setFullScreen(VTOCanvas);
 
-  HandTrackerVTOThreeHelper.init({
+  HandTrackerThreeHelper.init({
     poseLandmarksLabels: [
       'palmBaseThumb', 'palmSideIndex', 'palmIndexMiddle', 'palmMiddleRing', 'palmRingPinky', 'palmSidePinky',
       'palmWrist', 'palmMiddle', 'palmSide',
@@ -180,7 +180,7 @@ function start(three){
     set_poppingObject(animatedObjectContainer);
 
     // add to the tracker:
-    HandTrackerVTOThreeHelper.add_threeObject(_three.tracker);
+    HandTrackerThreeHelper.add_threeObject(_three.tracker);
 
     // animate:
     const animationClip = gltf.animations[0];
@@ -206,7 +206,7 @@ function start(three){
           threeStuff.material = new THREE.MeshNormalMaterial();
         }
       })
-      HandTrackerVTOThreeHelper.add_threeObject(debugHandModel);
+      HandTrackerThreeHelper.add_threeObject(debugHandModel);
     });
   }
 

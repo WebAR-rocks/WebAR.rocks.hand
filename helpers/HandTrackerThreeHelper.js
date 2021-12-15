@@ -11,7 +11,7 @@
  * OR TO ADDRESS A SPECIFIC USE CASE.
  */
 
-const HandTrackerVTOThreeHelper = (function(){
+const HandTrackerThreeHelper = (function(){
   // private variables:
   const NNPath = '../../neuralNets/';
   const _defaultSpec = {
@@ -448,7 +448,7 @@ const HandTrackerVTOThreeHelper = (function(){
     const fy = 0.5 * that.get_viewHeight() * cotanHalfFovY;
     const fx = fy;
 
-    console.log('INFO in HandTrackerVTOThreeHelper - update_focals(): fy =', fy);
+    console.log('INFO in HandTrackerThreeHelper - update_focals(): fy =', fy);
     
     const focals = _poseEstimation.focals;
     focals[0] = fx, focals[1] = fy;
@@ -896,7 +896,7 @@ const HandTrackerVTOThreeHelper = (function(){
 
 // Export ES6 module:
 try {
-  module.exports = HandTrackerVTOThreeHelper;
+  module.exports = HandTrackerThreeHelper;
 } catch(e){
   console.log('ES6 Module not exported');
 }
