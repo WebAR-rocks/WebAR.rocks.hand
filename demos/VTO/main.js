@@ -3,8 +3,8 @@ const NNPath = '../../neuralNets/';
 //const NNWristVersion = '14';
 //const NNRingVersion = '8';
 
-const NNWristVersion = '16';
-const NNRingVersion = '10';
+const NNWristVersion = '17';
+const NNRingVersion = '11';
 
 const wristModesCommonSettings = {
   threshold: 0.92, // detection sensitivity, between 0 and 1

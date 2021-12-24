@@ -7,7 +7,7 @@ import FlipCamButton from '../components/FlipCamButton.js'
 // import neural network model:
 //import NN_RP from '../contrib/WebARRocksHand/neuralNets/NN_NAV_RP_8.json'
 //import NN_RB from '../contrib/WebARRocksHand/neuralNets/NN_NAV_RB_8.json'
-import NN from '../contrib/WebARRocksHand/neuralNets/NN_NAV_14.json'
+import NN from '../contrib/WebARRocksHand/neuralNets/NN_NAV_16.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import navigationHelper from '../contrib/WebARRocksHand/helpers/HandTrackerNavigationHelper.js'

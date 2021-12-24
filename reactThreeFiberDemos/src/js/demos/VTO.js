@@ -17,8 +17,8 @@ import NNRingRP from '../contrib/WebARRocksHand/neuralNets/NN_RING_RP_8.json'
 import NNRingRB from '../contrib/WebARRocksHand/neuralNets/NN_RING_RB_8.json'
 */
 // 1 neural network approach:
-import NNWrist from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_16.json'
-import NNRing from '../contrib/WebARRocksHand/neuralNets/NN_RING_10.json'
+import NNWrist from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_17.json'
+import NNRing from '../contrib/WebARRocksHand/neuralNets/NN_RING_11.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerThreeHelper.js'
