@@ -7,7 +7,7 @@ const NNWristVersion = '18';
 const NNRingVersion = '12'; //*/
 
 const wristModesCommonSettings = {
-  threshold: 0.92, // detection sensitivity, between 0 and 1
+  threshold: 0.85, // detection sensitivity, between 0 and 1
   
   poseLandmarksLabels: [
   // wristRightBottom not working
@@ -23,6 +23,7 @@ const wristModesCommonSettings = {
   occluderHeight: 48, // height of the cylinder
   occluderOffset: [0,0,0], // relative to the wrist 3D model
   occluderQuaternion: [0.707,0,0,0.707], // rotation of Math.PI/2 along X axis,
+  occluderFlattenCoeff: 1.0, // 1 -> occluder is a cylinder 0.5 -> flatten by 50%
 
   objectPointsPositionFactors: [1.0, 1.5, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
 };
@@ -148,7 +149,7 @@ function main(){
 } 
 
 
-function set_lighting(three){
+function setup_lighting(three){
   const scene = three.scene;
 
   // TODO: customize
@@ -241,7 +242,7 @@ function load_model(modelId, threeLoadingManager){
 function start(three){
   VTOCanvas.style.zIndex = 3; // fix a weird bug on iOS15 / safari
 
-  set_lighting(three);
+  setup_lighting(three);
 
   three.loadingManager.onLoad = function(){
     console.log('INFO in main.js: All THREE.js stuffs are loaded');
@@ -313,6 +314,7 @@ function add_softOccluder(VTOModeSettings){
   const dr = VTOModeSettings.occluderRadiusRange[1] - VTOModeSettings.occluderRadiusRange[0];
   occluderMesh.position.fromArray(VTOModeSettings.occluderOffset);
   occluderMesh.quaternion.fromArray(VTOModeSettings.occluderQuaternion);
+  occluderMesh.scale.set(1.0, 1.0, VTOModeSettings.occluderFlattenCoeff);
   HandTrackerThreeHelper.add_threeSoftOccluder(occluderMesh, occluderRadius, dr, _settings.debugOccluder);
   return Promise.resolve();
 }
