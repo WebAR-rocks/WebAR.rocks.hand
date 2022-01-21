@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, Suspense } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 // import GLTF loader - originally in examples/jsm/loaders/
-import { GLTFLoader } from '../contrib/three/v126/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 // import components:
 import BackButton from '../components/BackButton.js'
