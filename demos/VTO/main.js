@@ -3,8 +3,8 @@ const NNPath = '../../neuralNets/';
 //const NNWristVersion = '14';
 //const NNRingVersion = '8';
 
-const NNWristVersion = '18';
-const NNRingVersion = '12'; //*/
+const NNWristVersion = '19';
+const NNRingVersion = '13'; //*/
 
 const wristModesCommonSettings = {
   threshold: 0.85, // detection sensitivity, between 0 and 1
@@ -33,6 +33,7 @@ const ringModesCommonSettings = {
 
   poseLandmarksLabels: ["ringBack", "ringLeft", "ringRight", "ringPalm", "ringPalmTop", "ringBackTop",
      "ringBase0", "ringBase1", "ringMiddleFinger", "ringPinkyFinger", "ringBasePalm"], //*/
+
   isPoseFilter: false,
 
   // Occluder parameters:
@@ -82,6 +83,7 @@ const _settings = {
     }, ringModelCommonSettings)
   },
   initialModel: 'wristDemo',
+  //initialModel: 'ringDemo',
 
   // debug flags:
   debugDisplayLandmarks: false,
