@@ -54,7 +54,7 @@ The best demos have been ported to a modern front-end development environment (N
 * Hand based navigation: [live demo](https://webar.rocks/demos/hand/demos/navigation/), [source code](/demos/navigation/)
 * Foot tracking - ballerina shoes VTO: [live demo](https://webar.rocks/demos/hand/demos/bareFootVTO/), [source code](/demos/bareFootVTO/)
 * 3D Object manipulation: 
-  * Boilerplate:[live demo](https://webar.rocks/demos/hand/demos/objectManip/), [source code](/demos/objectManip)
+  * Boilerplate: [live demo](https://webar.rocks/demos/hand/demos/objectManip/), [source code](/demos/objectManip)
   * Velociraptor demo: [live demo](https://webar.rocks/demos/hand/demos/objectManip2/), [source code](/demos/objectManip2)
   * Cute ghost demo: [live demo](https://webar.rocks/demos/hand/demos/objectManip3/), [source code](/demos/objectManip3)
   * Velociraptor demo with persistency if hand tracking is lost: [live demo](https://webar.rocks/demos/hand/demos/objectManip4/), [source code](/demos/objectManip4)

@@ -17,7 +17,7 @@ const _settings = {
 const _three = {
   loadingManager: null,
   tracker: null
-}
+};
 
 const _states = {
   notLoaded: -1,
@@ -27,7 +27,7 @@ const _states = {
 };
 let _state = _states.notLoaded;
 let _isSelfieCam = false;
-let _animationMixer = null, _clock;
+let _animationMixer = null, _clock = null;
 
 
 function setFullScreen(cv){
@@ -115,7 +115,7 @@ function start(three){
   }
 
   // load the velociraptor 3D model:
-  new THREE.GLTFLoader().load('assets/velociraptor.glb', function(gltf){
+  new THREE.GLTFLoader(three.loadingManager).load('assets/velociraptor.glb', function(gltf){
     const animatedObjectContainer = new THREE.Object3D();
     const animatedObject = gltf.scene;
     animatedObjectContainer.add(animatedObject);
