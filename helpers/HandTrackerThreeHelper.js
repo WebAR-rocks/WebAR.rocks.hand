@@ -125,6 +125,13 @@ const HandTrackerThreeHelper = (function(){
       uniforms: {}
     };
   }
+
+
+  // return true if IOS:
+  function check_isAppleCrap(){
+    return /iPad|iPhone|iPod/.test(navigator.platform)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
   
 
   // build shader programs:
@@ -192,6 +199,16 @@ const HandTrackerThreeHelper = (function(){
       preserveDrawingBuffer: true
     });
     _three.renderer.setClearAlpha(0);
+
+    // Fix a weird issue with IOS15.3 and 15.4:
+    if (check_isAppleCrap()){
+      const threeCanvasStyle = _three.renderer.domElement.style;
+      console.log('IOS Detect, apply a crappy workaround');
+      threeCanvasStyle.backgroundColor = 'darkblue';
+      setTimeout(function(){
+        threeCanvasStyle.backgroundColor = 'transparent';
+      }, 10);
+    }
 
     // init scene:
     _three.scene = new THREE.Scene();

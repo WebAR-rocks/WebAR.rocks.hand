@@ -101,6 +101,7 @@ const PoseFlipFilter = (function(){
         return _threeBS.radius;
       }
 
+
       function compute_apparentDiameterPx(radius, threeMatMov, threeCamera, viewHeightPx){
         
         // compute zObject, distance between camera and object center along Z axis
@@ -114,6 +115,7 @@ const PoseFlipFilter = (function(){
 
         return d;
       }
+
 
       const that = {
         clone: function(){
@@ -133,9 +135,11 @@ const PoseFlipFilter = (function(){
             _previous.threeQuaternion.copy(_threeQuaternion);
             _previous.threePosition.copy(_threePosition);
 
-            _boundingSphereRadius = compute_objectBoundingSphereRadius(threeObject);
-            if (isNaN(_boundingSphereRadius)){
-              _resetCounter = 0;
+            if (_boundingSphereRadius < 0){ // costly to compute, we should not do it often
+              _boundingSphereRadius = compute_objectBoundingSphereRadius(threeObject);
+              if (isNaN(_boundingSphereRadius)){
+                _resetCounter = 0;
+              }
             }
           } else {
             // GET METRICS FROM 2D POINT DISPLACEMENT: 
