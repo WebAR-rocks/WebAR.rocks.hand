@@ -2,7 +2,9 @@ const _settings = {
   threshold: 0.9, // detection sensitivity, between 0 and 1
 
   // to get this parameters, open /dev/models3D/handWithPlaceholders.blend
-  // and look the pose of CubePalm mesh:
+  // and look the pose of CubePalm mesh
+  // The real position of the dinosaur compared to the hand is implemented in this Blender file:
+  // /dev/models3D/handWithObjectManipDinosaur.blend
   scale: 2.6, 
   translation: [0, -6.73, -1.68],
   quaternion: [0.993, 0, 0, 0.11], // X,Y,Z,W

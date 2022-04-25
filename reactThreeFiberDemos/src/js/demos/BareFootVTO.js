@@ -9,7 +9,7 @@ import BackButton from '../components/BackButton.js'
 import FlipCamButton from '../components/FlipCamButton.js'
 
 // import neural network model:
-import NN from '../contrib/WebARRocksHand/neuralNets/NN_BAREFOOT_2.json'
+import NN from '../contrib/WebARRocksHand/neuralNets/NN_BAREFOOT_3.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerThreeHelper.js'
@@ -28,7 +28,7 @@ import GLTFOccluderModel from '../../assets/bareFootVTO/occluder.glb'
 
 // fake component, display nothing
 // just used to get the Camera and the renderer used by React-fiber:
-const DirtyHook = (props) => {
+const ThreeGrabber = (props) => {
   const threeFiber = useThree()
 
   // tweak encoding:
@@ -149,7 +149,7 @@ const BareFootVTO = () => {
       enableFlipObject: true,
       cameraZoom: 1,
       freeZRot: false,
-      threshold: 0.5, // detection threshold, between 0 and 1. + -> harder detection but less false positive
+      threshold: 0.6, // detection threshold, between 0 and 1. + -> harder detection but less false positive
       handTrackerCanvas: canvasVideoRef.current,
       debugDisplayLandmarks: false, // true to display landmarks
       NNs: [ NN ],
@@ -199,7 +199,7 @@ const BareFootVTO = () => {
       }}
       updateDefaultCamera = {false}
       >
-        <DirtyHook sizing={sizing}/>
+        <ThreeGrabber sizing={sizing}/>
         
         <Suspense fallback={<DebugCube />}>
           <VTOModelContainer GLTFModel={_GLTFModel} GLTFOccluderModel={_GLTFOccluderModel} pose={_pose} />

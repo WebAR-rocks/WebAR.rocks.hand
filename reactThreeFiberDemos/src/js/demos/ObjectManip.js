@@ -27,7 +27,7 @@ let _threeAnimationMixer = null
 
 // fake component, display nothing
 // just used to get the Camera and the renderer used by React-fiber:
-const DirtyHook = (props) => {
+const ThreeGrabber = (props) => {
   const threeFiber = useThree()
 
   // tweak encoding:
@@ -213,7 +213,7 @@ const ObjectManip = () => {
       }}
       updateDefaultCamera = {false}
       >
-        <DirtyHook sizing={sizing}/>
+        <ThreeGrabber sizing={sizing}/>
         
         <Suspense fallback={<DebugCube />}>
           <VTOModelContainer GLTFModel={_GLTFModel} pose={_pose} />
