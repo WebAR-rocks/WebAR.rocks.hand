@@ -1,6 +1,13 @@
 import React, { useEffect, useRef, useState, Suspense } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
-import * as THREE from 'three'
+import {
+  ACESFilmicToneMapping,
+  CylinderGeometry,
+  Mesh,
+  MeshNormalMaterial,
+  sRGBEncoding,
+  Vector3
+} from 'three'
 // import GLTF loader - originally in examples/jsm/loaders/
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
@@ -108,8 +115,8 @@ const ThreeGrabber = (props) => {
 
   // tweak encoding:
   const threeRenderer = threeFiber.gl
-  threeRenderer.toneMapping = THREE.ACESFilmicToneMapping
-  threeRenderer.outputEncoding = THREE.sRGBEncoding
+  threeRenderer.toneMapping = ACESFilmicToneMapping
+  threeRenderer.outputEncoding = sRGBEncoding
 
   useFrame(VTOThreeHelper.update_threeCamera.bind(null, props.sizing, threeFiber.camera))
   
@@ -132,9 +139,9 @@ const compute_sizing = () => {
 
 const create_softOccluder = (occluder) => {
   const occluderRadius = occluder.radiusRange[1]
-  const occluderMesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(occluderRadius, occluderRadius, occluder.height, 32, 1, true),
-    new THREE.MeshNormalMaterial()
+  const occluderMesh = new Mesh(
+    new CylinderGeometry(occluderRadius, occluderRadius, occluder.height, 32, 1, true),
+    new MeshNormalMaterial()
   )
   const dr = occluder.radiusRange[1] - occluder.radiusRange[0]
   occluderMesh.position.fromArray(occluder.offset)
@@ -168,7 +175,7 @@ const VTOModelContainer = (props) => {
     model.scale.set(s, s, s)
   }
   if (props.pose.translation){
-    model.position.add(new THREE.Vector3().fromArray(props.pose.translation))
+    model.position.add(new Vector3().fromArray(props.pose.translation))
   }
   if (props.pose.quaternion){
     model.quaternion.fromArray(props.pose.quaternion)

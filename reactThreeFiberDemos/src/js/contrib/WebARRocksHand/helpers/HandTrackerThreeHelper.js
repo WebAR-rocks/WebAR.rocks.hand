@@ -13,7 +13,17 @@
  * OR TO ADDRESS A SPECIFIC USE CASE.
  */
 
-import * as THREE from 'three';
+import {
+  BackSide,
+  DoubleSide,
+  CustomBlending,
+  Matrix4,
+  OneMinusSrcAlphaFactor,
+  ShaderLib,
+  ShaderMaterial,
+  Vector3,
+  ZeroFactor
+} from 'three';
 import WebARRocksLMStabilizer from './stabilizers/WebARRocksLMStabilizer2.js';
 
 // import main script:
@@ -204,7 +214,7 @@ const HandTrackerThreeHelper = (function(){
 
 
   function init_objPoints(poseLandmarksIndices, isInvX){
-    const mean = new THREE.Vector3();
+    const mean = new Vector3();
     const landmarksInfo = WEBARROCKSHAND.get_LM();
     
     const points = poseLandmarksIndices.map(function(ind){
@@ -212,7 +222,7 @@ const HandTrackerThreeHelper = (function(){
       if (isInvX){
         pos[0] *= -1;
       }
-      const threePos = new THREE.Vector3().fromArray(pos);
+      const threePos = new Vector3().fromArray(pos);
       mean.add(threePos);
       return pos;
     });
@@ -259,7 +269,7 @@ const HandTrackerThreeHelper = (function(){
 
     // init THREE stuffs:
     if (!_poseEstimation.matMov){
-      _poseEstimation.matMov = new THREE.Matrix4();
+      _poseEstimation.matMov = new Matrix4();
     }
   }
 
@@ -477,7 +487,7 @@ const HandTrackerThreeHelper = (function(){
     if (threeObject.isMesh){
       // compute matrix to apply to the geometry, K
       const M = threeObject.matrixWorld;
-      const invXMatrix = new THREE.Matrix4().makeScale(-1, 1, 1);
+      const invXMatrix = new Matrix4().makeScale(-1, 1, 1);
       const K = M.clone().invert().multiply(invXMatrix).multiply(M);
 
       // clone and invert the mesh:
@@ -503,11 +513,11 @@ const HandTrackerThreeHelper = (function(){
 
   function extract_occluder(threeObj){
     if (_three.occluderMat === null){
-      _three.occluderMat = new THREE.ShaderMaterial({
-        vertexShader: THREE.ShaderLib.basic.vertexShader,
+      _three.occluderMat = new ShaderMaterial({
+        vertexShader: ShaderLib.basic.vertexShader,
         fragmentShader: "precision lowp float;\n void main(void){\n gl_FragColor = vec4(1., 0., 0., 1.);\n }",
-        uniforms: THREE.ShaderLib.basic.uniforms,
-        side: THREE.DoubleSide,
+        uniforms: ShaderLib.basic.uniforms,
+        side: DoubleSide,
         colorWrite: false,
         depthWrite: true
       });
@@ -549,15 +559,15 @@ const HandTrackerThreeHelper = (function(){
           gl_Position = glPositionOriginal + vec4(0., 0., zBufferOffset, 0.);\n\
         }";
 
-      threeMesh.material = new THREE.ShaderMaterial({
+      threeMesh.material = new ShaderMaterial({
         vertexShader: vertexShaderSource,
         fragmentShader: "precision mediump float;\n\
           uniform float dr, radius;\n\
           varying float vRadius;\n\
           void main(void){\n\
             float alpha = smoothstep(radius, radius-dr, vRadius);\n\
-            gl_FragColor = vec4(1.,1.,1.,alpha);\n\
-            //gl_FragColor = vec4(1.,0.,0.,1.);\n\
+            gl_FragColor = vec4(1., 1., 1., alpha);\n\
+            //gl_FragColor = vec4(1., 0., 0., 1.);\n\
           }",
         uniforms: {
           dr: {
@@ -572,22 +582,17 @@ const HandTrackerThreeHelper = (function(){
         },
         transparent: true,
         toneMapped: false,
-        blending: THREE.CustomBlending,
-        blendSrc: THREE.ZeroFactor,
-        blendDst: THREE.OneMinusSrcAlphaFactor,
+        blending: CustomBlending,
+        blendSrc: ZeroFactor,
+        blendDst: OneMinusSrcAlphaFactor,
         colorWrite: true
       });      
     }
 
    
     threeMesh.renderOrder = 1e12; // render last for good transparency compositing
-    threeMesh.material.side = THREE.BackSide;
+    threeMesh.material.side = BackSide;
     threeMesh.userData.isOccluder = true;
-
-    //threeMesh.material.side = THREE.DoubleSide;
-    //threeMesh.material.blending = THREE.NormalBlending;
-    window.THREE = THREE;
-    //debugger;
 
     unlink_object(threeMesh);
     return threeMesh;

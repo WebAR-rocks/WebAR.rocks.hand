@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
-import * as THREE from 'three'
+import {
+  ACESFilmicToneMapping,
+  sRGBEncoding
+} from 'three'
 // import GLTF loader - originally in examples/jsm/loaders/
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
@@ -33,8 +36,8 @@ const ThreeGrabber = (props) => {
 
   // tweak encoding:
   const threeRenderer = threeFiber.gl
-  threeRenderer.toneMapping = THREE.ACESFilmicToneMapping
-  threeRenderer.outputEncoding = THREE.sRGBEncoding
+  threeRenderer.toneMapping = ACESFilmicToneMapping
+  threeRenderer.outputEncoding = sRGBEncoding
 
   useFrame(VTOThreeHelper.update_threeCamera.bind(null, props.sizing, threeFiber.camera))
   

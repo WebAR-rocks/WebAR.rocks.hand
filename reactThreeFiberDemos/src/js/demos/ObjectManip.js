@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect, Suspense } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
-import * as THREE from 'three'
+import {
+  ACESFilmicToneMapping,
+  AnimationMixer,
+  Clock,
+  sRGBEncoding
+} from 'three'
 // import GLTF loader - originally in examples/jsm/loaders/
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
@@ -32,8 +37,8 @@ const ThreeGrabber = (props) => {
 
   // tweak encoding:
   const threeRenderer = threeFiber.gl
-  threeRenderer.toneMapping = THREE.ACESFilmicToneMapping
-  threeRenderer.outputEncoding = THREE.sRGBEncoding
+  threeRenderer.toneMapping = ACESFilmicToneMapping
+  threeRenderer.outputEncoding = sRGBEncoding
 
   useFrame(VTOThreeHelper.update_threeCamera.bind(null, props.sizing, threeFiber.camera))
   
@@ -68,7 +73,7 @@ const VTOModelContainer = (props) => {
 
   // init velociraptor animation:
   const animationClip = gltf.animations[0]
-  _threeAnimationMixer = new THREE.AnimationMixer(model)
+  _threeAnimationMixer = new AnimationMixer(model)
   const animationAction = _threeAnimationMixer.clipAction( animationClip )
   animationAction.play()
   
@@ -115,7 +120,7 @@ const ObjectManip = () => {
     }
   const _GLTFModel = GLTFModel
   let _timerResize = null
-  const _threeClock = new THREE.Clock()
+  const _threeClock = new Clock()
 
   const handle_resize = () => {
     // do not resize too often:

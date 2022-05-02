@@ -13,7 +13,13 @@
  * OR TO ADDRESS A SPECIFIC USE CASE.
  */
 
-import * as THREE from 'three'
+import {
+  Box3,
+  Matrix4,
+  Quaternion,
+  Sphere,
+  Vector3
+} from 'three'
 
 const PoseFlipFilter = (function(){
   const _defaultSpec = {
@@ -61,26 +67,26 @@ const PoseFlipFilter = (function(){
 
       const _previous = {
         imagePointPositions: null,
-        threeQuaternion: new THREE.Quaternion(),
-        threePosition: new THREE.Vector3()
+        threeQuaternion: new Quaternion(),
+        threePosition: new Vector3()
       };
       let _resetCounter = 0;
       
-      const _threeFilteredMatMov = new THREE.Matrix4();
-      const _threeWP = new THREE.Vector3(); // working point;
+      const _threeFilteredMatMov = new Matrix4();
+      const _threeWP = new Vector3(); // working point;
 
       // input pose extracted parameters:
-      const _threeQuaternion = new THREE.Quaternion();
-      const _threePosition = new THREE.Vector3();
-      const _threeScale = new THREE.Vector3(1,1,1);
+      const _threeQuaternion = new Quaternion();
+      const _threePosition = new Vector3();
+      const _threeScale = new Vector3(1.0, 1.0, 1.0);
 
       // applied parameters:
-      const _threeQuaternionApplied = new THREE.Quaternion();
-      const _threePositionApplied = new THREE.Vector3();
+      const _threeQuaternionApplied = new Quaternion();
+      const _threePositionApplied = new Vector3();
 
       // bounding volumes:
-      const _threeBB = new THREE.Box3();
-      const _threeBS = new THREE.Sphere();
+      const _threeBB = new Box3();
+      const _threeBS = new Sphere();
       let _boundingSphereRadius = -1;
       
 
@@ -164,7 +170,7 @@ const PoseFlipFilter = (function(){
             }//*/
             
             // apply amortization factors:
-            THREE.Quaternion.slerp(_previous.threeQuaternion, _threeQuaternion, _threeQuaternionApplied, rotFactor);
+            Quaternion.slerp(_previous.threeQuaternion, _threeQuaternion, _threeQuaternionApplied, rotFactor);
             _threePositionApplied.lerpVectors(_previous.threePosition, _threePosition, posFactor);
             
             // save image point positions for next iteration:
