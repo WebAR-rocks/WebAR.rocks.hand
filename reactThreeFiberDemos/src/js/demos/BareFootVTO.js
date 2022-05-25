@@ -153,6 +153,11 @@ const BareFootVTO = () => {
       cameraZoom: 1,
       freeZRot: false,
       threshold: 0.6, // detection threshold, between 0 and 1. + -> harder detection but less false positive
+      scanSettings: {
+        multiDetectionSearchSlotsRate: 0.5,
+        multiDetectionEqualizeSearchSlotScale: true, 
+        multiDetectionForceSearchOnOtherSide: true
+      },
       handTrackerCanvas: canvasVideoRef.current,
       debugDisplayLandmarks: false, // true to display landmarks
       NNs: [ NN ],

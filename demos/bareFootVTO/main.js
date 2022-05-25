@@ -70,6 +70,11 @@ function main(){
     cameraZoom: 1,
     freeZRot: false,
     threshold: _settings.threshold,
+    scanSettings: {
+      multiDetectionSearchSlotsRate: 0.5,
+      multiDetectionEqualizeSearchSlotScale: true, 
+      multiDetectionForceSearchOnOtherSide: true
+    },
     VTOCanvas: VTOCanvas,
     handTrackerCanvas: handTrackerCanvas,
     debugDisplayLandmarks: false,
