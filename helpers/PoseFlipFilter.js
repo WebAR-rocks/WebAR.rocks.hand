@@ -15,7 +15,7 @@ const PoseFlipFilter = (function(){
   const _defaultSpec = {
     dpMinPx: 5, // minimum mean point displacement. Should be >0. If 0, pose movement may stall when points are motionless
     dPixRotTol: 6, // higher -> more responsive but less filtering
-    dPixTransTol: 2, // higher -> more responsive
+    dPixTransTol: 20, // higher -> more responsive
     startStabilizeCounter: 20 // iterations count before starting stabilization after reset() called
   };
 

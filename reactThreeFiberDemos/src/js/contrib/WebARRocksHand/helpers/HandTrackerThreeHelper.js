@@ -57,7 +57,8 @@ const HandTrackerThreeHelper = (function(){
     objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
     enableFlipObject: true, // flip the object if left hand. useful for hand accessories
-    
+    stabilizerOptions: {},
+
     callbackTrack: null,
     stabilizationSettings: null,
     hideTrackerIfDetectionLost: true,
@@ -67,7 +68,7 @@ const HandTrackerThreeHelper = (function(){
     debugDisablePoseOrientation: false,
     debugDisplayLandmarks: false
   };
-  let _spec = null;
+  let _spec = null, _stabilizerModule = null;
   let _stabilizers = null, _poseFilters = null, _neuralNetworkIndices = null;
 
   let _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
@@ -640,10 +641,20 @@ const HandTrackerThreeHelper = (function(){
   }
 
 
+  function init_stabilizers(stabilizerOptions){
+    const stabilizers = [];
+    for (let i = 0; i < _spec.maxHandsDetected; ++i) {
+      stabilizers.push(_stabilizerModule.instance(stabilizerOptions));
+    }
+    return stabilizers;
+  }
+
+
   // public methods:
   const that = {
-    init: function(spec){
+    init: function(spec, stabilizerModule){
       _spec = Object.assign({}, _defaultSpec, spec);
+      _stabilizerModule = stabilizerModule || WebARRocksLMStabilizer;
 
       Object.assign(_previousSizing, {
         width: -1, height: -1
@@ -657,13 +668,13 @@ const HandTrackerThreeHelper = (function(){
       });
       
       // init landmarks stabilizers:
-      _stabilizers = [], _neuralNetworkIndices = [];
+      _neuralNetworkIndices = [];
       for (let i = 0; i < _spec.maxHandsDetected; ++i) {
-        _stabilizers.push(WebARRocksLMStabilizer.instance({}));
         _neuralNetworkIndices.push(-1);
       }
 
       _poseFilters = init_poseFilters(_spec.poseFilter);
+      _stabilizers = init_stabilizers(_spec.stabilizerOptions, _stabilizerModule);
 
       return new Promise(function(accept, reject){
         WEBARROCKSHAND.init({
@@ -718,6 +729,13 @@ const HandTrackerThreeHelper = (function(){
         }
       }).then(function(){
         init_poseEstimation();
+
+        // update stabilizer:
+        if (typeof(specUpdated.stabilizerOptions) !== 'undefined'){
+          _stabilizers = init_stabilizers(specUpdated.stabilizerOptions);
+        }
+
+        // update poseFilter:
         if (typeof(specUpdated.poseFilter) !== 'undefined'){
           _poseFilters = init_poseFilters(specUpdated.poseFilter);
         } else {

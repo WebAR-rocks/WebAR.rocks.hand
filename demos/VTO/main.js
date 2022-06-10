@@ -3,11 +3,11 @@ const NNPath = '../../neuralNets/';
 //const NNWristVersion = '14';
 //const NNRingVersion = '8';
 
-const NNWristVersion = '24';
+const NNWristVersion = '27';
 const NNRingVersion = '13'; //*/
 
 const wristModesCommonSettings = {
-  threshold: 0.85, // detection sensitivity, between 0 and 1
+  threshold: 0.92, // detection sensitivity, between 0 and 1
   
   poseLandmarksLabels: [
   // wristRightBottom not working
@@ -25,7 +25,12 @@ const wristModesCommonSettings = {
   occluderQuaternion: [0.707,0,0,0.707], // rotation of Math.PI/2 along X axis,
   occluderFlattenCoeff: 1.0, // 1 -> occluder is a cylinder 0.5 -> flatten by 50%
 
-  objectPointsPositionFactors: [1.0, 1.5, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
+  objectPointsPositionFactors: [1.0, 1.3, 1.0],
+
+  stabilizerOptions: { // factors to apply to point positions to lower pose angles - dirty tweak
+    minCutOff: 0.001,
+    beta: 3,
+  }
 };
 
 const ringModesCommonSettings = {
@@ -42,6 +47,11 @@ const ringModesCommonSettings = {
   occluderScale: 1,
 
   objectPointsPositionFactors: [1.0, 1.0, 1.0],
+
+  stabilizerOptions: { // factors to apply to point positions to lower pose angles - dirty tweak
+    minCutOff: 0.001,
+    beta: 30,
+  }
 };
 
 const wristModelCommonSettings = {
@@ -137,6 +147,7 @@ function main(){
     stabilizationSettings: {
       switchNNErrorThreshold: 0.5
     },
+    stabilizerOptions: VTOModeSettings.stabilizerOptions,
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,
@@ -172,6 +183,7 @@ function change_VTOMode(newVTOMode){
 
   const VTOModeSettings = _settings.VTOModes[newVTOMode];
   return HandTrackerThreeHelper.update({
+    stabilizerOptions: VTOModeSettings.stabilizerOptions,
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,

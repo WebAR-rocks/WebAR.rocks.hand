@@ -24,7 +24,7 @@ import NNRingRP from '../contrib/WebARRocksHand/neuralNets/NN_RING_RP_8.json'
 import NNRingRB from '../contrib/WebARRocksHand/neuralNets/NN_RING_RB_8.json'
 */
 // 1 neural network approach:
-import NNWrist from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_20.json'
+import NNWrist from '../contrib/WebARRocksHand/neuralNets/NN_WRIST_27.json'
 import NNRing from '../contrib/WebARRocksHand/neuralNets/NN_RING_13.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
@@ -32,6 +32,9 @@ import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerThreeHe
 
 //import PoseFlipFilter
 import PoseFlipFilter from '../contrib/WebARRocksHand/helpers/PoseFlipFilter.js'
+
+// import stabilizer:
+import Stabilizer from '../contrib/WebARRocksHand/helpers/stabilizers/OneEuroStabilizer.js'
 
 // ASSETS:
 // import 3D models:
@@ -63,7 +66,12 @@ const SETTINGS = {
         quaternion: [0.707,0,0,0.707] // rotation of Math.PI/2 along X axis
       },
 
-      objectPointsPositionFactors: [1.0, 1.5, 1.0] // factors to apply to point positions to lower pose angles - dirty tweak
+      stabilizerOptions: {
+        minCutOff: 0.001,
+        beta: 3,
+      },
+
+      objectPointsPositionFactors: [1.0, 1.3, 1.0] // factors to apply to point positions to lower pose angles - dirty tweak
     },
     ring: {
       threshold: 0.9, // detection sensitivity, between 0 and 1
@@ -78,6 +86,11 @@ const SETTINGS = {
         type: "MODEL",
         model: GLTFOccluderModelRing,
         scale: 1
+      },
+
+      stabilizerOptions: {
+        minCutOff: 0.001,
+        beta: 30,
       },
 
       objectPointsPositionFactors: [1.0, 1.0, 1.0] // factors to apply to point positions to lower pose angles - dirty tweak
@@ -299,6 +312,7 @@ const VTO = () => {
         objectPointsPositionFactors: VTOMode.objectPointsPositionFactors,
         poseLandmarksLabels: VTOMode.poseLandmarksLabels,
         poseFilter,
+        stabilizerOptions: VTOMode.stabilizerOptions,
         NNs: VTOMode.NNs,
         threshold: VTOMode.threshold
       }).then(() => {
@@ -351,10 +365,11 @@ const VTO = () => {
       debugDisplayLandmarks: false, // true to display landmarks
       NNs: VTOMode.NNs,
       maxHandsDetected: 1,
+      stabilizerOptions: VTOMode.stabilizerOptions,
       stabilizationSettings: {
         switchNNErrorThreshold: 0.5
       }
-    }).then(() => {
+    }, Stabilizer).then(() => {
       console.log('VTOThreeHelper is initialized')
       // handle resizing / orientation change:
       window.addEventListener('resize', handle_resize)

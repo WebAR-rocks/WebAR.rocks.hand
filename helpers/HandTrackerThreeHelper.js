@@ -42,7 +42,8 @@ const HandTrackerThreeHelper = (function(){
     objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
     enableFlipObject: true, // flip the object if left hand. useful for hand accessories
-    
+    stabilizerOptions: {},
+
     callbackTrack: null,
     stabilizationSettings: null,
     hideTrackerIfDetectionLost: true,
@@ -569,19 +570,28 @@ const HandTrackerThreeHelper = (function(){
   }
 
 
+  function init_stabilizers(stabilizerOptions){
+    const stabilizers = [];
+    for (let i = 0; i < _spec.maxHandsDetected; ++i) {
+      stabilizers.push(WebARRocksLMStabilizer.instance(stabilizerOptions));
+    }
+    return stabilizers;
+  }
+
+
   // public methods:
   const that = {
     init: function(spec){
       _spec = Object.assign({}, _defaultSpec, spec);
 
       // init landmarks stabilizers:
-      _stabilizers = [], _neuralNetworkIndices = [];
+      _neuralNetworkIndices = [];
       for (let i = 0; i < _spec.maxHandsDetected; ++i) {
-        _stabilizers.push(WebARRocksLMStabilizer.instance({}));        
         _neuralNetworkIndices.push(-1);
       }
 
       _poseFilters = init_poseFilters(_spec.poseFilter);
+      _stabilizers = init_stabilizers(_spec.stabilizerOptions);
 
       // enable post processing if temporal anti-aliasing:
       _spec.isPostProcessing = _spec.isPostProcessing || (_spec.taaLevel > 0);
@@ -642,6 +652,13 @@ const HandTrackerThreeHelper = (function(){
         }
       }).then(function(){
         init_poseEstimation();
+
+        // update stabilizer:
+        if (typeof(specUpdated.stabilizerOptions) !== 'undefined'){
+          _stabilizers = init_stabilizers(specUpdated.stabilizerOptions);
+        }
+
+        // update poseFilter:
         if (typeof(specUpdated.poseFilter) !== 'undefined'){
           _poseFilters = init_poseFilters(specUpdated.poseFilter);
         } else {
@@ -650,7 +667,8 @@ const HandTrackerThreeHelper = (function(){
               poseFilter.reset();
             }
           });
-        }        
+        }
+
       });
     },
 
