@@ -25,9 +25,9 @@ const wristModesCommonSettings = {
   occluderQuaternion: [0.707,0,0,0.707], // rotation of Math.PI/2 along X axis,
   occluderFlattenCoeff: 1.0, // 1 -> occluder is a cylinder 0.5 -> flatten by 50%
 
-  objectPointsPositionFactors: [1.0, 1.3, 1.0],
+  objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
 
-  stabilizerOptions: { // factors to apply to point positions to lower pose angles - dirty tweak
+  stabilizerOptions: { 
     minCutOff: 0.001,
     beta: 3,
   }
@@ -48,7 +48,7 @@ const ringModesCommonSettings = {
 
   objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
-  stabilizerOptions: { // factors to apply to point positions to lower pose angles - dirty tweak
+  stabilizerOptions: {
     minCutOff: 0.001,
     beta: 30,
   }
