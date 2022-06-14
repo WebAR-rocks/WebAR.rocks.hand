@@ -169,7 +169,7 @@ const WebARRocksLMStabilizer = (function(){
             let xStab = _filters[i*2].filter(x, timestamp);
             let yStab = _filters[i*2 + 1].filter(y, timestamp);
             
-            // this step is NOT included in OneEuroStabilizer.
+            // this step is NOT included in OneEuroLMStabilizer.
             // We individually reset the filter if the distance between stabilized and unstabilized landmarks
             // is above a fixed threshold. This distance is computed in neural net input pixels
             // the goal is to avoid that the filter increased latency too much, which is really bad for face expressions

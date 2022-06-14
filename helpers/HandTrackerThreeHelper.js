@@ -42,7 +42,7 @@ const HandTrackerThreeHelper = (function(){
     objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
     enableFlipObject: true, // flip the object if left hand. useful for hand accessories
-    stabilizerOptions: {},
+    landmarksStabilizerSpec: {},
 
     callbackTrack: null,
     stabilizationSettings: null,
@@ -54,7 +54,7 @@ const HandTrackerThreeHelper = (function(){
     debugDisplayLandmarks: false
   };
   let _spec = null;
-  let _stabilizers = null, _poseFilters = null, _neuralNetworkIndices = [];
+  let _landmarksStabilizers = null, _poseFilters = null, _neuralNetworkIndices = [];
 
   let _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
   
@@ -398,7 +398,7 @@ const HandTrackerThreeHelper = (function(){
     for (let i = 0; i<detectStates.length; ++i){
       const detectState = detectStates[i];
       const trackerParent = _three.trackersParent[i];
-      const stabilizer = _stabilizers[i];
+      const stabilizer = _landmarksStabilizers[i];
       const poseFilter = _poseFilters[i];
       
       if (detectState.isDetected) {
@@ -570,10 +570,10 @@ const HandTrackerThreeHelper = (function(){
   }
 
 
-  function init_stabilizers(stabilizerOptions){
+  function init_landmarksStabilizers(landmarksStabilizerSpec){
     const stabilizers = [];
     for (let i = 0; i < _spec.maxHandsDetected; ++i) {
-      stabilizers.push(WebARRocksLMStabilizer.instance(stabilizerOptions));
+      stabilizers.push(WebARRocksLMStabilizer.instance(landmarksStabilizerSpec));
     }
     return stabilizers;
   }
@@ -591,7 +591,7 @@ const HandTrackerThreeHelper = (function(){
       }
 
       _poseFilters = init_poseFilters(_spec.poseFilter);
-      _stabilizers = init_stabilizers(_spec.stabilizerOptions);
+      _landmarksStabilizers = init_landmarksStabilizers(_spec.landmarksStabilizerSpec);
 
       // enable post processing if temporal anti-aliasing:
       _spec.isPostProcessing = _spec.isPostProcessing || (_spec.taaLevel > 0);
@@ -654,8 +654,8 @@ const HandTrackerThreeHelper = (function(){
         init_poseEstimation();
 
         // update stabilizer:
-        if (typeof(specUpdated.stabilizerOptions) !== 'undefined'){
-          _stabilizers = init_stabilizers(specUpdated.stabilizerOptions);
+        if (typeof(specUpdated.landmarksStabilizerSpec) !== 'undefined'){
+          _landmarksStabilizers = init_landmarksStabilizers(specUpdated.landmarksStabilizerSpec);
         }
 
         // update poseFilter:
@@ -915,7 +915,7 @@ const HandTrackerThreeHelper = (function(){
 
 
     reset: function(){
-      _stabilizers = null, _poseFilters = null;
+      _landmarksStabilizers = null, _poseFilters = null;
       _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
       _spec.isPostProcessing = false;
       Object.assign(_three, {

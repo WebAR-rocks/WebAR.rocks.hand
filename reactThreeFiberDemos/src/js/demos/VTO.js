@@ -34,7 +34,7 @@ import VTOThreeHelper from '../contrib/WebARRocksHand/helpers/HandTrackerThreeHe
 import PoseFlipFilter from '../contrib/WebARRocksHand/helpers/PoseFlipFilter.js'
 
 // import stabilizer:
-import Stabilizer from '../contrib/WebARRocksHand/helpers/stabilizers/OneEuroStabilizer.js'
+import Stabilizer from '../contrib/WebARRocksHand/helpers/landmarksStabilizers/OneEuroLMStabilizer.js'
 
 // ASSETS:
 // import 3D models:
@@ -66,7 +66,7 @@ const SETTINGS = {
         quaternion: [0.707,0,0,0.707] // rotation of Math.PI/2 along X axis
       },
 
-      stabilizerOptions: {
+      landmarksStabilizerSpec: {
         minCutOff: 0.001,
         beta: 3,
       },
@@ -88,7 +88,7 @@ const SETTINGS = {
         scale: 1
       },
 
-      stabilizerOptions: {
+      landmarksStabilizerSpec: {
         minCutOff: 0.001,
         beta: 30,
       },
@@ -312,7 +312,7 @@ const VTO = () => {
         objectPointsPositionFactors: VTOMode.objectPointsPositionFactors,
         poseLandmarksLabels: VTOMode.poseLandmarksLabels,
         poseFilter,
-        stabilizerOptions: VTOMode.stabilizerOptions,
+        landmarksStabilizerSpec: VTOMode.landmarksStabilizerSpec,
         NNs: VTOMode.NNs,
         threshold: VTOMode.threshold
       }).then(() => {
@@ -365,7 +365,7 @@ const VTO = () => {
       debugDisplayLandmarks: false, // true to display landmarks
       NNs: VTOMode.NNs,
       maxHandsDetected: 1,
-      stabilizerOptions: VTOMode.stabilizerOptions,
+      landmarksStabilizerSpec: VTOMode.landmarksStabilizerSpec,
       stabilizationSettings: {
         switchNNErrorThreshold: 0.5
       }

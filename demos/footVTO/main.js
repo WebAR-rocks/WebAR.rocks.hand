@@ -81,10 +81,15 @@ function main(){
     NNsPaths: ['../../neuralNets/NN_FOOT_0.json'],
     maxHandsDetected: 2,
     stabilizationSettings: {
+      qualityFactorRange: [0.4, 0.7],
       NNSwitchMask: {
         isRightHand: true,
         isFlipped: false
       }
+    },
+    landmarksStabilizerSpec: { 
+      minCutOff: 0.001,
+      beta: 3
     }
   }).then(start).catch(function(err){
     console.log('INFO in main.js: an error happens ', err);

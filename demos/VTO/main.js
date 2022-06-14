@@ -27,7 +27,7 @@ const wristModesCommonSettings = {
 
   objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
 
-  stabilizerOptions: { 
+  landmarksStabilizerSpec: { 
     minCutOff: 0.001,
     beta: 3,
   }
@@ -48,7 +48,7 @@ const ringModesCommonSettings = {
 
   objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
-  stabilizerOptions: {
+  landmarksStabilizerSpec: {
     minCutOff: 0.001,
     beta: 30,
   }
@@ -147,7 +147,7 @@ function main(){
     stabilizationSettings: {
       switchNNErrorThreshold: 0.5
     },
-    stabilizerOptions: VTOModeSettings.stabilizerOptions,
+    landmarksStabilizerSpec: VTOModeSettings.landmarksStabilizerSpec,
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,
@@ -183,7 +183,7 @@ function change_VTOMode(newVTOMode){
 
   const VTOModeSettings = _settings.VTOModes[newVTOMode];
   return HandTrackerThreeHelper.update({
-    stabilizerOptions: VTOModeSettings.stabilizerOptions,
+    landmarksStabilizerSpec: VTOModeSettings.landmarksStabilizerSpec,
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
     poseFilter: (VTOModeSettings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,

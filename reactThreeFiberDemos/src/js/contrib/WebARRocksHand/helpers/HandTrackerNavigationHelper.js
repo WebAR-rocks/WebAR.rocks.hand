@@ -14,7 +14,7 @@
  */
 
 import WEBARROCKSHAND from '../dist/WebARRocksHand.module.js';
-import WebARRocksLMStabilizer from './stabilizers/WebARRocksLMStabilizer2.js';
+import WebARRocksLMStabilizer from './landmarksStabilizers/WebARRocksLMStabilizer2.js';
 
 const HandTrackerNavigationHelper = (function(){
   const _defaultSpec = {
@@ -65,7 +65,7 @@ const HandTrackerNavigationHelper = (function(){
   let _spec = null;
   let _gl = null, _glVideoTexture = null, _videoTransformMat2 = null;
   let _glp = null;
-  let _stabilizer = null;
+  let _landmarksStabilizer = null;
 
   const _landmarks = {
     allLabels: null, 
@@ -517,7 +517,7 @@ const HandTrackerNavigationHelper = (function(){
       _state = _states.initialized;
       _spec = Object.assign({}, _defaultSpec, spec);
 
-      _stabilizer = WebARRocksLMStabilizer.instance({});
+      _landmarksStabilizer = WebARRocksLMStabilizer.instance({});
 
       // set canvas to fullscreen and set event listener:
       size_canvas();
@@ -609,12 +609,12 @@ const HandTrackerNavigationHelper = (function(){
               _detection.isHandFound = true;
               _detection.lastTimestamp = Date.now();
             }
-            const landmarksStabilized = _stabilizer.update( detectState.landmarks, _dims.width, _dims.height);
+            const landmarksStabilized = _landmarksStabilizer.update( detectState.landmarks, _dims.width, _dims.height);
 
             update_click(detectState.isFlipped, landmarksStabilized, detectState.s);
             draw_pointer(landmarksStabilized);
           } else {
-            _stabilizer.reset();
+            _landmarksStabilizer.reset();
             _glp.clear(_glp.COLOR_BUFFER_BIT);
             if (_detection.isHandFound){
               _detection.isHandFound = false;

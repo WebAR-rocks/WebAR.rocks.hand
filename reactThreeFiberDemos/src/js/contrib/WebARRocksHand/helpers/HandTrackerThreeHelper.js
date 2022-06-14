@@ -24,7 +24,7 @@ import {
   Vector3,
   ZeroFactor
 } from 'three';
-import WebARRocksLMStabilizer from './stabilizers/WebARRocksLMStabilizer2.js';
+import WebARRocksLMStabilizer from './landmarksStabilizers/WebARRocksLMStabilizer2.js';
 
 // import main script:
 import WEBARROCKSHAND from '../dist/WebARRocksHand.module.js';
@@ -57,7 +57,7 @@ const HandTrackerThreeHelper = (function(){
     objectPointsPositionFactors: [1.0, 1.0, 1.0],
 
     enableFlipObject: true, // flip the object if left hand. useful for hand accessories
-    stabilizerOptions: {},
+    landmarksStabilizerSpec: {},
 
     callbackTrack: null,
     stabilizationSettings: null,
@@ -68,8 +68,8 @@ const HandTrackerThreeHelper = (function(){
     debugDisablePoseOrientation: false,
     debugDisplayLandmarks: false
   };
-  let _spec = null, _stabilizerModule = null;
-  let _stabilizers = null, _poseFilters = null, _neuralNetworkIndices = null;
+  let _spec = null, _landmarksStabilizerModule = null;
+  let _landmarksStabilizers = null, _poseFilters = null, _neuralNetworkIndices = null;
 
   let _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
   
@@ -326,7 +326,7 @@ const HandTrackerThreeHelper = (function(){
     for (let i = 0; i<detectStates.length; ++i){
       const detectState = detectStates[i];
       const trackerParent = _three.trackersParent[i];
-      const stabilizer = _stabilizers[i];
+      const stabilizer = _landmarksStabilizers[i];
       const poseFilter = _poseFilters[i];
 
       if (detectState.isDetected) {
@@ -641,10 +641,10 @@ const HandTrackerThreeHelper = (function(){
   }
 
 
-  function init_stabilizers(stabilizerOptions){
+  function init_landmarksStabilizers(landmarksStabilizerSpec){
     const stabilizers = [];
     for (let i = 0; i < _spec.maxHandsDetected; ++i) {
-      stabilizers.push(_stabilizerModule.instance(stabilizerOptions));
+      stabilizers.push(_landmarksStabilizerModule.instance(landmarksStabilizerSpec));
     }
     return stabilizers;
   }
@@ -654,7 +654,7 @@ const HandTrackerThreeHelper = (function(){
   const that = {
     init: function(spec, stabilizerModule){
       _spec = Object.assign({}, _defaultSpec, spec);
-      _stabilizerModule = stabilizerModule || WebARRocksLMStabilizer;
+      _landmarksStabilizerModule = stabilizerModule || WebARRocksLMStabilizer;
 
       Object.assign(_previousSizing, {
         width: -1, height: -1
@@ -674,7 +674,7 @@ const HandTrackerThreeHelper = (function(){
       }
 
       _poseFilters = init_poseFilters(_spec.poseFilter);
-      _stabilizers = init_stabilizers(_spec.stabilizerOptions, _stabilizerModule);
+      _landmarksStabilizers = init_landmarksStabilizers(_spec.landmarksStabilizerSpec, _landmarksStabilizerModule);
 
       return new Promise(function(accept, reject){
         WEBARROCKSHAND.init({
@@ -731,8 +731,8 @@ const HandTrackerThreeHelper = (function(){
         init_poseEstimation();
 
         // update stabilizer:
-        if (typeof(specUpdated.stabilizerOptions) !== 'undefined'){
-          _stabilizers = init_stabilizers(specUpdated.stabilizerOptions);
+        if (typeof(specUpdated.landmarksStabilizerSpec) !== 'undefined'){
+          _landmarksStabilizers = init_landmarksStabilizers(specUpdated.landmarksStabilizerSpec);
         }
 
         // update poseFilter:
@@ -933,7 +933,7 @@ const HandTrackerThreeHelper = (function(){
 
 
     reset: function(){
-      _stabilizers = null, _poseFilters = null;
+      _landmarksStabilizers = null, _poseFilters = null;
       _gl = null, _glVideoTexture = null, _videoTransformMat2 = null, _videoElement = null;
       _spec.isPostProcessing = false;
       Object.assign(_three, {
