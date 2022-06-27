@@ -1,5 +1,6 @@
+
 const _settings = {
-  threshold: 0.6, // detection sensitivity, between 0 and 1
+  threshold: 0.72, // detection sensitivity, between 0 and 1
   
   // CONVERSES SHOES:
   // 3D models:
@@ -78,7 +79,7 @@ function main(){
     VTOCanvas: VTOCanvas,
     handTrackerCanvas: handTrackerCanvas,
     debugDisplayLandmarks: false,
-    NNsPaths: ['../../neuralNets/NN_FOOT_0.json'],
+    NNsPaths: ['../../neuralNets/NN_FOOT_1.json'],
     maxHandsDetected: 2,
     stabilizationSettings: {
       qualityFactorRange: [0.4, 0.7],
@@ -141,6 +142,7 @@ function start(three){
   });
 
 } //end start()
+
 
 
 function flip_camera(){

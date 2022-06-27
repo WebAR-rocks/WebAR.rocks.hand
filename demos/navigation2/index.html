@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="en-EN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>WEBARROCKSHAND HAND NAVIGATION ON A SLIDESHOW</title>
+    
+    <!-- INCLUDE WEBARROCKSHAND SCRIPT -->
+    <script src="../../dist/WebARRocksHand.js"></script>
+
+    <!-- INCLUDE WEBARROCKSHAND NAVIGATION HELPER SCRIPT -->
+    <script src="../../helpers/HandTrackerNavigationHelper.js"></script>    
+
+    <!-- INCLUDE LANDMARKS STABILIZER -->
+    <script src="../../helpers/landmarksStabilizers/WebARRocksLMStabilizer.js"></script>
+
+    <!-- INCLUDE JQUERY -->
+    <script src="../../libs/jquery/jquery-3.4.1.min.js"></script>
+
+    <!-- INCLUDE MAIN DEMO SCRIPT -->
+    <script src="./main.js"></script>
+
+    <style type='text/css'>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .handNavigationCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+      #handNavigationCanvasVideo {
+        z-index: -1;
+      }
+      #handNavigationCanvasPointer {
+        z-index: 3;
+      }
+      /* Avoid z-index bug when canvas is mirrored with a CSS transform:; */
+      .handNavigationCanvasPointerContainer{
+        position: fixed;
+        z-index: 3;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+      #changeCamera {
+        display: none;
+      }
+      #enableCamera {
+        display: none;
+      }
+      .content {
+        /*position: absolute;
+        top: 0, left: 0;*/
+        color: white;
+        width: 100vw;
+        height: 100vh;
+        z-index: 2;
+        overflow: hidden;
+      }
+      .presentation {
+        position:  fixed;
+        right: 80px;
+        max-width: 50vw;
+        max-height: 75vh;
+        z-index: 2;
+        top: 80px;
+      }
+      .presentationIframe {
+        pointer-events: none;
+      }
+      .slidesControls {
+        width: 220px;
+      }
+      .arrow {
+        background-image: url('rightArrow.svg');
+        background-size: contain;        
+        height: 100px;
+        width: 100px;
+        display: inline-block;
+        cursor:  pointer;
+      }
+      .prevArrow {
+        transform: scaleX(-1);
+      }
+      .nextArrow {
+
+      }
+      .canvasDraw {
+        position:  absolute;
+        pointer-events: none;
+        opacity: 0.3;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id='handNavigationCanvasesContainer'>
+      <canvas class='handNavigationCanvas' width="600" height="600" id='handNavigationCanvasVideo'></canvas>
+      <div class='handNavigationCanvasPointerContainer'>
+        <canvas class='handNavigationCanvas' width="600" height="600" id='handNavigationCanvasPointer'></canvas>
+      </div>
+    </div>
+
+    <div class='content'>
+      <!--<button onclick='enable_camera()' id='enableCamera'>Enable camera</button>
+      <button onclick='change_camera()' id='changeCamera'>Change camera</button> -->
+      <div class='presentation' id='presentation'>
+        <canvas width="720" height="525" id="canvasDraw" class="canvasDraw"></canvas>
+        <iframe src="https://slides.com/xavierbourry/deck/embed?postMessageEvents=true" id="presentationIframe" class="presentationIframe" width="720" height="525" scrolling="no" frameborder="0"></iframe>
+        <div class='slidesControls'>
+          <div onclick='go_toPrevSlide()' class='arrow prevArrow'></div>
+          <div onclick='go_toNextSlide()' class='arrow nextArrow'></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+ 

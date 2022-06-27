@@ -51,7 +51,10 @@ The best demos have been ported to a modern front-end development environment (N
 
 * Boilerplate demo (display landmarks): [live demo](https://webar.rocks/demos/hand/demos/basic/), [source code](/demos/basic/)
 * Wrist and ring VTO: [live demo](https://webar.rocks/demos/hand/demos/VTO/), [source code](/demos/VTO/)
-* Hand based navigation: [live demo](https://webar.rocks/demos/hand/demos/navigation/), [source code](/demos/navigation/)
+* Hand based navigation:
+  * https://webar.rocks like navigation: [live demo](https://webar.rocks/demos/hand/demos/navigation/), [source code](/demos/navigation/)
+  * Slideshow presentation (for desktop): [live demo](https://webar.rocks/demos/hand/demos/navigation2/), [source code](/demos/navigation2/)
+
 * Foot tracking: 
   * Barefoot VTO: [live demo](https://webar.rocks/demos/hand/demos/bareFootVTO/), [source code](/demos/bareFootVTO/)
   * Shoes on and barefoot VTO: [live demo](https://webar.rocks/demos/hand/demos/footVTO/), [source code](/demos/footVTO/)
