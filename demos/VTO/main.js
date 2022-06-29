@@ -5,6 +5,7 @@ const NNPath = '../../neuralNets/';
 
 const NNWristVersion = '27';
 const NNRingVersion = '13'; //*/
+const NNWristBackVersion = '0';
 
 const wristModesCommonSettings = {
   threshold: 0.92, // detection sensitivity, between 0 and 1
@@ -76,6 +77,12 @@ const _settings = {
       //NNsPaths: [NNPath + 'NN_WRIST_RP_' + NNWristVersion + '.json', NNPath + 'NN_WRIST_RB_' + NNWristVersion + '.json']
       NNsPaths: [NNPath + 'NN_WRIST_' + NNWristVersion + '.json']
     }, wristModesCommonSettings),
+
+    wristBack: Object.assign({      
+      NNsPaths: [NNPath + 'NN_WRISTBACK_' + NNWristBackVersion + '.json']
+    }, wristModesCommonSettings, {
+      isPoseFilter: false
+    }),
     
     ring: Object.assign({
       //NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
@@ -86,6 +93,10 @@ const _settings = {
   models: {
     wristDemo: Object.assign({
       VTOMode: 'wrist'
+    }, wristModelCommonSettings),
+
+    wristBackDemo: Object.assign({
+      VTOMode: 'wristBack'
     }, wristModelCommonSettings),
     
     ringDemo: Object.assign({

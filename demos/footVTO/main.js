@@ -1,7 +1,8 @@
 
 const _settings = {
   threshold: 0.72, // detection sensitivity, between 0 and 1
-  
+  NNVersion: 3,
+
   // CONVERSES SHOES:
   // 3D models:
   shoeRightPath: 'assets/converseShoe2.glb',
@@ -74,17 +75,21 @@ function main(){
       multiDetectionEqualizeSearchSlotScale: true, 
       multiDetectionForceSearchOnOtherSide: true,
       multiDetectionForceChirality: 1,
-      disableIsRightHandNNEval: true
+      disableIsRightHandNNEval: true,
+      overlapFactors: [1.5, 1.5, 1.5],
+      translationScalingFactors: [1, 1, 2],
+      nScaleLevels: 2, // in the higher scale level, the size of the detection window is the smallest video dimension
+      scale0Factor: 0.5
     },
     VTOCanvas: VTOCanvas,
     handTrackerCanvas: handTrackerCanvas,
     debugDisplayLandmarks: false,
-    NNsPaths: ['../../neuralNets/NN_FOOT_1.json'],
+    NNsPaths: ['../../neuralNets/NN_FOOT_' + _settings.NNVersion.toString() + '.json'],
     maxHandsDetected: 2,
     stabilizationSettings: {
       qualityFactorRange: [0.4, 0.7],
       NNSwitchMask: {
-        isRightHand: true,
+        isRightHand: false,
         isFlipped: false
       }
     },
