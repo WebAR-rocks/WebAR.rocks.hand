@@ -19,6 +19,7 @@ const HandTrackerThreeHelper = (function(){
     VTOCanvas: null,
 
     scanSettings: {},
+    videoSettings: null,
     threshold: 0.92, // detection threshold, in [0,1] 1 -> hard, 0 -> easy
     maxHandsDetected: 1,
     freeZRot: false,
@@ -607,7 +608,7 @@ const HandTrackerThreeHelper = (function(){
             threshold: _spec.threshold
           }),
           maxHandsDetected: _spec.maxHandsDetected,
-          videoSettings: {
+          videoSettings: spec.videoSettings || {
             facingMode: 'environment' // request the back camera (not the selfie one) by default
           },
           stabilizationSettings: _spec.stabilizationSettings,

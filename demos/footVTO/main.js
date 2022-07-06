@@ -1,7 +1,7 @@
 
 const _settings = {
   threshold: 0.72, // detection sensitivity, between 0 and 1
-  NNVersion: 3,
+  NNVersion: 4,
 
   // CONVERSES SHOES:
   // 3D models:
@@ -72,6 +72,7 @@ function main(){
     threshold: _settings.threshold,
     scanSettings: {
       multiDetectionSearchSlotsRate: 0.5,
+      multiDetectionMaxOverlap: 0.7,
       multiDetectionEqualizeSearchSlotScale: true, 
       multiDetectionForceSearchOnOtherSide: true,
       multiDetectionForceChirality: 1,

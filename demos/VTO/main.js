@@ -8,7 +8,7 @@ const NNRingVersion = '13'; //*/
 const NNWristBackVersion = '0';
 
 const wristModesCommonSettings = {
-  threshold: 0.92, // detection sensitivity, between 0 and 1
+  threshold: 0.95, // detection sensitivity, between 0 and 1
   
   poseLandmarksLabels: [
   // wristRightBottom not working
@@ -30,7 +30,7 @@ const wristModesCommonSettings = {
 
   landmarksStabilizerSpec: { 
     minCutOff: 0.001,
-    beta: 3,
+    beta: 5,
   }
 };
 
@@ -126,8 +126,8 @@ const _states = {
   busy: 3
 };
 let _state = _states.notLoaded;
-let _isSelfieCam = false;
-
+let _isSelfieCam = true;
+let _isInstructionsHidden = false;
 
 
 function setFullScreen(cv){
@@ -158,6 +158,7 @@ function main(){
     stabilizationSettings: {
       switchNNErrorThreshold: 0.5
     },
+    videoSettings: get_videoSettings(),
     landmarksStabilizerSpec: VTOModeSettings.landmarksStabilizerSpec,
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
     poseLandmarksLabels: VTOModeSettings.poseLandmarksLabels,
@@ -165,6 +166,7 @@ function main(){
     NNsPaths: VTOModeSettings.NNsPaths,
     threshold: VTOModeSettings.threshold,
     VTOCanvas: VTOCanvas,
+    callbackTrack: callbackTrack,
     handTrackerCanvas: handTrackerCanvas,
     debugDisplayLandmarks: _settings.debugDisplayLandmarks,
   }).then(start).catch(function(err){
@@ -271,6 +273,7 @@ function start(three){
 
   three.loadingManager.onLoad = function(){
     console.log('INFO in main.js: All THREE.js stuffs are loaded');
+    hide_loading();
     _state = _states.running;
   }
 
@@ -345,14 +348,19 @@ function add_softOccluder(VTOModeSettings){
 }
 
 
+function get_videoSettings(){
+  return {
+    facingMode: (_isSelfieCam) ? 'environment' : 'user'
+  };
+}
+
+
 function flip_camera(){
   if (_state !== _states.running){
     return;
   }
   _state = _states.busy;
-  WEBARROCKSHAND.update_videoSettings({
-    facingMode: (_isSelfieCam) ? 'environment' : 'user'
-  }).then(function(){
+  WEBARROCKSHAND.update_videoSettings(get_videoSettings()).then(function(){
     _isSelfieCam = !_isSelfieCam;
     _state = _states.running;
     // mirror canvas using CSS in selfie cam mode:
@@ -363,5 +371,36 @@ function flip_camera(){
   });
 }
 
+
+function hide_loading(){
+  // remove loading:
+  const domLoading = document.getElementById('loading');
+  domLoading.style.opacity = 0;
+  setTimeout(function(){
+    domLoading.parentNode.removeChild(domLoading);
+  }, 800);
+}
+
+
+function hide_instructions(){
+  const domInstructions = document.getElementById('instructions');
+  if (!domInstructions){
+    return;
+  }
+  domInstructions.style.opacity = 0;
+  _isInstructionsHidden = true;
+  setTimeout(function(){
+    domInstructions.parentNode.removeChild(domInstructions);
+  }, 800);
+}
+
+
+function callbackTrack(detectState){
+  if (detectState.isDetected) {
+    if (!_isInstructionsHidden){
+      hide_instructions();
+    }
+  }
+}
 
 window.addEventListener('load', main);

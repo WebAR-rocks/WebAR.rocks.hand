@@ -29,10 +29,13 @@
     <!-- INCLUDE MAIN DEMO SCRIPT -->
     <script src="./main.js"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+
     <style type='text/css'>
       body {
         margin: 0;
         overflow: hidden;
+        font-family: 'Roboto', sans-serif;
       }
       canvas {
         position: fixed;
@@ -84,9 +87,76 @@
         color: #fff;
       }
 
+       .modal {
+        display: flex; 
+        flex-direction: column;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        transition-duration: 500ms;
+        position: fixed;
+      }
+
+      #loading {
+        background: #1c3e83;
+        color: white;
+        opacity: 1;
+        z-index: 10;
+      }
+      #loading > div {
+        margin: auto;
+        font-size: 32pt;
+      }
+
+      #instructions {
+        z-index: 9;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        font-size: 22px;
+      }
+      #instructions > div {
+        margin: auto;
+        text-align: center;
+        line-height: 1.5em;
+      }
+      .instructionsOK {
+        border: 1px solid white;
+        background: transparent;
+        color: white;
+        font-size: 22px;
+        padding: 22px;
+        margin: 1em;
+        cursor: pointer;
+        width: 200px;
+      }
+      .instructionsImg {
+        margin-top: 12px;
+        max-height: 50vh;
+        max-width: 50vw;
+      }
+
     </style>
   </head>
+
   <body>
+
+    <!-- loading modal: -->
+    <div id='loading' class='modal'>
+      <div>
+        LOADING...
+      </div>
+    </div>
+
+    <!-- instructions: -->
+    <div id='instructions' class='modal'>
+      <div>
+        Place your hand like that:<br/>
+        <img src='assets/VTOWristGuidline500px.png' class="instructionsImg" /><br/>
+        <button class='instructionsOK' onclick="hide_instructions()">OK</button>
+      </div>
+    </div>
+
     <div id='canvases'>
       <!-- Canvas displayed above, with the THREE.js scene -->
       <canvas id='VTOCanvas'></canvas>
