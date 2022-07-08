@@ -60,7 +60,7 @@
         width: 100vw;
         z-index: 3;
 
-        display: flex;
+        display: none;
         flex-direction: row;
         flex-wrap: wrap;
 
@@ -151,8 +151,8 @@
     <!-- instructions: -->
     <div id='instructions' class='modal'>
       <div>
-        Place your hand like that:<br/>
-        <img src='assets/VTOWristGuidline500px.png' class="instructionsImg" /><br/>
+        Display your hand vertically,<br/>fully visible<br/>
+        <img src='assets/VTOWristGuidline2.png' class="instructionsImg" /><br/>
         <button class='instructionsOK' onclick="hide_instructions()">OK</button>
       </div>
     </div>
@@ -165,7 +165,7 @@
       <canvas id='handTrackerCanvas'></canvas>
     </div>
 
-    <div class='controls'>
+    <div class='controls' id='controls'>
       <div onclick='flip_camera()'>Change camera</div>
       <div onclick="load_model('ringDemo')">Ring</div>
       <div onclick="load_model('wristDemo')">Wrist</div>

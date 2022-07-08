@@ -1,7 +1,6 @@
-
 const _settings = {
-  threshold: 0.72, // detection sensitivity, between 0 and 1
-  NNVersion: 4,
+  threshold: 0.65, // detection sensitivity, between 0 and 1
+  NNVersion: 5,
 
   // CONVERSES SHOES:
   // 3D models:
@@ -88,7 +87,7 @@ function main(){
     NNsPaths: ['../../neuralNets/NN_FOOT_' + _settings.NNVersion.toString() + '.json'],
     maxHandsDetected: 2,
     stabilizationSettings: {
-      qualityFactorRange: [0.4, 0.7],
+      //qualityFactorRange: [0.4, 0.7],
       NNSwitchMask: {
         isRightHand: false,
         isFlipped: false
@@ -96,7 +95,7 @@ function main(){
     },
     landmarksStabilizerSpec: { 
       minCutOff: 0.001,
-      beta: 3
+      beta: 10
     }
   }).then(start).catch(function(err){
     console.log('INFO in main.js: an error happens ', err);
