@@ -4,7 +4,7 @@ const NNPath = '../../neuralNets/';
 //const NNRingVersion = '8';
 
 const NNWristVersion = '27';
-const NNRingVersion = '13'; //*/
+const NNRingVersion = '14'; //*/
 const NNWristBackVersion = '0';
 
 const wristModesCommonSettings = {
@@ -35,7 +35,7 @@ const wristModesCommonSettings = {
 };
 
 const ringModesCommonSettings = {
-  threshold: 0.9, // detection sensitivity, between 0 and 1
+  threshold: 0.97, // detection sensitivity, between 0 and 1
 
   poseLandmarksLabels: ["ringBack", "ringLeft", "ringRight", "ringPalm", "ringPalmTop", "ringBackTop",
      "ringBase0", "ringBase1", "ringMiddleFinger", "ringPinkyFinger", "ringBasePalm"], //*/
