@@ -1,6 +1,6 @@
 const _settings = {
-  threshold: 0.65, // detection sensitivity, between 0 and 1
-  NNVersion: 5,
+  threshold: 0.7, // detection sensitivity, between 0 and 1
+  NNVersion: 6,
 
   // CONVERSES SHOES:
   // 3D models:
@@ -9,7 +9,7 @@ const _settings = {
   occluderPath: 'assets/occluder.glb',
 
   // pose settings:
-  scale: 1,
+  scale: 0.95,
   translation: [0, -0.02, 0], // Z -> verical, Y+ -> front way
 
   /*
@@ -71,7 +71,7 @@ function main(){
     threshold: _settings.threshold,
     scanSettings: {
       multiDetectionSearchSlotsRate: 0.5,
-      multiDetectionMaxOverlap: 0.7,
+      multiDetectionMaxOverlap: 0.6,
       multiDetectionEqualizeSearchSlotScale: true, 
       multiDetectionForceSearchOnOtherSide: true,
       multiDetectionForceChirality: 1,

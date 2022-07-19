@@ -7,7 +7,7 @@ import FlipCamButton from '../components/FlipCamButton.js'
 // import neural network model:
 //import NN_RP from '../contrib/WebARRocksHand/neuralNets/NN_NAV_RP_8.json'
 //import NN_RB from '../contrib/WebARRocksHand/neuralNets/NN_NAV_RB_8.json'
-import NN from '../contrib/WebARRocksHand/neuralNets/NN_NAV_18.json'
+import NN from '../contrib/WebARRocksHand/neuralNets/NN_NAV_19.json'
 
 // This helper is not minified, feel free to customize it (and submit pull requests bro):
 import navigationHelper from '../contrib/WebARRocksHand/helpers/HandTrackerNavigationHelper.js'
@@ -73,7 +73,7 @@ const Navigation = () => {
       canvasVideo: canvasVideoRef.current,
       canvasPointer: canvasPointerRef.current,
       NNs: [NN],//[NN_RP, NN_RB],
-      threshold: 0.9, // detection sensitivity, between 0 and 1
+      threshold: 0.95, // detection sensitivity, between 0 and 1
       videoSettings: {
         idealWidth: Math.max(idealHeight, idealWidth),
         idealHeight: Math.min(idealHeight, idealWidth)
