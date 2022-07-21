@@ -1,6 +1,6 @@
 const _settings = {
-  threshold: 0.7, // detection sensitivity, between 0 and 1
-  NNVersion: 6,
+  threshold: 0.9, // detection sensitivity, between 0 and 1
+  NNVersion: 7,
 
   // CONVERSES SHOES:
   // 3D models:
@@ -71,13 +71,13 @@ function main(){
     threshold: _settings.threshold,
     scanSettings: {
       multiDetectionSearchSlotsRate: 0.5,
-      multiDetectionMaxOverlap: 0.6,
+      multiDetectionMaxOverlap: 0.7,
       multiDetectionEqualizeSearchSlotScale: true, 
       multiDetectionForceSearchOnOtherSide: true,
       multiDetectionForceChirality: 1,
       disableIsRightHandNNEval: true,
-      overlapFactors: [1.5, 1.5, 1.5],
-      translationScalingFactors: [1, 1, 2],
+      overlapFactors: [1.0, 1.0, 1.0],
+      translationScalingFactors: [1, 1, 1],
       nScaleLevels: 2, // in the higher scale level, the size of the detection window is the smallest video dimension
       scale0Factor: 0.5
     },
