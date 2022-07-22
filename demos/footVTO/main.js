@@ -71,7 +71,8 @@ function main(){
     threshold: _settings.threshold,
     scanSettings: {
       multiDetectionSearchSlotsRate: 0.5,
-      multiDetectionMaxOverlap: 0.7,
+      multiDetectionMaxOverlap: 0.3,
+      multiDetectionOverlapScaleXY: [0.5, 1],
       multiDetectionEqualizeSearchSlotScale: true, 
       multiDetectionForceSearchOnOtherSide: true,
       multiDetectionForceChirality: 1,
