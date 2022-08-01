@@ -5,7 +5,7 @@ const NNPath = '../../neuralNets/';
 
 const NNWristVersion = '27';
 const NNRingVersion = '14'; //*/
-const NNWristBackVersion = '0';
+const NNWristBackVersion = '1';
 
 const wristModesCommonSettings = {
   threshold: 0.95, // detection sensitivity, between 0 and 1
@@ -81,7 +81,8 @@ const _settings = {
     wristBack: Object.assign({      
       NNsPaths: [NNPath + 'NN_WRISTBACK_' + NNWristBackVersion + '.json']
     }, wristModesCommonSettings, {
-      isPoseFilter: false
+      isPoseFilter: false,
+      threshold: 0.99
     }),
     
     ring: Object.assign({
