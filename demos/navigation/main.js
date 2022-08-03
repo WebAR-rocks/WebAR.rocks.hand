@@ -19,7 +19,7 @@ function init_handTracking(){
     canvasVideo: document.getElementById('handNavigationCanvasVideo'),
     canvasPointer: document.getElementById('handNavigationCanvasPointer'),
     //NNsPaths: [NNPath + 'NN_NAV_RP_9.json', NNPath + 'NN_NAV_RB_9.json'],
-    NNsPaths: [NNPath + 'NN_NAV_19.json'],
+    NNsPaths: [NNPath + 'NN_NAV_21.json'],
     threshold: 0.95,
     videoSettings: {
       idealWidth: Math.max(idealHeight, idealWidth),
