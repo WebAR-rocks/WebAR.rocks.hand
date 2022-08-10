@@ -96,7 +96,7 @@ function main(){
     },
     landmarksStabilizerSpec: { 
       minCutOff: 0.001,
-      beta: 10
+      beta: 3 // lower => more stabilized
     }
   }).then(start).catch(function(err){
     console.log('INFO in main.js: an error happens ', err);
