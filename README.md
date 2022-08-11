@@ -300,6 +300,5 @@ For more information, please read [LICENSE](/LICENSE) file.
 * [WebAR.rocks website](https://webar.rocks)
 * [Blender website](https://www.blender.org/)
 * [Webgl Academy: tutorials on WebGL and THREE.JS](http://www.webglacademy.com)
-* [THREE.js website, with documentation and examples](https://threejs.org)
 * [WebAR.rocks on Linkedin](https://www.linkedin.com/company/webar-rocks)
-* [WebAR.rocks on Twitter](https://twitter.com/Jeeliz_AR)
+* [WebAR.rocks on Twitter](https://twitter.com/WebARRocks)
