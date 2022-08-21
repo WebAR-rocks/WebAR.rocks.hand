@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:xavierjs/WebAR.rocks.hand"
+    "url": "git@github.com:WebAR-rocks/WebAR.rocks.hand"
   },
   "dependencies": {
     "@react-three/postprocessing": "^1.4.1",
