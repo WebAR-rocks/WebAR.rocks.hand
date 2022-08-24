@@ -13,7 +13,6 @@
   * [Error codes](#error-codes)
   * [The returned objects](#the-returned-objects)
   * [Miscellaneous methods](#miscellaneous-methods)
-  * [Optimization](#optimization)
   * [Using module](#using-module)
 * [Virtual Try-on and object manipulation](#virtual-try-on-and-object-manipulation)
 * [Hosting](#hosting)

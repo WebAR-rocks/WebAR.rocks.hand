@@ -95,7 +95,7 @@ const _settings = {
       //NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
       NNsPaths: [NNPath + 'NN_RINGBACK_' + NNRingBackVersion + '.json']
     }, ringModesCommonSettings, {
-      threshold: 1
+      threshold: 0.9
     })
   },
 
@@ -182,7 +182,11 @@ function main(){
   // initialize Helper:
   HandTrackerThreeHelper.init({
     stabilizationSettings: {
-      switchNNErrorThreshold: 0.5
+      /*NNSwitchMask: {
+        isRightHand: true,
+        isFlipped: false
+      },
+      switchNNErrorThreshold: 0.5*/
     },
     videoSettings: get_videoSettings(),
     landmarksStabilizerSpec: VTOModeSettings.landmarksStabilizerSpec,
