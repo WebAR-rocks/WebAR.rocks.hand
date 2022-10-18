@@ -86,7 +86,10 @@ function main(){
         isFlipped: false
       }
     }
-  }).then(start).catch(function(err){
+  }).then(function(three){
+    handTrackerCanvas.style.zIndex = 3; // fix a weird bug on iOS15 / safari
+    start(three);
+  }).catch(function(err){
     console.log('INFO in main.js: an error happens ', err);
   });
 } 

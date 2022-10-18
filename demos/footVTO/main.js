@@ -1,6 +1,7 @@
+
 const _settings = {
-  threshold: 0.9, // detection sensitivity, between 0 and 1
-  NNVersion: 13,
+  threshold: 0.8, // detection sensitivity, between 0 and 1
+  NNVersion: 17,
 
   // CONVERSES SHOES:
   // 3D models:
@@ -98,7 +99,10 @@ function main(){
       minCutOff: 0.001,
       beta: 3 // lower => more stabilized
     }
-  }).then(start).catch(function(err){
+  }).then(function(three){
+    handTrackerCanvas.style.zIndex = 3; // fix a weird bug on iOS15 / safari
+    start(three);
+  }).catch(function(err){
     console.log('INFO in main.js: an error happens ', err);
   });
 } 
@@ -146,8 +150,7 @@ function start(three){
     transform(occluder);
     HandTrackerThreeHelper.add_threeOccluder(occluder);
   });
-
-} //end start()
+}
 
 
 
