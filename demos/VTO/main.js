@@ -41,7 +41,7 @@ const ringModesCommonSettings = {
   poseLandmarksLabels: ["ringBack", "ringLeft", "ringRight", "ringPalm", "ringPalmTop", "ringBackTop",
      "ringBase0", "ringBase1", "ringMiddleFinger", "ringPinkyFinger", "ringBasePalm"], //*/
 
-  isPoseFilter: false,
+  isPoseFilter: true,
 
   // Occluder parameters:
   occluderType: "MODEL",
