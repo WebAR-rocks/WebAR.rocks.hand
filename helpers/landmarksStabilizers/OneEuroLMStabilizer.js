@@ -8,41 +8,30 @@
  * 
  * properties:
  *   * minCutOff: decrease to minimize jitter
- *   * beta: increate to minimize lag
+ *   * beta: increase to minimize lag
  *   * NNInputSizePx: size of the neural network input window in pixels
  */
 
 function OneEuroFilter(spec){
-  let _lastTime = -1;
-  let _freq = spec.freq;
+  const _x = filter_lowPass(compute_alpha(spec.minCutOff, spec.freq));
+  const _dx = filter_lowPass(compute_alpha(spec.dcutoff, spec.freq));
   
-  const _x = filter_lowPass(compute_alpha(spec.minCutOff));
-  const _dx = filter_lowPass(compute_alpha(spec.dcutoff));
-  const _dtMin = 1.0 / spec.freqRange[1];
 
-  function compute_alpha(cutoff){ // compute smoothing factor
-    const te = 1.0 / _freq;  // = dt
+  function compute_alpha(cutoff, freq){ // compute smoothing factor
+    const te = 1.0 / freq;  // = dt
     const tau = 1.0 / (2.0 * Math.PI * cutoff);
     return 1.0 / (1.0 + tau / te);
   }
+
   
-  this.filter = function(v, timestamp){
-    if(_lastTime !== -1){
-      const dt = Math.max(_dtMin, timestamp - _lastTime);
-      _freq = 1.0 / dt;
-      // clamp freq:
-      _freq = Math.min(Math.max(_freq, spec.freqRange[0]), spec.freqRange[1]);
-    }
-    _lastTime = timestamp;
-    const dvalue = _x.has_lastRawValue() ? (v - _x.get_lastRawValue()) * _freq : 0.0;
-    const edvalue = _dx.filter_withAlpha(dvalue, compute_alpha(spec.dcutoff));
-    const cutoff = spec.minCutOff + spec.beta * Math.abs(edvalue);
-    return _x.filter_withAlpha(v, compute_alpha(cutoff));
+  this.filter = function(v, beta, freq){
+    const dvalue = _x.has_lastRawValue() ? (v - _x.get_lastRawValue()) * freq : 0.0;
+    const edvalue = _dx.filter_withAlpha(dvalue, compute_alpha(spec.dcutoff, freq));
+    const cutoff = spec.minCutOff + beta * Math.abs(edvalue);
+    return _x.filter_withAlpha(v, compute_alpha(cutoff, freq));
   }
 
   this.reset = function(){
-    _freq = spec.freq;
-    _lastTime = -1;
     _x.reset();
     _dx.reset();
   }
@@ -126,19 +115,27 @@ const WebARRocksLMStabilizer = (function(){
       const defaultSpec = {
         // One Euro filter settings:
         freq: 30,
-        freqRange: [12, 144],
+        freqRange: [5, 144],
         minCutOff: 0.001,
         beta: 50,
+        adaptativeBetaPow: 2, // 0 -> disable adaptative beta
         dcutoff: 1.0,
 
         // WebAR.rocks enhancement
         NNInputSizePx: 128,
-        forceFilterNNInputPxRange: [0.8, 2]
+        forceFilterNNInputPxRange: [0.8, 2],
+
+        isDebug: false
       };
       const _spec = Object.assign({}, defaultSpec, spec);
       const _filters = [];
       const _stabilizedLM = [];
       const _timer = (typeof(performance) === 'undefined') ? Date : performance;
+
+      // frequency measurement:
+      let _lastTime = -1;
+      let _freq = _spec.freq;
+      const _dtMin = 1.0 / _spec.freqRange[1];
 
       const that = {
         update: function(landmarks, widthPx, heightPx, scale){
@@ -161,13 +158,26 @@ const WebARRocksLMStabilizer = (function(){
           const aspectRatio = widthPx / heightPx;
 
           // Stabilize each lm with one euro filter
-          const timestamp = _timer.now() / 1000.0;
+          const timestamp = _timer.now() / 1000.0; // in seconds
+          if(_lastTime !== -1){
+            const dt = Math.max(_dtMin, timestamp - _lastTime);
+            _freq = 1.0 / dt;
+            // clamp freq:
+            _freq = Math.min(Math.max(_freq, _spec.freqRange[0]), _spec.freqRange[1]);
+          }
+          _lastTime = timestamp;
+
+          // WebAR.rocks tweak compared to original OneEuroFilter:
+          // we increase beta for low freq (slow devices) to avoid too many lag
+          const k = 60 / Math.min(_freq, 60); // 1 for good config, 5 for a slow one
+          const beta = _spec.beta * Math.pow(k, _spec.adaptativeBetaPow);
+          
           for (let i=0; i<LMCount; ++i) {
             const x = landmarks[i][0];
             const y = landmarks[i][1];
 
-            let xStab = _filters[i*2].filter(x, timestamp);
-            let yStab = _filters[i*2 + 1].filter(y, timestamp);
+            let xStab = _filters[i*2].filter(x, beta, _freq);
+            let yStab = _filters[i*2 + 1].filter(y, beta, _freq);
             
             // this step is NOT included in OneEuroLMStabilizer.
             // We individually reset the filter if the distance between stabilized and unstabilized landmarks
@@ -177,6 +187,9 @@ const WebARRocksLMStabilizer = (function(){
             const dy = compute_distanceNNInput(y, yStab, _spec.NNInputSizePx, scale * aspectRatio);
             const dMax = Math.max(dx, dy);
             if (dMax > _spec.forceFilterNNInputPxRange[0]){
+              if (_spec.isDebug){
+                console.log('INFO in OneEuroLMStabilizer: Force stalling');
+              }
               const k = smoothStep(_spec.forceFilterNNInputPxRange, dMax);
               xStab = mix(xStab, x, k);
               yStab = mix(yStab, y, k);
@@ -194,6 +207,8 @@ const WebARRocksLMStabilizer = (function(){
 
 
         reset: function() {
+          _freq = _spec.freq;
+          _lastTime = -1;
           _filters.forEach( filter => { filter.reset() });
         }
       }
