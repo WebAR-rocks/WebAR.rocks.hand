@@ -5,7 +5,7 @@ const NNPath = '../../neuralNets/';
 
 const NNWristVersion = '27';
 const NNRingVersion = '14'; //*/
-const NNWristBackVersion = '7';
+const NNWristBackVersion = '8';
 const NNRingBackVersion = '6';
 
 const wristModesCommonSettings = {
