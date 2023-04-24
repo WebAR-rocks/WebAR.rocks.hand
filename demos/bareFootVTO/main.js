@@ -71,6 +71,7 @@ function main(){
     freeZRot: false,
     threshold: _settings.threshold,
     scanSettings: {
+      translationScalingFactors: [0.3, 0.3, 1],
       multiDetectionSearchSlotsRate: 0.5,
       multiDetectionEqualizeSearchSlotScale: true, 
       multiDetectionForceSearchOnOtherSide: true

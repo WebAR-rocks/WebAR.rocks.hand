@@ -154,6 +154,7 @@ const BareFootVTO = () => {
       freeZRot: false,
       threshold: 0.6, // detection threshold, between 0 and 1. + -> harder detection but less false positive
       scanSettings: {
+        translationScalingFactors: [0.3, 0.3, 1],
         multiDetectionSearchSlotsRate: 0.5,
         multiDetectionEqualizeSearchSlotScale: true, 
         multiDetectionForceSearchOnOtherSide: true

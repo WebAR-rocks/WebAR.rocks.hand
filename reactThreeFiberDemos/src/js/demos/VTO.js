@@ -368,6 +368,9 @@ const VTO = () => {
       landmarksStabilizerSpec: VTOMode.landmarksStabilizerSpec,
       stabilizationSettings: {
         switchNNErrorThreshold: 0.5
+      },
+      scanSettings: {
+        translationScalingFactors: [0.3, 0.3, 1]
       }
     }, Stabilizer).then(() => {
       console.log('VTOThreeHelper is initialized')

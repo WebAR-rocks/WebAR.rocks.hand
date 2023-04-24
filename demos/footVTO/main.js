@@ -79,7 +79,7 @@ function main(){
       multiDetectionForceChirality: 1,
       disableIsRightHandNNEval: true,
       overlapFactors: [1.0, 1.0, 1.0],
-      translationScalingFactors: [1, 1, 1],
+      translationScalingFactors: [0.3, 0.3, 1],
       nScaleLevels: 2, // in the higher scale level, the size of the detection window is the smallest video dimension
       scale0Factor: 0.5
     },

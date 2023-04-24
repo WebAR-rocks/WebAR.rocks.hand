@@ -188,6 +188,9 @@ function main(){
       },
       switchNNErrorThreshold: 0.5*/
     },
+    scanSettings: {
+      translationScalingFactors: [0.3, 0.3, 1]
+    },
     videoSettings: get_videoSettings(),
     landmarksStabilizerSpec: VTOModeSettings.landmarksStabilizerSpec,
     objectPointsPositionFactors: VTOModeSettings.objectPointsPositionFactors,
