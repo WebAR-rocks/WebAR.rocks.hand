@@ -5,7 +5,7 @@ const NNPath = '../../neuralNets/';
 
 const NNWristVersion = '27';
 const NNRingVersion = '14'; //*/
-const NNWristBackVersion = '10';
+const NNWristBackVersion = '13';
 const NNRingBackVersion = '9';
 
 const wristModesCommonSettings = {
@@ -83,7 +83,7 @@ const _settings = {
       NNsPaths: [NNPath + 'NN_WRISTBACK_' + NNWristBackVersion + '.json']
     }, wristModesCommonSettings, {
       isPoseFilter: false,
-      threshold: 0.99
+      threshold: 0.95
     }),
     
     ring: Object.assign({
