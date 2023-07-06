@@ -1,7 +1,7 @@
 
 const _settings = {
   threshold: 0.8, // detection sensitivity, between 0 and 1
-  NNVersion: 27, // best: 27
+  NNVersion: 28, // best: 28
 
   // CONVERSES SHOES:
   // 3D models:
