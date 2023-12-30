@@ -1,7 +1,7 @@
 
 const _settings = {
   threshold: 0.8, // detection sensitivity, between 0 and 1. best: 0.8
-  NNVersion: 28, // best: 28
+  NNVersion: 30, // best: 30
 
   // CONVERSES SHOES:
   // 3D models:
@@ -97,7 +97,7 @@ function main(){
     },
     landmarksStabilizerSpec: { 
       minCutOff: 0.001,
-      beta: 3 // lower => more stabilized
+      beta: 10 // lower => more stabilized
     }
   }).then(function(three){
     handTrackerCanvas.style.zIndex = 3; // fix a weird bug on iOS15 / safari
