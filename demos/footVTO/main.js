@@ -145,7 +145,7 @@ function start(three){
     HandTrackerThreeHelper.add_threeObject(shoe);
   });
 
-  new THREE.GLTFLoader().load(_settings.occluderPath, function(gltf){
+  new THREE.GLTFLoader(three.loadingManager).load(_settings.occluderPath, function(gltf){
     const occluder = gltf.scene.children[0];
     transform(occluder);
     HandTrackerThreeHelper.add_threeOccluder(occluder);
