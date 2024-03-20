@@ -1,9 +1,9 @@
 const NNPath = '../../neuralNets/';
 
 const NNWristVersion = '27';
-const NNRingVersion = '14'; //*/
-const NNWristBackVersion = '20'; // best: 19
-const NNRingBackVersion = '9';
+const NNRingVersion = '14';
+const NNWristBackVersion = '20'; // best: 20
+const NNRingBackVersion = '11'; // best: 10
 
 const wristModesCommonSettings = {
   threshold: 0.95, // detection sensitivity, between 0 and 1
@@ -92,7 +92,12 @@ const _settings = {
       //NNsPaths: [NNPath + 'NN_RING_RP_' + NNRingVersion + '.json', NNPath + 'NN_RING_RB_' + NNRingVersion + '.json']
       NNsPaths: [NNPath + 'NN_RINGBACK_' + NNRingBackVersion + '.json']
     }, ringModesCommonSettings, {
-      threshold: 0.8//0.9
+      threshold: 0.95,//0.9
+      objectPointsPositionFactors: [1.0, 1.3, 1.0],
+      landmarksStabilizerSpec: { 
+        minCutOff: 0.001,
+        beta: 5,
+      }
     })
   },
 
