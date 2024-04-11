@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="en-EN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>WEBARROCKSHAND WATCH VTO DEMO</title>
+    
+    <!-- INCLUDE WEBARROCKSHAND SCRIPT -->
+    <script src="../../dist/WebARRocksHand.js"></script>
+    
+    <!-- THREE.JS - REPLACE IT BY three.min.js FOR PROD -->
+    <script src="../../libs/three/v136/build/three.js"></script>
+
+    <!-- THREE.JS EXTENSIONS -->
+    <script src="../../libs/three/v136/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="../../libs/three/v136/examples/js/loaders/RGBELoader.js"></script>
+
+    <!-- WEBARROCKSHAND THREEJS VTO HELPER -->
+    <script src="../../helpers/HandTrackerThreeHelper.js"></script>
+
+    <!-- change camera helper -->
+    <script src="../../helpers/ChangeCameraHelper.js"></script>
+    
+
+    <!-- WEBARROCKSHAND POINTS STABILIZER -->
+    <script src="../../helpers/landmarksStabilizers/OneEuroLMStabilizer.js"></script>
+
+     <!-- POSEFLIP FILTER -->
+    <script src="../../helpers/PoseFlipFilter.js"></script>
+    
+    <!-- INCLUDE MAIN DEMO SCRIPT -->
+    <script src="./main.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+
+
+    <style type='text/css'>
+      body {
+        background-color: #333;
+        margin: 0;
+        overflow: hidden;
+        font-family: 'Roboto', sans-serif;
+      }
+      canvas {
+        position: fixed;
+        top: 0;
+        /*left: 0;
+        width: 100vw*/
+        height: 100vh;
+      }
+      #handTrackerCanvas {
+        z-index: 1;
+      }
+      #VTOCanvas {
+        z-index: 2;
+      }
+      canvas {
+        /* mirror the canvas - useful if camera is in selfie mode only: */
+        left: 50%;
+        transform: translate(-50%, 0%) rotateY(180deg);
+      }
+
+      .modal {
+        display: flex; 
+        flex-direction: column;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        transition-duration: 500ms;
+        position: fixed;
+      }
+
+      #loading {
+        background: #1c3e83;
+        color: white;
+        opacity: 1;
+        z-index: 10;
+      }
+      #loading > div {
+        margin: auto;
+        font-size: 32pt;
+      }
+
+      #instructions {
+        z-index: 9;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        font-size: 22px;
+      }
+      #instructions > div {
+        margin: auto;
+        text-align: center;
+        line-height: 1.5em;
+      }
+      .instructionsOK {
+        border: 1px solid white;
+        background: transparent;
+        color: white;
+        font-size: 22px;
+        padding: 22px;
+        margin: 1em;
+        cursor: pointer;
+        width: 200px;
+      }
+      .instructionsImg {
+        margin-top: 12px;
+        max-height: 50vh;
+        max-width: 50vw;
+      }
+
+      #changeCamera {
+        display: none;
+        position: fixed;
+        z-index: 4;
+        bottom: 6px;
+        left: 6px;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        font-variant: small-caps;
+        border: none;
+        padding: 12px;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- loading modal: -->
+    <div id='loading' class='modal'>
+      <div>
+        LOADING...
+      </div>
+    </div>
+
+    <!-- instructions: -->
+    <div id='instructions' class='modal'>
+      <div>
+        Place your hand like that:<br/>
+        <img src='assets/VTOWristGuidline500px.png' class="instructionsImg" /><br/>
+        <button class='instructionsOK' onclick="hide_instructions()">OK</button>
+      </div>
+    </div>
+
+    <div id='canvases'>
+      <!-- Canvas displayed above, with the THREE.js scene -->
+      <canvas id='VTOCanvas'></canvas>
+
+      <!-- Canvas used by the hand tracker and displaying the video -->
+      <canvas id='handTrackerCanvas'></canvas>
+    </div>
+
+    <button onclick='change_camera()' id='changeCamera'>Change camera</button>
+  </body>
+</html>
+ 

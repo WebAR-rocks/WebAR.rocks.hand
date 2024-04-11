@@ -49,12 +49,16 @@ The best demos have been ported to a modern front-end development environment (N
 
 
 * Boilerplate demo (display landmarks): [live demo](https://webar.rocks/demos/hand/demos/basic/), [source code](/demos/basic/)
-* Wrist and ring VTO: [live demo](https://webar.rocks/demos/hand/demos/VTO/), [source code](/demos/VTO/)
+
+* Hand VTO:
+  * Wrist and ring VTO: [live demo](https://webar.rocks/demos/hand/demos/VTO/), [source code](/demos/VTO/)
+  * Wrist watch realistic VTO: [live demo](https://webar.rocks/demos/hand/demos/VTOWatchOnly/), [source code](/demos/VTOWatchOnly/)
+
 * Hand based navigation:
   * https://webar.rocks like navigation: [live demo](https://webar.rocks/demos/hand/demos/navigation/), [source code](/demos/navigation/)
   * Slideshow presentation (for desktop): [live demo](https://webar.rocks/demos/hand/demos/navigation2/), [source code](/demos/navigation2/)
 
-* Foot tracking: 
+* Foot VTO: 
   * Barefoot VTO: [live demo](https://webar.rocks/demos/hand/demos/bareFootVTO/), [source code](/demos/bareFootVTO/)
   * Shoes on and barefoot VTO: [live demo](https://webar.rocks/demos/hand/demos/footVTO/), [source code](/demos/footVTO/)
 
@@ -214,6 +218,7 @@ After the initialization (ie after that `callbackReady` is launched ) , these me
 
 
 ### Using module
+
 `/dist/HandTracker.module.js` is exactly the same as `/dist/WebARRocksHand.js` except that it works as a JavaScript module, so you can import it directly using:
 
 ```javascript
@@ -224,6 +229,7 @@ or using `require`.
 
 
 ## Virtual Try-on and object manipulation
+
 Virtual try-on (VTO) and object manipulation demos are provided in this repository.
 They rely on the [THREE.js VTO helper](/helpers/HandTrackerVTOThreeHelper.js) to instantiate THREE.js objects and especially the scene, the camera and the 3D object tracking specific parts of the hand (the *tracker* ).
 
