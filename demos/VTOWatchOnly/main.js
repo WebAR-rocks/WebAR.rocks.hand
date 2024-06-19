@@ -7,7 +7,7 @@ const _settings = {
     //"wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom" // more accurate
     "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft" // more stable
    ],
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_27.json'],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_29.json'], // best: 27
   isPoseFilter: true,
   objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
 
