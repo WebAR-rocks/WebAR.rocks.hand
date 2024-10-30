@@ -118,7 +118,7 @@ const WebARRocksLMStabilizer = (function(){
         freqRange: [5, 144],
         minCutOff: 0.001,
         beta: 50,
-        adaptativeBetaPow: 2, // 0 -> disable adaptative beta
+        adaptativeBetaPow: 1,//2, // 0 -> disable adaptative beta
         dcutoff: 1.0,
 
         // WebAR.rocks enhancement
@@ -170,6 +170,7 @@ const WebARRocksLMStabilizer = (function(){
           // WebAR.rocks tweak compared to original OneEuroFilter:
           // we increase beta for low freq (slow devices) to avoid too many lag
           const k = 60 / Math.min(_freq, 60); // 1 for good config, 5 for a slow one
+          //console.log(k);
           const beta = _spec.beta * Math.pow(k, _spec.adaptativeBetaPow);
           
           for (let i=0; i<LMCount; ++i) {

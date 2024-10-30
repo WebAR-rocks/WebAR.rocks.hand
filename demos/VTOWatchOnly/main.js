@@ -3,15 +3,29 @@ const _settings = {
   
   // pose computation and stabilization:
   poseLandmarksLabels: [
-  // wristRightBottom not working
+    // for NN version <= 33:
     //"wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom" // more accurate
     "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft" // more stable
    ],
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_29.json'], // best: 27
-  isPoseFilter: true,
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_33.json'], // best: 33
+  objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak */
+  
+  /*poseLandmarksLabels: [
+    // for NN >= 34:
+    'wristPinkySideBot',
+    'wristThumbSideBot',
+    'wristPinkySideTop',
+    'wristThumbSideTop',
+    'wristUpTop',
+    'wristUpBot',
+    'wristDownTop',
+    'wristDownBot'
+   ],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_36.json'],
   objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
-
-
+  //*/
+  isPoseFilter: true,
+  
   // soft occluder parameters (soft because we apply a fading gradient)
   occluderRadiusRange: [4, 4.7], // first value: minimum or interior radius of the occluder (full transparency).
                                  // second value: maximum or exterior radius of the occluder (full opacity, no occluding effect)
@@ -91,8 +105,10 @@ function main(){
       }
     },
     objectPointsPositionFactors: _settings.objectPointsPositionFactors,
+    poseRotationDirectionSrc: [0,1,0],
+    poseRotationDirectionDst: [0,0,1],
     poseLandmarksLabels: _settings.poseLandmarksLabels,
-    poseFilter: null,
+    poseFilter: (_settings.isPoseFilter) ? PoseFlipFilter.instance({}) : null,
     NNsPaths: _settings.NNsPaths,
     threshold: _settings.threshold,
     callbackTrack: callbackTrack,

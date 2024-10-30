@@ -38,9 +38,12 @@ const HandTrackerThreeHelper = (function(){
     taaLevel: 0,
 
     poseLandmarksLabels: ["wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop"],
+    poseRotationDirectionSrc: null,
+    poseRotationDirectionDst: null,
     isInverseYZObjectPosition: false,
     objectPositionTweaker: null,
     objectPointsPositionFactors: [1.0, 1.0, 1.0],
+    //imagePointsTweaks: [], // implemented for VTOWatchOnly on 2024-10
 
     enableFlipObject: true, // flip the object if left hand. useful for hand accessories
     landmarksStabilizerSpec: {},
@@ -79,6 +82,7 @@ const HandTrackerThreeHelper = (function(){
     objPointsLeft: null,
     imgPointsPx: [],
     poseLandmarksIndices: [],
+    //imagePointsTweaksIndices: [],
     matMov: null
   };
   const _debugDisplayLandmarks = {
@@ -284,8 +288,6 @@ const HandTrackerThreeHelper = (function(){
       posTweaked[2] = y;
     }
 
-    //posTweaked[2]*=1.5;
-
     return posTweaked;
   }
 
@@ -344,6 +346,17 @@ const HandTrackerThreeHelper = (function(){
     _poseEstimation.imgPointsPx = _poseEstimation.poseLandmarksIndices.map(function(){
       return [0, 0];
     });
+
+    // init imagePointsTweaksIndices:
+    /*_poseEstimation.imagePointsTweaksIndices = _spec.imagePointsTweaks.map((tweak) => {
+      return tweak.pointLabels.map((label) => {
+        const ind = _spec.poseLandmarksLabels.indexOf(label);
+        if (ind === -1){
+          throw new Error('Cannot find tweak landmark label in pose labels ' + label);
+        }
+        return ind;
+      })
+    });*/
 
     // init THREE stuffs:
     if (!_poseEstimation.matMov){
@@ -475,8 +488,20 @@ const HandTrackerThreeHelper = (function(){
   }
 
 
+  /*function apply_tweakScale(imgPointsPx, pointInds, tweak){
+    const p0 = imgPointsPx[pointInds[0]];
+    const p1 = imgPointsPx[pointInds[1]];
+    const center = [0.5*(p0[0]+p1[0]), 0.5*(p0[1]+p1[1])];
+    const u = [0.5*(p1[0]-p0[0]), 0.5*(p1[1]-p0[1])];
+    const k = tweak.factor;
+    p0[0] = center[0] - k*u[0], p0[1] = center[1] - k*u[1];
+    p1[0] = center[0] + k*u[0], p1[1] = center[1] + k*u[1];
+    //p0[0] = 0, p0[1] = 0, p1[0] = 0, p1[1] = 0
+  }*/
+
+
   function compute_pose(landmarks, isRightHand, poseFilter, handIndex){
-    // update image points:
+    // update image points to compute imgPointPx:
     const imgPointsPx = _poseEstimation.imgPointsPx;
     const w2 = that.get_viewWidth() / 2.0;
     const h2 = that.get_viewHeight() / 2.0;
@@ -487,12 +512,31 @@ const HandTrackerThreeHelper = (function(){
       imgPointPx[1] = - ( 1.0 / _spec.cameraZoom ) * landmarks[ind][1] * h2;  // Y in pixels
     });
 
+    // apply imagePointsTweaks
+    /*if (_spec.imagePointsTweaks.length !== 0){
+      _spec.imagePointsTweaks.forEach(function(tweak, tweakInd){
+        const pointInds = _poseEstimation.imagePointsTweaksIndices[tweakInd];
+        switch(tweak.type){
+          case 'SCALE':
+            apply_tweakScale(imgPointsPx, pointInds, tweak);
+            break;
+          default:
+            throw new Error('Unknow image points tweak type for ', tweak);
+            break;
+        }
+      }); // end loop on tweaks
+    }*/
+
     // get right hand side object points:
     const objPoints = (isRightHand) ? _poseEstimation.objPointsRight : _poseEstimation.objPointsLeft;
     
     // compute pose:
     const focals = _poseEstimation.focals;
-    const solved = WEBARROCKSHAND.compute_pose(objPoints.points, imgPointsPx, focals[0], focals[1]);
+    const computePoseOptions = {
+      rotationDirectionSrc: _spec.poseRotationDirectionSrc,
+      rotationDirectionDst: _spec.poseRotationDirectionDst
+    }
+    const solved = WEBARROCKSHAND.compute_pose(objPoints.points, imgPointsPx, focals[0], focals[1], computePoseOptions);
 
     const tracker = (isRightHand || !_spec.enableFlipObject) ? _three.trackersRight[handIndex] : _three.trackersLeft[handIndex];
     tracker.visible = true;

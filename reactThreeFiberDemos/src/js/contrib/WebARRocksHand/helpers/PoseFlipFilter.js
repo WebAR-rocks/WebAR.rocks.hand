@@ -170,7 +170,8 @@ const PoseFlipFilter = (function(){
             }//*/
             
             // apply amortization factors:
-            Quaternion.slerp(_previous.threeQuaternion, _threeQuaternion, _threeQuaternionApplied, rotFactor);
+            //Quaternion.slerp(_previous.threeQuaternion, _threeQuaternion, _threeQuaternionApplied, rotFactor);
+            _threeQuaternionApplied.slerpQuaternions(_previous.threeQuaternion, _threeQuaternion, rotFactor);
             _threePositionApplied.lerpVectors(_previous.threePosition, _threePosition, posFactor);
             
             // save image point positions for next iteration:
