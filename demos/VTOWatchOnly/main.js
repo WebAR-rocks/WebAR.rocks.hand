@@ -8,8 +8,9 @@ const _settings = {
     "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft" // more stable
    ],
   NNsPaths: ['../../neuralNets/NN_WRISTBACK_33.json'], // best: 33
-  objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak */
-  
+  objectPointsPositionFactors: [1.0, 1.1, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak */
+      // if objectPointsPositionFactors.y too small -> jitters when displayed front. If too large -> scale down too much when wrist rotates
+
   /*poseLandmarksLabels: [
     // for NN >= 34:
     'wristPinkySideBot',
@@ -22,7 +23,7 @@ const _settings = {
     'wristDownBot'
    ],
   NNsPaths: ['../../neuralNets/NN_WRISTBACK_36.json'],
-  objectPointsPositionFactors: [1.0, 1.3, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
+  objectPointsPositionFactors: [1.0, 1.0, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
   //*/
   isPoseFilter: true,
   
@@ -36,7 +37,7 @@ const _settings = {
 
   stabilizerOptions: {
     minCutOff: 0.001,
-    beta: 4,
+    beta: 5,
     freqRange: [2, 144],
     forceFilterNNInputPxRange: [2.5, 6],//[1.5, 4],
   },
