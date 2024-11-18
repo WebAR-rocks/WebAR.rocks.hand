@@ -7,7 +7,7 @@ const _settings = {
     //"wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom" // more accurate
     "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft" // more stable
    ],
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_33.json'], // best: 33
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_37.json'], // best: 37
   objectPointsPositionFactors: [1.0, 1.1, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak */
       // if objectPointsPositionFactors.y too small -> jitters when displayed front. If too large -> scale down too much when wrist rotates
 
@@ -96,7 +96,8 @@ function main(){
   HandTrackerThreeHelper.init({
     landmarksStabilizerSpec: _settings.stabilizerOptions,
     scanSettings: {
-      translationScalingFactors: [0.3,0.3,0.3],
+      //translationScalingFactors: [0.3,0.3,0.3],
+      translationScalingFactors: [0.2,0.2,0.3],
     },
     stabilizationSettings: {
       switchNNErrorThreshold: 0.2,
