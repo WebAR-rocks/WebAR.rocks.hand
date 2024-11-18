@@ -45,7 +45,9 @@ const _settings = {
   // model settings:
   modelURL: 'assets/watchCasio.glb',
   modelScale: 1.3 * 1.462,
-  modelOffset: [0.076, -0.916, -0.504],
+  //modelOffset: [0.076, -0.916, -0.504],
+  modelOffset: [-0.3, 0.5, -0.504], // bring pinky side, up
+  
   modelQuaternion: [0,0,0,1], // Format: X,Y,Z,W (and not W,X,Y,Z like Blender)
 
   // debug flags:
