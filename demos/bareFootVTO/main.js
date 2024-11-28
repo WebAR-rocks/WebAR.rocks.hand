@@ -71,10 +71,21 @@ function main(){
     freeZRot: false,
     threshold: _settings.threshold,
     scanSettings: {
-      translationScalingFactors: [0.3, 0.3, 1],
+      /*translationScalingFactors: [0.3, 0.3, 1.0],
       multiDetectionSearchSlotsRate: 0.5,
       multiDetectionEqualizeSearchSlotScale: true, 
-      multiDetectionForceSearchOnOtherSide: true
+      multiDetectionForceSearchOnOtherSide: true*/
+      multiDetectionSearchSlotsRate: 0.5,
+      multiDetectionMaxOverlap: 0.3,
+      multiDetectionOverlapScaleXY: [0.5, 1],
+      multiDetectionEqualizeSearchSlotScale: true, 
+      multiDetectionForceSearchOnOtherSide: true,
+      multiDetectionForceChirality: 1,
+      disableIsRightHandNNEval: true,
+      overlapFactors: [1.0, 1.0, 1.0],
+      translationScalingFactors: [0.3, 0.3, 1.0],
+      nScaleLevels: 2, // in the higher scale level, the size of the detection window is the smallest video dimension
+      scale0Factor: 0.5
     },
     VTOCanvas: VTOCanvas,
     handTrackerCanvas: handTrackerCanvas,
@@ -83,7 +94,9 @@ function main(){
     maxHandsDetected: 2,
     stabilizationSettings: {
       NNSwitchMask: {
-        isRightHand: true,
+        /*isRightHand: true,
+        isFlipped: false*/
+        isRightHand: false,
         isFlipped: false
       }
     }

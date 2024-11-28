@@ -7,6 +7,7 @@
 * [Features](#features)
 * [Architecture](#architecture)
 * [Demonstrations](#demonstrations)
+  * [Third party](#third-party)
 * [Specifications](#specifications)
   * [Get started](#get-started)
   * [Optionnal init arguments](#optionnal-init-arguments)
@@ -69,6 +70,12 @@ The best demos have been ported to a modern front-end development environment (N
   * Velociraptor demo with persistency if hand tracking is lost: [live demo](https://webar.rocks/demos/hand/demos/objectManip4/), [source code](/demos/objectManip4)
 
 To run the demonstrations, serve the content of this directory using a static HTTP server (More info in [Hosting section](#hosting).
+
+### Third-Party
+
+These demonstrations are not created or maintained by WebAR.rocks:
+
+* Shoes VTO with Angular16 by [Jiaying Ong](https://github.com/Candyzorua) - [Github repository](https://github.com/Candyzorua/ar-demo)
 
 
 ## Specifications
