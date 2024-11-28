@@ -99,6 +99,10 @@ function main(){
         isRightHand: false,
         isFlipped: false
       }
+    },
+    landmarksStabilizerSpec: { 
+      minCutOff: 0.001,
+      beta: 5 // lower => more stabilized
     }
   }).then(function(three){
     handTrackerCanvas.style.zIndex = 3; // fix a weird bug on iOS15 / safari
