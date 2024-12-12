@@ -51,7 +51,7 @@ const _settings = {
   modelScale: 1.3 * 1.462,
   objectPointsPositionFactors: [1.0, 1.0, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
   //*/
-  isPoseFilter: true,
+  isPoseFilter: false,//true,
   
   // soft occluder parameters (soft because we apply a fading gradient)
   occluderRadiusRange: [4, 4.7], // first value: minimum or interior radius of the occluder (full transparency).
