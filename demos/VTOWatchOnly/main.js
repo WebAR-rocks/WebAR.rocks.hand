@@ -1,5 +1,5 @@
 const _settings = {
-  threshold: 0.9, // detection sensitivity, between 0 and 1
+  threshold: 0.95, // detection sensitivity, between 0 and 1
   
   // pose computation and stabilization:
   
@@ -123,10 +123,11 @@ function main(){
     landmarksStabilizerSpec: _settings.stabilizerOptions,
     scanSettings: {
       //translationScalingFactors: [0.3,0.3,0.3],
-      translationScalingFactors: [0.2,0.2,0.3],
+      //translationScalingFactors: [0.2,0.2,0.3],
+      translationScalingFactors: [0.3,0.3,1],
     },
     stabilizationSettings: {
-      switchNNErrorThreshold: 0.2,
+      switchNNErrorThreshold: 0.7,
       NNSwitchMask: {
         isRightHand: true,
         isFlipped: false
