@@ -1,18 +1,42 @@
 const _settings = {
-  threshold: 0.98, // detection sensitivity, between 0 and 1
+  threshold: 0.9, // detection sensitivity, between 0 and 1
   
   // pose computation and stabilization:
+  
   poseLandmarksLabels: [
-    // for NN version <= 33:
-    //"wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom" // more accurate
-    "wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft" // more stable
+    // for NN 41:
+   /*'wristBack',
+   'wristLeft',*/
+   'wristRight',
+   'wristPalm',
+
+   'wristRightBottom',
+   'wristLeftBottom',
+
+   'wristBackBottom2',
+   'wristPalmBottom2',
+   'wristBackMiddlePinky',
+   'wristBackMiddleThumb'
    ],
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_37.json'], // best: 37
+  modelOffset: [-0.3*0, 0, -0.504*0], // bring pinky side, up
+  modelScale: 1.2 * 1.462,
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_41.json'],
+  objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
+
+  /*poseLandmarksLabels: [
+    // for NN version <= 33 or >=37:
+    "wristBack", "wristLeft", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristRightBottom", "wristLeftBottom" // more accurate
+    //"wristBack", "wristRight", "wristPalm", "wristPalmTop", "wristBackTop", "wristLeft" // more stable
+    //"wristBack", "wristRight", "wristPalm", "wristLeftBottom", "wristRightBottom", "wristLeft"
+   ],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_38.json'], // best: 38
+  modelOffset: [-0.3, 0.5, -0.504], // bring pinky side, up
+  modelScale: 1.3 * 1.462,
   objectPointsPositionFactors: [1.0, 1.1, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak */
       // if objectPointsPositionFactors.y too small -> jitters when displayed front. If too large -> scale down too much when wrist rotates
 
   /*poseLandmarksLabels: [
-    // for NN >= 34:
+    // for NN 34,35,36:
     'wristPinkySideBot',
     'wristThumbSideBot',
     'wristPinkySideTop',
@@ -23,6 +47,8 @@ const _settings = {
     'wristDownBot'
    ],
   NNsPaths: ['../../neuralNets/NN_WRISTBACK_36.json'],
+  modelOffset: [-0.3, 0.5, -0.504], // bring pinky side, up
+  modelScale: 1.3 * 1.462,
   objectPointsPositionFactors: [1.0, 1.0, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
   //*/
   isPoseFilter: true,
@@ -44,9 +70,7 @@ const _settings = {
 
   // model settings:
   modelURL: 'assets/watchCasio.glb',
-  modelScale: 1.3 * 1.462,
   //modelOffset: [0.076, -0.916, -0.504],
-  modelOffset: [-0.3, 0.5, -0.504], // bring pinky side, up
   
   modelQuaternion: [0,0,0,1], // Format: X,Y,Z,W (and not W,X,Y,Z like Blender)
 
