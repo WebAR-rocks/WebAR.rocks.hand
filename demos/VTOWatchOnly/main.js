@@ -4,9 +4,23 @@ const _settings = {
   // pose computation and stabilization:
   
   poseLandmarksLabels: [
+    // for NN 40:
+    'wristPinkySideBot',
+    'wristThumbSideBot',
+    'wristPinkySideTop',
+    'wristThumbSideTop',
+    'wristUpTop',
+    'wristUpBot',
+    'wristDownTop',
+    'wristDownBot'
+   ],
+  modelOffset: [-0.3*0, 0, -0.504*0], // bring pinky side, up
+  modelScale: 1.2 * 1.462,
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_40.json'],
+  objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
+
+  /*poseLandmarksLabels: [
     // for NN 41:
-   /*'wristBack',
-   'wristLeft',*/
    'wristRight',
    'wristPalm',
 
