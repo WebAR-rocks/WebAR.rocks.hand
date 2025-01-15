@@ -3,7 +3,7 @@ const _settings = {
   
   // pose computation and stabilization:
   
-  poseLandmarksLabels: [
+  /*poseLandmarksLabels: [
     // for NN 40:
     'wristPinkySideBot',
     'wristThumbSideBot',
@@ -19,8 +19,8 @@ const _settings = {
   NNsPaths: ['../../neuralNets/NN_WRISTBACK_40.json'],
   objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
 
-  /*poseLandmarksLabels: [
-    // for NN 41:
+  poseLandmarksLabels: [
+    // for NN 41, 42:
    'wristRight',
    'wristPalm',
 
@@ -34,7 +34,7 @@ const _settings = {
    ],
   modelOffset: [-0.3*0, 0, -0.504*0], // bring pinky side, up
   modelScale: 1.2 * 1.462,
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_41.json'],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_42.json'],
   objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
 
   /*poseLandmarksLabels: [
