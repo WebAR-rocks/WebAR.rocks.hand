@@ -48,12 +48,6 @@
         /* mirror the canvas - useful if camera is in selfie mode only: */
         /*transform: rotateY(180deg);*/
       }
-      .flipButton {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 5;
-      }
     </style>
   </head>
   <body>
@@ -64,7 +58,6 @@
       <!-- Canvas displayed above, with the THREE.js scene -->
       <canvas id='ARCanvas'></canvas>
     </div>
-    <button class='flipButton' onclick='flip_camera()'>FLIP CAMERA</button>
   </body>
 </html>
  

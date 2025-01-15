@@ -159,23 +159,4 @@ function start(three){
 } //end start()
 
 
-function flip_camera(){
-  if (_state !== _states.running){
-    return;
-  }
-  _state = _states.busy;
-  WEBARROCKSHAND.update_videoSettings({
-    facingMode: (_isSelfieCam) ? 'environment' : 'user'
-  }).then(function(){
-    _isSelfieCam = !_isSelfieCam;
-    _state = _states.running;
-    // mirror canvas using CSS in selfie cam mode:
-    document.getElementById('canvases').style.transform = (_isSelfieCam) ? 'rotateY(180deg)' : '';
-    console.log('INFO in main.js: Camera flipped successfully');
-  }).catch(function(err){
-    console.log('ERROR in main.js: Cannot flip camera -', err);
-  });
-}
-
-
 window.addEventListener('load', main);

@@ -108,9 +108,20 @@ function main(){
 } 
 
 
+function hide_loading(){
+  // remove loading:
+  const domLoading = document.getElementById('loading');
+  domLoading.style.opacity = 0;
+  setTimeout(function(){
+    domLoading.parentNode.removeChild(domLoading);
+  }, 800);
+}
+
+
 function start(three){
   three.loadingManager.onLoad = function(){
     console.log('INFO in main.js: Everything is loaded');
+    hide_loading();
     _state = _states.running;
   }
 
@@ -149,26 +160,6 @@ function start(three){
     const occluder = gltf.scene.children[0];
     transform(occluder);
     HandTrackerThreeHelper.add_threeOccluder(occluder);
-  });
-}
-
-
-
-function flip_camera(){
-  if (_state !== _states.running){
-    return;
-  }
-  _state = _states.busy;
-  WEBARROCKSHAND.update_videoSettings({
-    facingMode: (_isSelfieCam) ? 'environment' : 'user'
-  }).then(function(){
-    _isSelfieCam = !_isSelfieCam;
-    _state = _states.running;
-    // mirror canvas using CSS in selfie cam mode:
-    document.getElementById('canvases').style.transform = (_isSelfieCam) ? 'rotateY(180deg)' : '';
-    console.log('INFO in main.js: Camera flipped successfully');
-  }).catch(function(err){
-    console.log('ERROR in main.js: Cannot flip camera -', err);
   });
 }
 

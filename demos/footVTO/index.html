@@ -25,10 +25,32 @@
     <!-- INCLUDE MAIN DEMO SCRIPT -->
     <script src="./main.js"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <style type='text/css'>
       body {
         margin: 0;
         overflow: hidden;
+        font-family: 'Roboto', sans-serif;
+      }
+      .modal {
+        display: flex; 
+        flex-direction: column;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        transition-duration: 500ms;
+        position: fixed;
+      }
+      #loading {
+        background: #1c3e83;
+        color: white;
+        opacity: 1;
+        z-index: 10;
+      }
+      #loading > div {
+        margin: auto;
+        font-size: 32pt;
       }
       canvas {
         position: fixed;
@@ -45,15 +67,16 @@
         /* mirror the canvas - useful if camera is in selfie mode only: */
         /*transform: rotateY(180deg);*/
       }
-      .flipButton {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 5;
-      }
     </style>
   </head>
   <body>
+    <!-- loading modal: -->
+    <div id='loading' class='modal'>
+      <div>
+        LOADING...
+      </div>
+    </div>
+
     <div id='canvases'>
       <!-- Canvas used by the hand tracker and displaying the video -->
       <canvas id='handTrackerCanvas'></canvas>
@@ -61,7 +84,6 @@
       <!-- Canvas displayed above, with the THREE.js scene -->
       <canvas id='ARCanvas'></canvas>
     </div>
-    <button class='flipButton' onclick='flip_camera()'>FLIP CAMERA</button>
   </body>
 </html>
  
