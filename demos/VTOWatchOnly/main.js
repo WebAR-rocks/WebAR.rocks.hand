@@ -3,8 +3,8 @@ const _settings = {
   
   // pose computation and stabilization:
   
-  /*poseLandmarksLabels: [
-    // for NN 40:
+  poseLandmarksLabels: [
+    // for NN 40 and 43:
     'wristPinkySideBot',
     'wristThumbSideBot',
     'wristPinkySideTop',
@@ -16,10 +16,10 @@ const _settings = {
    ],
   modelOffset: [-0.3*0, 0, -0.504*0], // bring pinky side, up
   modelScale: 1.2 * 1.462,
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_40.json'],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_43.json'],
   objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
 
-  poseLandmarksLabels: [
+  /*poseLandmarksLabels: [
     // for NN 41, 42:
    'wristRight',
    'wristPalm',
@@ -65,7 +65,7 @@ const _settings = {
   modelScale: 1.3 * 1.462,
   objectPointsPositionFactors: [1.0, 1.0, 1.0], // factors to apply to point positions to lower pose angles - dirty tweak
   //*/
-  isPoseFilter: false,//true,
+  isPoseFilter: true,
   
   // soft occluder parameters (soft because we apply a fading gradient)
   occluderRadiusRange: [4, 4.7], // first value: minimum or interior radius of the occluder (full transparency).
@@ -77,7 +77,7 @@ const _settings = {
 
   stabilizerOptions: {
     minCutOff: 0.001,
-    beta: 5,
+    beta: 4,
     freqRange: [2, 144],
     forceFilterNNInputPxRange: [2.5, 6],//[1.5, 4],
   },
