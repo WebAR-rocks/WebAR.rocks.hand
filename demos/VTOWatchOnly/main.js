@@ -1,5 +1,5 @@
 const _settings = {
-  threshold: 0.95, // detection sensitivity, between 0 and 1
+  threshold: 0.97, // detection sensitivity, between 0 and 1
   
   // pose computation and stabilization:
   
@@ -16,7 +16,7 @@ const _settings = {
    ],
   modelOffset: [-0.3*0, 0, -0.504*0], // bring pinky side, up
   modelScale: 1.2 * 1.462,
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_43.json'],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_44.json'],
   objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
 
   /*poseLandmarksLabels: [
