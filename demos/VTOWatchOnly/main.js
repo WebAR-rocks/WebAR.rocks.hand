@@ -4,7 +4,7 @@ const _settings = {
   // pose computation and stabilization:
   
   poseLandmarksLabels: [
-    // for NN 40 and 43:
+    // for NN 40,43,44:
     'wristPinkySideBot',
     'wristThumbSideBot',
     'wristPinkySideTop',
@@ -106,7 +106,7 @@ let _state = _states.notLoaded;
 let _isInstructionsHidden = false;
 
 
-function setFullScreen(cv){
+function size_canvas(cv){
   const pixelRatio = window.devicePixelRatio || 1;
   const w = window.innerWidth;
   const h = window.innerHeight;
@@ -123,8 +123,8 @@ function main(){
   const handTrackerCanvas = document.getElementById('handTrackerCanvas');
   const VTOCanvas = document.getElementById('VTOCanvas');
   
-  setFullScreen(handTrackerCanvas);
-  setFullScreen(VTOCanvas);
+  size_canvas(handTrackerCanvas);
+  size_canvas(VTOCanvas);
 
   // init change VTO button:
   ChangeCameraHelper.init({
