@@ -16,7 +16,7 @@ const _settings = {
    ],
   modelOffset: [-0.3*0, 0, -0.504*0], // bring pinky side, up
   modelScale: 1.2 * 1.462,
-  NNsPaths: ['../../neuralNets/NN_WRISTBACK_44.json'],
+  NNsPaths: ['../../neuralNets/NN_WRISTBACK_45.json'], // best: 45
   objectPointsPositionFactors: [1.0, 1.0, 1.0], //*/
 
   /*poseLandmarksLabels: [
