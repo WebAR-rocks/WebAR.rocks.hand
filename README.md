@@ -42,7 +42,7 @@ Here are the main features of the library:
 * `/helpers/`: scripts which can help you to use this library in some specific use cases,
 * `/libs/`: 3rd party libraries and 3D engines used in the demos,
 * `/neuralNets/`: neural networks models,
-* `/reactThreeFiberDemos`: Demos with Webpack/NPM/React/Three Fiber.
+* `/reactThreeFiberDemos`: Demos with Vite/NPM/React/Three Fiber.
 
 ## Demonstrations
 

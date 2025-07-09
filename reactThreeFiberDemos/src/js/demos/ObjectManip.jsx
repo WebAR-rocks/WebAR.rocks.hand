@@ -4,14 +4,14 @@ import {
   ACESFilmicToneMapping,
   AnimationMixer,
   Clock,
-  sRGBEncoding
+  //sRGBEncoding
 } from 'three'
 // import GLTF loader - originally in examples/jsm/loaders/
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 // import components:
-import BackButton from '../components/BackButton.js'
-import FlipCamButton from '../components/FlipCamButton.js'
+import BackButton from '../components/BackButton'
+import FlipCamButton from '../components/FlipCamButton'
 
 // import neural network model:
 import NN from '../contrib/WebARRocksHand/neuralNets/NN_OBJMANIP_7.json'
@@ -38,7 +38,7 @@ const ThreeGrabber = (props) => {
   // tweak encoding:
   const threeRenderer = threeFiber.gl
   threeRenderer.toneMapping = ACESFilmicToneMapping
-  threeRenderer.outputEncoding = sRGBEncoding
+  //threeRenderer.outputEncoding = sRGBEncoding
 
   useFrame(VTOThreeHelper.update_threeCamera.bind(null, props.sizing, threeFiber.camera))
   
@@ -100,7 +100,7 @@ const DebugCube = (props) => {
   const s = props.size || 1
   return (
     <mesh name="debugCube">
-      <boxBufferGeometry args={[s, s, s]} />
+      <boxGeometry args={[s, s, s]} />
       <meshNormalMaterial />
     </mesh>
     )
@@ -216,7 +216,6 @@ const ObjectManip = () => {
       gl={{
         preserveDrawingBuffer: true // allow image capture
       }}
-      updateDefaultCamera = {false}
       >
         <ThreeGrabber sizing={sizing}/>
         
@@ -224,8 +223,8 @@ const ObjectManip = () => {
           <VTOModelContainer GLTFModel={_GLTFModel} pose={_pose} />
         </Suspense>
 
-        <pointLight color={0xffffff} intensity={1} />
-        <ambientLight color={0xffffff} intensity={0.5} />
+        <pointLight color={0xffffff} intensity={5} />
+        <ambientLight color={0xffffff} intensity={2.5} />
       </Canvas>
 
     {/* Canvas managed by WebAR.rocks, just displaying the video (and used for WebGL computations) */}

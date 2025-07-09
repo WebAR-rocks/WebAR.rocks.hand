@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, Suspense } from 'react'
 
 // import components:
-import BackButton from '../components/BackButton.js'
-import FlipCamButton from '../components/FlipCamButton.js'
+import BackButton from '../components/BackButton'
+import FlipCamButton from '../components/FlipCamButton'
 
 // import neural network model:
 //import NN_RP from '../contrib/WebARRocksHand/neuralNets/NN_NAV_RP_8.json'

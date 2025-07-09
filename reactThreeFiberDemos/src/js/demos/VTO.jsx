@@ -5,16 +5,17 @@ import {
   CylinderGeometry,
   Mesh,
   MeshNormalMaterial,
-  sRGBEncoding,
+  MeshStandardMaterial,
+  //sRGBEncoding,
   Vector3
 } from 'three'
 // import GLTF loader - originally in examples/jsm/loaders/
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 // import components:
-import BackButton from '../components/BackButton.js'
-import FlipCamButton from '../components/FlipCamButton.js'
-import VTOButton from '../components/VTOButton.js'
+import BackButton from '../components/BackButton'
+import FlipCamButton from '../components/FlipCamButton'
+import VTOButton from '../components/VTOButton'
 
 // import neural network models:
 // 2 neural network approach:
@@ -129,7 +130,7 @@ const ThreeGrabber = (props) => {
   // tweak encoding:
   const threeRenderer = threeFiber.gl
   threeRenderer.toneMapping = ACESFilmicToneMapping
-  threeRenderer.outputEncoding = sRGBEncoding
+  //threeRenderer.outputEncoding = sRGBEncoding
 
   useFrame(VTOThreeHelper.update_threeCamera.bind(null, props.sizing, threeFiber.camera))
   
@@ -180,7 +181,13 @@ const VTOModelContainer = (props) => {
   
   // import main model:
   const gltf = useLoader(GLTFLoader, props.GLTFModel)
+
   const model = gltf.scene.children[0].clone()
+
+  // dirty tweak for placeholders - otherwise they look all black:
+  if (model.material){
+    model.material.metalness = 0
+  }
 
   // set model pose:
   if (props.pose.scale){
@@ -248,7 +255,7 @@ const DebugCube = (props) => {
   const s = props.size || 1
   return (
     <mesh name="debugCube">
-      <boxBufferGeometry args={[s, s, s]} />
+      <boxGeometry args={[s, s, s]} />
       <meshNormalMaterial />
     </mesh>
     )
@@ -406,7 +413,6 @@ const VTO = () => {
       gl={{
         preserveDrawingBuffer: true // allow image capture
       }}
-      updateDefaultCamera = {false}
       >
         <ThreeGrabber sizing={sizing}/>
         
@@ -414,8 +420,8 @@ const VTO = () => {
           <VTOModelContainer GLTFModel={VTOState.model.model} occluder={VTOState.mode.occluder} pose={VTOState.pose} />
         </Suspense>
 
-        <pointLight color={0xffffff} intensity={1} position={[0,100,0]} />
-        <ambientLight color={0xffffff} intensity={0.3} />
+        <directionalLight color={0xffffff} intensity={0.5} position={[0,100,100]} />
+        <ambientLight color={0xffffff} intensity={0.1} />
       </Canvas>
 
     {/* Canvas managed by WebAR.rocks, just displaying the video (and used for WebGL computations) */}
