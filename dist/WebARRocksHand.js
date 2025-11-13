@@ -1,13 +1,27 @@
 /**
- * WebAR.rocks.hand
- *
- * Copyright (c) 2020 WebAR.rocks ( https://webar.rocks )
- * This code is released under dual licensing:
- *   - GPLv3 
- *   - Nominative commercial license
- * Please read https://github.com/WebAR-rocks/WebAR.rocks.hand/blob/master/LICENSE
+ * MIT License
  * 
+ * Copyright (c) 2025 WebAR.Rocks
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
 */
+
 
 var WEBARROCKSHAND=(function(){var Ga="function"==typeof Object.defineProperties?Object.defineProperty:function(M,N,R){if(M==Array.prototype||M==Object.prototype)return M;M[N]=R.value;return M};function $a(M){M=["object"==typeof globalThis&&globalThis,M,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var N=0;N<M.length;++N){var R=M[N];if(R&&R.Math==Math)return R}throw Error("Cannot find global object");}var Hb=$a(this);
 function Xb(M,N){if(N)a:{var R=Hb;M=M.split(".");for(var fa=0;fa<M.length-1;fa++){var na=M[fa];if(!(na in R))break a;R=R[na]}M=M[M.length-1];fa=R[M];N=N(fa);N!=fa&&null!=N&&Ga(R,M,{configurable:!0,writable:!0,value:N})}}function Yb(M){var N=0;return function(){return N<M.length?{done:!1,value:M[N++]}:{done:!0}}}

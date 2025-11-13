@@ -300,10 +300,7 @@ Don't panic if you see errors and warning at initialization in the web console. 
 
 ## License
 
-This code repository is dual licensed. You have to choose between these 2 licenses:
-
-1. [GPLv3](GPLv3.txt) (free default option)
-2. [Nominative commercial license](https://webar.rocks/buyCommercialLicense) (not free)
+This code is released under MIT Software license.
 
 For more information, please read [LICENSE](/LICENSE) file.
 
