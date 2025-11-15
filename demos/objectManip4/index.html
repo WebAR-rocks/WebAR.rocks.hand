@@ -43,22 +43,29 @@
         overflow: hidden;
         box-sizing: border-box;
         font-family: 'Roboto', sans-serif;
+        background-color: #333;
+      }
+      #canvases{
+        position: fixed;
+        position: fixed;
+        width: 100vw;
+        height: 100%;
+        max-width: 100vh;
+        top: 0;
+        left: 50%;
       }
       canvas {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
-        width: 100vw;
+        width: 100%;
+        height: 100%;
       }
       #handTrackerCanvas {
         z-index: 1;
       }
       #ARCanvas {
         z-index: 2;
-      }
-      canvas {
-        /* mirror the canvas - useful if camera is in selfie mode only: */
-        /*transform: rotateY(180deg);*/
       }
       #flipButton {
         display: none;

@@ -17,7 +17,7 @@ previously mentioned directories if:
   1. the source is not identifiable as a third party,
   2. there is no license or reference to a license included in the
      source code,
-  2. there is no LICENSE file in a parent directory.
+  3. there is no LICENSE file in a parent directory.
 
 
 LICENSE

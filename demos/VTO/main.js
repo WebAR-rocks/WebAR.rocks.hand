@@ -145,9 +145,9 @@ let _isSelfieCam = true;
 let _isInstructionsHidden = false;
 
 
-function setFullScreen(cv){
+function size_canvas(cv){
   const pixelRatio = window.devicePixelRatio || 1;
-  cv.width = pixelRatio * window.innerWidth;
+  cv.width = pixelRatio * Math.min(window.innerWidth, window.innerHeight);
   cv.height = pixelRatio * window.innerHeight;
 }
 
@@ -171,8 +171,8 @@ function main(){
   const handTrackerCanvas = document.getElementById('handTrackerCanvas');
   const VTOCanvas = document.getElementById('VTOCanvas');
 
-  setFullScreen(handTrackerCanvas);
-  setFullScreen(VTOCanvas);
+  size_canvas(handTrackerCanvas);
+  size_canvas(VTOCanvas);
 
   // initial VTO mode:
   const initialModelSettings = _settings.models[_settings.initialModel];
@@ -406,8 +406,10 @@ function flip_camera(){
   });
 }
 
+
 function set_canvasMirroring(isMirror){
-  document.getElementById('canvases').style.transform = (isMirror) ? 'rotateY(180deg)' : '';
+  const CSSTransformValue = (isMirror) ? 'rotateY(180deg) translate(50%)' : 'translate(-50%)';
+  document.getElementById('canvases').style.transform = CSSTransformValue;
 }
 
 

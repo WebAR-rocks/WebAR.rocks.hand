@@ -93,10 +93,10 @@ function is_mobileOrTablet(){
 }
 
 
-function setFullScreen(cv){
-  const dpr = window.devicePixelRatio || 1;
-  cv.width = window.innerWidth * dpr;
-  cv.height = window.innerHeight * dpr;
+function size_canvas(cv){
+  const pixelRatio = window.devicePixelRatio || 1;
+  cv.width = pixelRatio * Math.min(window.innerWidth, window.innerHeight);
+  cv.height = pixelRatio * window.innerHeight;
 }
 
 
@@ -113,8 +113,8 @@ function main(){
   const handTrackerCanvas = document.getElementById('handTrackerCanvas');
   const VTOCanvas = document.getElementById('ARCanvas');
 
-  setFullScreen(handTrackerCanvas);
-  setFullScreen(VTOCanvas);
+  size_canvas(handTrackerCanvas);
+  size_canvas(VTOCanvas);
 
   HandTrackerThreeHelper.init({
     poseLandmarksLabels: [
@@ -597,7 +597,8 @@ function hide_DOMLoading(){
 
 function mirror_canvases(isMirror){
   _isSelfieCam = isMirror;
-  document.getElementById('canvases').style.transform = (isMirror) ? 'rotateY(180deg)' : '';
+  const CSSTransformValue = (isMirror) ? 'rotateY(180deg) translate(50%)' : 'translate(-50%)';
+  document.getElementById('canvases').style.transform = CSSTransformValue;
 }
 
 
